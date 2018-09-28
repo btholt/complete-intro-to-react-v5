@@ -1,0 +1,71 @@
+body {
+  background-color: #eee;
+}
+
+.index {
+  width: 97%;
+  max-width: 750px;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+.index .jumbotron {
+}
+
+.example-table {
+  border-collapse: separate;
+}
+
+.example-table td {
+  border: 1px solid black;
+  width: 20px;
+  height: 20px;
+}
+
+.example-table .current {
+  background-color: #fcc;
+}
+
+.example-table .n {
+  border-top-color: transparent;
+}
+
+.example-table .s {
+  border-bottom-color: transparent;
+}
+
+.example-table .e {
+  border-right-color: transparent;
+}
+
+.example-table .w {
+  border-left-color: transparent;
+}
+
+.lesson-content table {
+}
+
+.lesson-content td {
+  border: 1px solid black;
+  padding: 8px;
+}
+
+.lesson-content td input {
+  min-width: 300px;
+}
+
+.lesson-flex {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.random-tweet {
+  width: 100%;
+  margin-top: 100px;
+}
+
+.fem-link {
+  text-align: center;
+}

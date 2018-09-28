@@ -1,0 +1,129 @@
+.gradient {
+  background: linear-gradient(135deg, #ffa84c 0%, #ff7b0d 100%);
+}
+
+.navbar {
+  border-bottom: 1px solid #ccc;
+  position: sticky;
+  width: 100%;
+  top: 0;
+  z-index: 10;
+}
+
+.jumbotron.gradient {
+  color: white;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.navbar-brand.navbar-brand {
+  text-transform: uppercase;
+  color: white;
+  font-weight: bold;
+}
+
+.navbar-brand.navbar-brand:hover {
+  color: #777;
+}
+
+.navbar-brand.navbar-brand:focus {
+  color: white;
+}
+
+.lesson {
+  margin: 15px;
+  padding: 15px;
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: scroll;
+}
+
+.lesson p {
+  clear: both;
+}
+
+.lesson-links {
+  font-size: 18px;
+  padding: 15px 0;
+}
+
+.next {
+  float: right;
+}
+
+.prev {
+  float: left;
+}
+
+.lesson-title {
+  color: white;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.klipse-result {
+  border: 1px solid #90b4fe;
+  padding-top: 8px;
+  position: relative;
+  width: 100%;
+}
+
+.klipse-result .CodeMirror-wrap {
+  width: 100%;
+  border-color: transparent;
+}
+
+.klipse-result::before {
+  content: "result";
+  background-color: white;
+  position: absolute;
+  top: -13px;
+  height: 13px;
+}
+
+.language-htm,
+.language-css,
+.language-js,
+.language-json {
+  width: 100%;
+}
+
+.gatsby-highlight {
+  /* border: 1px solid black; */
+  padding: 4px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.CodeMirror-wrap {
+  width: 100%;
+  font-size: 12px;
+  height: inherit;
+  margin-bottom: 12px;
+}
+
+.CodeMirror-gutters {
+  height: inherit !important;
+}
+
+.klipse-snippet > .CodeMirror {
+  border: none;
+  width: 100%;
+}
+
+.gatsby-highlight > .klipse-snippet {
+  border: 1px solid #90b4fe;
+  width: 100%;
+  border-right: none;
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.doggos {
+  width: 100%;
+  border: 1px solid #666;
+  border-radius: 5px;
+}

@@ -1,0 +1,17 @@
+.main-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
+  background-color: white;
+}
+
+.lesson-title {
+  font-size: 20px;
+  padding: 15px 30px;
+}
+
+.lesson-content {
+  padding: 0 15px 15px 15px;
+}
