@@ -18,7 +18,7 @@
 
 ## Lessons
 
-The crux of this site is are the lessons. Provided are two examples. Each lesson needs a [frontmattter]() `path`, `order`, and `title`. Generally you should make the `path` and the file name match for ease of finding it.
+The crux of this site is are the lessons. Provided are two examples. Each lesson needs a [frontmattter](https://github.com/gatsbyjs/gatsby/blob/master/docs/docs/adding-markdown-pages.md#note-on-creating-markdown-files) `path`, `order`, and `title`. Generally you should make the `path` and the file name match for ease of finding it.
 
 - `path` - needs a leading slash. This will be slug of the lesson
 - `title` - will be the title displayed on the Table of Contents and on the page itself
