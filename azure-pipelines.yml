@@ -6,10 +6,13 @@
 pool:
   vmImage: "Ubuntu 16.04"
 
+trigger:
+  - gh-pages-src
+
 steps:
   - task: NodeTool@0
     inputs:
-      versionSpec: "8.x"
+      versionSpec: "10.x"
     displayName: "Installing Node.js"
 
   - script: |
