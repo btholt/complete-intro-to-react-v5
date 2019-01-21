@@ -6,6 +6,9 @@
 pool:
   vmImage: "Ubuntu 16.04"
 
+trigger:
+  - gh-pages-src
+
 steps:
   - task: NodeTool@0
     inputs:
