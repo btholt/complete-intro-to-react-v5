@@ -4,7 +4,7 @@ order: 4
 title: "Parcel"
 ---
 
-[Parcel][parcel] is a relatively new bundler for JavaScript projects. The past three revisions of this workshop all teach Webpack and end up spending a decent amount of time covering how to set it up. Webpack is a fantastic piece of technology and you should definitely consider using it for your large applications; it's been around a long time and has a lot of support.
+[Parcel][parcel] is a relatively new bundler for JavaScript projects. The first three revisions of this workshop all teach Webpack and end up spending a decent amount of time covering how to set it up. Webpack is a fantastic piece of technology and you should definitely consider using it for your large applications; it's been around a long time and has a lot of support.
 
 That being said, Parcel is an amazing tool that zero-config. It works with everything we want to do out of the box. Since this is a class on React and not build processes, this allows us to focus more on React. Let's go see what it can do for us.
 
@@ -66,21 +66,21 @@ Load the page again. Still works! Now we can separate components into separate f
 
 &nbsp;
 
-## 🌳 [3a2b2634906f97070b9e4dab145af8dae9a1f0d6](https://github.com/btholt/complete-intro-to-react-v4/commit/3a2b2634906f97070b9e4dab145af8dae9a1f0d6)
+## 🌳 [4c22d4a6be13dd41dfd17ed1baa163d2ccd21bb2](https://github.com/btholt/complete-intro-to-react-v5/commit/4c22d4a6be13dd41dfd17ed1baa163d2ccd21bb2)
 
 **To reset your code to this commit, run:**
 
-* `git checkout 3a2b2634906f97070b9e4dab145af8dae9a1f0d6 -f`
-* `npm install`
-* `npm run dev`
-* Go to http://localhost:1234
+- `git checkout 4c22d4a6be13dd41dfd17ed1baa163d2ccd21bb2 -f` (warning, this will overwrite anything in the project that conflicts with what you're checking out)
+- `npm install`
+- `npm run dev`
+- Go to http://localhost:1234
 
 &nbsp;
 
 ## Alternatives
 
-* [Webpack][webpack]
-* [Browserify][browserify]
+- [Webpack][webpack]
+- [Browserify][browserify]
 
 [browserify]: http://browserify.org/
 [webpack]: https://webpack.js.org/
