@@ -4,4 +4,4 @@ dist/
 .env
 .DS_Store
 coverage/
-.vscode/ 
+.vscode/
