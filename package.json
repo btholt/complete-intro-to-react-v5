@@ -3,13 +3,18 @@
   "version": "1.0.0",
   "description": "the Complete Intro to React, v5",
   "main": "src/App.js",
-  "dependencies": {},
+  "dependencies": {
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4"
+  },
   "devDependencies": {
     "eslint": "^5.12.1",
     "eslint-config-prettier": "^4.0.0",
+    "parcel-bundler": "^1.12.1",
     "prettier": "^1.16.1"
   },
   "scripts": {
+    "dev": "parcel src/index.html",
     "format": "prettier --write \"src/**/*.{js,jsx}\"",
     "lint": "eslint \"src/**/*.{js,jsx}\" --quiet",
     "test": "echo \"Error: no test specified\" && exit 1"
