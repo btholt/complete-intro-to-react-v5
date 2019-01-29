@@ -1,0 +1,19 @@
+{
+  "name": "complete-intro-to-react-v5",
+  "version": "1.0.0",
+  "description": "the Complete Intro to React, v5",
+  "main": "src/App.js",
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^5.12.1",
+    "eslint-config-prettier": "^4.0.0",
+    "prettier": "^1.16.1"
+  },
+  "scripts": {
+    "format": "prettier --write \"src/**/*.{js,jsx}\"",
+    "lint": "eslint \"src/**/*.{js,jsx}\" --quiet",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Brian Holt <btholt+complete-intro-to-react@gmail.com>",
+  "license": "Apache-2.0"
+}
