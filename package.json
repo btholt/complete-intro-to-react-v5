@@ -4,6 +4,7 @@
   "description": "the Complete Intro to React, v5",
   "main": "src/App.js",
   "dependencies": {
+    "@frontendmasters/pet": "^1.0.1",
     "react": "^16.8.4",
     "react-dom": "^16.8.4"
   },
@@ -14,10 +15,12 @@
     "eslint-plugin-import": "^2.15.0",
     "eslint-plugin-jsx-a11y": "^6.2.0",
     "eslint-plugin-react": "^7.12.4",
+    "eslint-plugin-react-hooks": "^1.0.2",
     "parcel-bundler": "^1.12.1",
     "prettier": "^1.16.1"
   },
   "scripts": {
+    "clear-build-cache": "rm -rf .cache/ dist/",
     "dev": "parcel src/index.html",
     "format": "prettier --write \"src/**/*.{js,jsx}\"",
     "lint": "eslint \"src/**/*.{js,jsx}\" --quiet",
