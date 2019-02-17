@@ -1,5 +1,5 @@
 ---
-order: 7
+order: 10
 path: "/reach-router"
 title: "Reach Router"
 ---
@@ -79,6 +79,8 @@ class Results extends React.Component {
 export default Results;
 ```
 
+Important reminder: if you're seeing errors with auth not accepted for the Petfinder API, see the [JSX lesson's IMPORTANT section](./jsx) on how to remove the cache for Parcel and re-load your credentials.
+
 then
 
 ```javascript
@@ -132,10 +134,10 @@ import Details from "./Details";
 
 Now we have the router working! Try navigating to http://localhost:1234/ and then to http://localhost:1234/details/1. Both should work!
 
-* Reach Router has a ton of features that we're not going to explain here. The docs do a great job.
-* With Reach Router, you make your component the Route component (unlike React Router) by giving it a path attribute. Reach Router then will find the path that it most matches (it figures this out by a scoring algorithm the functions intuitively; this CSS selector.)
-* The `:id` part is a variable. In `http://localhost:1234/details/1`, `1` would be the variable.
-* The killer feature of Reach Router is that it's really accessible. It manages things like focus so you don't have to. Pretty great.
+- Reach Router has a ton of features that we're not going to explain here. The docs do a great job.
+- With Reach Router, you make your component the Route component (unlike React Router) by giving it a path attribute. Reach Router then will find the path that it most matches (it figures this out by a scoring algorithm the functions intuitively; this CSS selector.)
+- The `:id` part is a variable. In `http://localhost:1234/details/1`, `1` would be the variable.
+- The killer feature of Reach Router is that it's really accessible. It manages things like focus so you don't have to. Pretty great.
 
 So now let's make the two pages link to each other. Go to Pet.js.
 

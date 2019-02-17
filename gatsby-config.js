@@ -1,17 +1,20 @@
 module.exports = {
   siteMetadata: {
-    title: "Gatsby Starter Course",
-    subtitle: "For making great content",
+    title: "Complete Intro to React v5",
+    subtitle: "and Intermediate React v2",
     description:
-      "This is the description that will show up when people share as well as on search engines",
+      "The best way to learn React and all the new tools with it. Now with hooks!",
     keywords: [
-      "this is",
-      "a list of keywords and phrase",
-      "that search engines",
-      "will index your page for"
+      "react",
+      "parcel",
+      "hooks",
+      "effects",
+      "javascript",
+      "redux",
+      "typescript"
     ]
   },
-  //pathPrefix: "/my-repo-name", // if you're using GitHub Pages, put the name of the repo here with a leading slash
+  pathPrefix: "/complete-intro-to-react-v5",
   plugins: [
     `gatsby-plugin-layout`,
     {

@@ -41,20 +41,18 @@ import React from "react";
 import ReactDOM from "react-dom";
 import Pet from "./Pet";
 
-class App extends React.Component {
-  render() {
-    return (
-      <div>
-        <h1>Adopt Me!</h1>
-        <Pet name="Luna" animal="dog" breed="Havanese" />
-        <Pet name="Pepper" animal="bird" breed="Cockatiel" />
-        <Pet name="Doink" animal="cat" breed="Mix" />
-      </div>
-    );
-  }
-}
+const App = () => {
+  return (
+    <div>
+      <h1>Adopt Me!</h1>
+      <Pet name="Luna" animal="dog" breed="Havanese" />
+      <Pet name="Pepper" animal="bird" breed="Cockatiel" />
+      <Pet name="Doink" animal="cat" breed="Mix" />
+    </div>
+  );
+};
 
-ReactDOM.render(React.createElement(App), document.getElementById("root"));
+ReactDOM.render(<App />, document.getElementById("root"));
 ```
 
 Notice we have Pet as a component. Notice that the `P` in `Pet` is capitalized. It _must_ be. If you make it lowercase, it will try to have `pet` as a web component and not a React component.
@@ -94,6 +92,11 @@ Update your .eslintrc.json to:
     "es6": true,
     "browser": true,
     "node": true
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
   }
 }
 ```
@@ -102,14 +105,15 @@ This is a little more complicated config than I used in previous versions of the
 
 This particular configuration has a lot of rules to help you quickly catch common bugs but otherwise leaves you to write code how you want.
 
-* The import plugin helps ESLint catch commons bugs around imports, exports, and modules in general
-* jsx-a11y catches many bugs around accessibility that can accidentally arise using React, like not having an `alt` attribute on an `img` tag.
-* react is mostly common React things, like making sure you import React anywhere you use React.
-* babel-lint allows ESLint to use the same transpiling library, Babel, that Parcel uses under the hood. Without it, ESLint can't understand JSX.
+- The import plugin helps ESLint catch commons bugs around imports, exports, and modules in general
+- jsx-a11y catches many bugs around accessibility that can accidentally arise using React, like not having an `alt` attribute on an `img` tag.
+- react is mostly common React things, like making sure you import React anywhere you use React.
+- babel-lint allows ESLint to use the same transpiling library, Babel, that Parcel uses under the hood. Without it, ESLint can't understand JSX.
+- `eslint-plugin-react` now requires you to inform of it what version of React you're using. We're telling it here to look at the package.json to figure it out.
 
 &nbsp;
 
-## 🌳 [f0d1d063ad52c47b2e30e27d524873f76fe6e71c](https://github.com/btholt/complete-intro-to-react-v4/commit/f0d1d063ad52c47b2e30e27d524873f76fe6e71c)
+## 🌳 [f0d1d063ad52c47b2e30e27d524873f76fe6e71c](https://github.com/btholt/complete-intro-to-react-v5/commit/f0d1d063ad52c47b2e30e27d524873f76fe6e71c)
 
 &nbsp;
 
