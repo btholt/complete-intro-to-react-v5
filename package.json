@@ -5,6 +5,7 @@
   "main": "src/App.js",
   "dependencies": {
     "@frontendmasters/pet": "^1.0.3",
+    "@reach/router": "^1.2.1",
     "react": "^16.8.4",
     "react-dom": "^16.8.4"
   },
@@ -29,5 +30,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Brian Holt <btholt+complete-intro-to-react@gmail.com>",
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "browserslist": [
+    "last 2 Chrome versions"
+  ]
 }
