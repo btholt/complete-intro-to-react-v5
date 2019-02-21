@@ -56,7 +56,7 @@ class Details extends React.Component {
       return <h1>loading … </h1>;
     }
 
-    const { animal, breed, location, description } = this.state;
+    const { animal, breed, location, description, name } = this.state;
 
     return (
       <div className="details">

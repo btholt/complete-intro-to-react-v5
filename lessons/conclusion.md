@@ -1,7 +1,7 @@
 ---
 title: "Conclusion"
 path: "/conclusion"
-order: 12
+order: 15
 ---
 
 This concludes our intro to React! You know now nearly every feature of the React core library. What makes React wonderful is not only the core library itself but the ecosystem around. Indeed, the ecosystem around it is as much a reason to learn React as React itself.

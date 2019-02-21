@@ -1,7 +1,7 @@
 ---
 title: "Portals"
 path: "/portals"
-order: 11
+order: 14
 ---
 
 Another very new feature React is something called a Portal. You can think of the portal as a separate mount point (the actual DOM node which your app is put into) for your React app. The most common use case for this is going to be doing modals. You'll have your normal app with its normal mount point and then you can also put different content into a separate mount point (like a modal or a contextual nav bar) directly from a component. Pretty cool!
@@ -46,9 +46,9 @@ class Modal extends React.Component {
 export default Modal;
 ```
 
-* This will mount a div and mount inside of the portal whenever the Modal is rendered and then _remove_ itself whenever it's unrendered.
-* Notice we're using `componentWillUnmount` here. This is one of the few instances where you will need it: cleaning up created DOM divs to not leak memory. You'll also clean up event listeners too.
-* Down at the bottom we use React's `createPortal` to pass the children (whatever you put inside `<Modal></Modal>`) to the portal div.
+- This will mount a div and mount inside of the portal whenever the Modal is rendered and then _remove_ itself whenever it's unrendered.
+- Notice we're using `componentWillUnmount` here. This is one of the few instances where you will need it: cleaning up created DOM divs to not leak memory. You'll also clean up event listeners too.
+- Down at the bottom we use React's `createPortal` to pass the children (whatever you put inside `<Modal></Modal>`) to the portal div.
 
 Now go to Details.js and add:
 
@@ -72,9 +72,6 @@ const {
   name,
   showModal
 } = this.state;
-
-// below h2
-<button onClick={this.toggleModal}>Adopt {name}</button>;
 
 // below description
 {
