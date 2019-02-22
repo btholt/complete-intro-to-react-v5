@@ -1,7 +1,7 @@
 ---
-title: "Portals"
-path: "/portals"
-order: 14
+title: "Portals and Refs"
+path: "/portals-and-refs"
+order: 13
 ---
 
 Another very new feature React is something called a Portal. You can think of the portal as a separate mount point (the actual DOM node which your app is put into) for your React app. The most common use case for this is going to be doing modals. You'll have your normal app with its normal mount point and then you can also put different content into a separate mount point (like a modal or a contextual nav bar) directly from a component. Pretty cool!
@@ -15,39 +15,34 @@ First thing, let's go into index.html and add a separate mount point:
 
 This where the modal will actually be mounted whenever we render to this portal. Totally separate from our app root.
 
-Next create a file called Modal.js. I literally took this code _almost_ unchanged from the [React docs][porta]:
+Next create a file called Modal.js:
 
 ```javascript
-// taken from React docs
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 
 const modalRoot = document.getElementById("modal");
 
-class Modal extends React.Component {
-  constructor(props) {
-    super(props);
-    this.el = document.createElement("div");
+const Modal = ({ children }) => {
+  const elRef = useRef(null);
+  if (!elRef.current) {
+    elRef.current = document.createElement("div");
   }
 
-  componentDidMount() {
-    modalRoot.appendChild(this.el);
-  }
+  useEffect(() => {
+    modalRoot.appendChild(elRef.current);
+    return () => modalRoot.removeChild(elRef.current);
+  }, []);
 
-  componentWillUnmount() {
-    modalRoot.removeChild(this.el);
-  }
-
-  render() {
-    return createPortal(this.props.children, this.el);
-  }
-}
+  return createPortal(<div>{children}</div>, elRef.current);
+};
 
 export default Modal;
 ```
 
 - This will mount a div and mount inside of the portal whenever the Modal is rendered and then _remove_ itself whenever it's unrendered.
-- Notice we're using `componentWillUnmount` here. This is one of the few instances where you will need it: cleaning up created DOM divs to not leak memory. You'll also clean up event listeners too.
+- We're using the feature of `useEffect` that if you need to clean up after you're done (we need to remove the div once the Modal is no longer being rendered) you can return a function inside of `useEffect` that cleans up.
+- We're also using a ref here via the hook `useRef`. Refs are like instance variables for function components. Whereas on a class you'd say `this.myVar` to refer to an instance variable, with function components you can use refs. They're containers of state that live outside a function's closure state which means anytime I refer to `elRef.current`, it's **always referring to the same element**. This is different from a `useState` call because the variable returned from that `useState` call will **always refer to the state of the variable when that function was called.** It seems like a weird hair to split but it's important when you have async calls and effects because that variable can change and nearly always you want the `useState` variable, but with something like a portal it's important we always refer to the same DOM div; we don't want a lot of portals.
 - Down at the bottom we use React's `createPortal` to pass the children (whatever you put inside `<Modal></Modal>`) to the portal div.
 
 Now go to Details.js and add:
@@ -77,10 +72,12 @@ const {
 {
   showModal ? (
     <Modal>
-      <h1>Would you like to adopt {name}?</h1>
-      <div className="buttons">
-        <button onClick={this.toggleModal}>Yes</button>
-        <button onClick={this.toggleModal}>No</button>
+      <div>
+        <h1>Would you like to adopt {name}?</h1>
+        <div className="buttons">
+          <button onClick={this.toggleModal}>Yes</button>
+          <button onClick={this.toggleModal}>No</button>
+        </div>
       </div>
     </Modal>
   ) : null;

@@ -1,7 +1,7 @@
 ---
 title: "Context"
 path: "/context"
-order: 13
+order: 12
 ---
 
 Historically I have not taught context when teaching React. This was for a couple reasons. First of all, the API they were using was still unofficial, however they standardized it in version 16. Secondly, normally you don't need context; React's state is enough. Thirdly, the old API was bad, in my opinion. The new one is pretty good.

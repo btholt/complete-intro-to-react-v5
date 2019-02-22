@@ -1,5 +1,5 @@
 ---
-order: 9
+order: 8
 path: "/async"
 title: "Handling Async"
 ---

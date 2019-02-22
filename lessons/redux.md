@@ -1,7 +1,7 @@
 ---
 title: "Redux"
 path: "/redux"
-order: 16
+order: 19
 ---
 
 Redux is a well-known library that does state management for you, very similarly to how we used context. With context, you use the provider and consumer as a sort of portal to skip passing parameters through every component. With Redux, we're taking the state management _out_ of React entirely and moving it to a separate store.
@@ -39,7 +39,7 @@ const store = createStore(
   compose(
     applyMiddleware(thunk),
     typeof window === "object" &&
-    typeof window.devToolsExtension !== "undefined"
+      typeof window.devToolsExtension !== "undefined"
       ? window.devToolsExtension()
       : f => f
   )
@@ -292,7 +292,10 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Search);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Search);
 ```
 
 Now we're also using mapDispatchToState which lets us write functions to dispatch actions and thunks to Redux. Notice the first one we dispatch two. You could do this as a thunk too: either works.
@@ -301,8 +304,8 @@ Now it should work! Redux is a great piece of technology that adds a lot of comp
 
 Let's quickly try the dev tools:
 
-* [Firefox][fox]
-* [Chrome][chrome]
+- [Firefox][fox]
+- [Chrome][chrome]
 
 Download the one you're using, open up your app, and mess around the Redux tab. You can time travel, auto-generate tests, modify state, see actions, all sorts of cool stuff. Another good reason to use Redux.
 

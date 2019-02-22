@@ -1,7 +1,7 @@
 ---
 title: "TypeScript"
-order: 20
 path: "/typescript"
+order: 23
 ---
 
 TypeScript is a thin layer on top of JavaScript that adds the power of a static checker to your code base. This means you'll have another layer of protection helping protect you against dumb bugs like `var x = 5; x.toUpperCase()`: things that a normal linter can't find but a type system can.

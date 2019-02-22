@@ -1,5 +1,5 @@
 ---
-order: 11
+order: 10
 title: "Class Components"
 path: "/class-components"
 ---
@@ -63,6 +63,7 @@ class Details extends React.Component {
         <div>
           <h1>{name}</h1>
           <h2>{`${animal} — ${breed} — ${location}`}</h2>
+          <button>Adopt {name}</button>
           <p>{description}</p>
         </div>
       </div>

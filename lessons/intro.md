@@ -60,7 +60,7 @@ And hey, if you could take a second and [star the repo on GitHub][gh] I'd be sup
 [instagram]: https://www.instagram.com/briantholt/
 [github]: https://github.com/btholt
 [linkedin]: https://www.linkedin.com/in/btholt/
-[course]: https://frontendmasters.com/courses/complete-react-v4/
+[course]: https://frontendmasters.com/courses/complete-react-v5/
 [vwc]: https://vetswhocode.io/
 [concat]: https://concatenate.io/
 [issue]: https://github.com/btholt/complete-intro-to-react-v5/issues

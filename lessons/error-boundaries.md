@@ -1,5 +1,5 @@
 ---
-order: 12
+order: 11
 title: "Error Boundaries"
 path: "/error-boundaries"
 ---

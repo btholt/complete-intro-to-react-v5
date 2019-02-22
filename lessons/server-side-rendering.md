@@ -1,7 +1,7 @@
 ---
 title: "Server Side Rendering"
 path: "/server-side-rendering"
-order: 17
+order: 20
 ---
 
 Performance is a central concern for front end developers. We should always be striving to serve the leanest web apps that perform faster than humans can think. This is as much a game of psychology as it is a a technological challenge. It's a challenge of loading the correct content first so a user can see a site and begin to make a decision of what they want to do (scroll down, click a button, log in, etc.) and then be prepared for that action before they make that decision.
@@ -97,12 +97,12 @@ app.listen(PORT);
 
 ## Note: you may have to `npm install petfinder-client@0.0.2` if you're seeing errors around `export { ANIMALS }`. My bad.
 
-* [Express.js][ex] is a Node.js web server framework. It's the most common one and a simple one to learn.
-* We'll be listening on port 3000 (http://locahost:**3000**) unless a environment variable is passed in saying otherwise. We do this because if you try to deploy this, you'll need to watch for PORT.
-* We'll statically serve what Parcel built.
-* Anything that Parcel _doesn't_ serve, will be given our index.html. This lets the client-side app handle all the routing.
-* We read the compiled HTML doc and split it around our `not rendered` statement. Then we can slot in our markup in between the divs, right where it should be.
-* We use renderToString to take our app and render it to a string we can serve as HTML, sandwiched inside our outer HTML.
+- [Express.js][ex] is a Node.js web server framework. It's the most common one and a simple one to learn.
+- We'll be listening on port 3000 (http://locahost:**3000**) unless a environment variable is passed in saying otherwise. We do this because if you try to deploy this, you'll need to watch for PORT.
+- We'll statically serve what Parcel built.
+- Anything that Parcel _doesn't_ serve, will be given our index.html. This lets the client-side app handle all the routing.
+- We read the compiled HTML doc and split it around our `not rendered` statement. Then we can slot in our markup in between the divs, right where it should be.
+- We use renderToString to take our app and render it to a string we can serve as HTML, sandwiched inside our outer HTML.
 
 Run `npm run start` and then open http://localhost:3000 to see your server side rendered app. Notice it displays markup almost instantly.
 
@@ -128,7 +128,10 @@ app.use((req, res) => {
   );
 
   const stream = renderToNodeStream(reactMarkup);
-  stream.pipe(res, { end: false });
+  stream.pipe(
+    res,
+    { end: false }
+  );
   stream.on("end", () => {
     res.write(parts[1]);
     res.end();
@@ -136,10 +139,10 @@ app.use((req, res) => {
 });
 ```
 
-* Node has a native type called a stream. A stream, similar to a bash stream, is a stream of data that can be piped into something else. In this case, we have a Node stream of React markup being rendered. As each thing is rendered, React fires off a chunk that then can be sent to the user more quickly.
-* First thing we do is _immediately_ write the head to the user. This way they can grab the `<head>` which the CSS `<link>` tag in it, meaning they can start the CSS download ASAP.
-* From there we start streaming the React markup to the user.
-* After we finish with that stream, we write the end of the index.html page and close the connection.
+- Node has a native type called a stream. A stream, similar to a bash stream, is a stream of data that can be piped into something else. In this case, we have a Node stream of React markup being rendered. As each thing is rendered, React fires off a chunk that then can be sent to the user more quickly.
+- First thing we do is _immediately_ write the head to the user. This way they can grab the `<head>` which the CSS `<link>` tag in it, meaning they can start the CSS download ASAP.
+- From there we start streaming the React markup to the user.
+- After we finish with that stream, we write the end of the index.html page and close the connection.
 
 ## 🌳 73f4e764a36490882b2129e0255f4501ffe2167b (branch ssr)
 

@@ -1,19 +1,19 @@
 ---
 title: "Testing"
 path: "/testing"
-order: 13
+order: 15
 ---
 
 _Note: This is where the Intermediate React course starts. All lessons from 12-20 on out are self-contained and always start from the [master branch](https://github.com/btholt/complete-intro-to-react-v4) of the git repository._
 
 **To get reset to the latest code:**
 
-* `git clone git@github.com:btholt/complete-intro-to-react-v4.git`
-* `git checkout master -f`
-* Make sure you have [Node.js installed](https://nodejs.org).
-* `npm install`
-* Add `API_KEY` and `API_SECRET` to a `.env` file ([more info in previous section](react-state-and-lifecycles))
-* `npm run dev` to start the server on http://localhost:1234/
+- `git clone git@github.com:btholt/complete-intro-to-react-v4.git`
+- `git checkout master -f`
+- Make sure you have [Node.js installed](https://nodejs.org).
+- `npm install`
+- Add `API_KEY` and `API_SECRET` to a `.env` file ([more info in previous section](react-state-and-lifecycles))
+- `npm run dev` to start the server on http://localhost:1234/
 
 This is meant to be a very brief treatise on how to do testing on React applications. Frontend Masters already has a [thorough course on how to test React applications][kcd] here from Kent C. Dodds. This will be a brief intro on how to set up Jest tests for the application we just created.
 
