@@ -14,6 +14,7 @@
     "@babel/plugin-proposal-class-properties": "^7.4.0",
     "@babel/preset-env": "^7.4.3",
     "@babel/preset-react": "^7.0.0",
+    "@types/jest": "^24.0.9",
     "babel-eslint": "^10.0.1",
     "cross-env": "^5.2.0",
     "eslint": "^5.12.1",
@@ -22,8 +23,10 @@
     "eslint-plugin-jsx-a11y": "^6.2.0",
     "eslint-plugin-react": "^7.12.4",
     "eslint-plugin-react-hooks": "^1.0.2",
+    "jest": "^24.1.0",
     "parcel-bundler": "^1.12.1",
-    "prettier": "^1.16.1"
+    "prettier": "^1.16.1",
+    "react-testing-library": "^6.0.0"
   },
   "scripts": {
     "clear-build-cache": "rm -rf .cache/ dist/",
@@ -31,7 +34,10 @@
     "dev:mock": "cross-env PET_MOCK=mock parcel src/index.html",
     "format": "prettier --write \"src/**/*.{js,jsx}\"",
     "lint": "eslint \"src/**/*.{js,jsx}\" --quiet",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "test:watch": "jest --watch",
+    "test:update": "jest -u"
   },
   "author": "Brian Holt <btholt+complete-intro-to-react@gmail.com>",
   "license": "Apache-2.0",

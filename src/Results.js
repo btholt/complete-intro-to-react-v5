@@ -3,7 +3,7 @@ import Pet from "./Pet";
 
 const Results = ({ pets }) => {
   return (
-    <div className="search">
+    <div className="search" data-testid="search-results">
       {!pets.length ? (
         <h1>No Pets Found</h1>
       ) : (

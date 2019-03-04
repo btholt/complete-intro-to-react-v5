@@ -8,6 +8,7 @@ const useDropdown = (label, defaultState, options) => {
       {label}
       <select
         id={id}
+        data-testid={id}
         value={state}
         onChange={e => updateState(e.target.value)}
         onBlur={e => updateState(e.target.value)}
