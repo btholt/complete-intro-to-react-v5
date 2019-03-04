@@ -84,15 +84,15 @@ The constructor is annoying. We can use something called class properties to mak
 Since we're going to take ahold of our own Babel configuration, we need to take over _all of it_. Parcel won't do it for us anymore. So install the following:
 
 ```bash
-npm install -D babel-eslint babel-core babel-preset-env babel-plugin-transform-class-properties
+npm install -D babel-eslint @babel/core @babel/preset-env @babel/plugin-proposal-class-properties
 ```
 
 Now make a file called `.babelrc` with the following:
 
 ```json
 {
-  "presets": ["react", "env"],
-  "plugins": ["transform-class-properties"]
+  "presets": ["@babel/preset-react", "@babel/preset-env"],
+  "plugins": ["@babel/plugin-proposal-class-properties"]
 }
 ```
 
