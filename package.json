@@ -4,9 +4,10 @@
   "description": "the Complete Intro to React, v5",
   "main": "src/App.js",
   "dependencies": {
+    "@emotion/core": "^10.0.10",
     "@frontendmasters/pet": "^1.0.3",
     "@reach/router": "^1.2.1",
-    "react": "^16.8.4",
+    "react": "^16.8.6",
     "react-dom": "^16.8.4"
   },
   "devDependencies": {
@@ -14,6 +15,7 @@
     "@babel/plugin-proposal-class-properties": "^7.4.0",
     "@babel/preset-env": "^7.4.3",
     "@babel/preset-react": "^7.0.0",
+    "@emotion/babel-preset-css-prop": "^10.0.7",
     "babel-eslint": "^10.0.1",
     "cross-env": "^5.2.0",
     "eslint": "^5.12.1",
