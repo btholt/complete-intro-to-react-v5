@@ -8,93 +8,45 @@ Code splitting is _essential_ to having small application sizes, particularly wi
 
 Enter code splitting. This allows us to identify spots where our code could be split and let Parcel do its magic in splitting things out to be loaded later. An easy place to do this would be at the route level. So let's try that first.
 
-Run `npm install react-loadable`.
+Previous versions of this course use `react-loadable` to accomplish this. The latest version of React uses a combination of two things to accomplish this: `Suspense` and `React.lazy`
 
 Now add this to App.js
 
 ```javascript
-// delete Details import
+// import from React
+import React, { useState, lazy, Suspense } from "react";
+// delete Details & Search params imports
 
-// above App
-const LoadableDetails = Loadable({
-  loader: () => import("./Details"),
-  loading() {
-    return <h1>loading split code...</h1>;
-  }
-});
+// above const App =
+const Details = lazy(() => import("./Details"));
+const SearchParams = lazy(() => import("./SearchParams"));
 
-// replace Details
-<LoadableDetails path="/details/:id" />;
+// replace Router
+<Suspense fallback={<h1>loading route …</h1>}>
+  <Router>
+    <SearchParams path="/" />
+    <Details path="/details/:id" />
+  </Router>
+</Suspense>;
 ```
 
 That's it! Now Parcel will handle the rest of the glueing together for you!! Your initial bundle will load, then after that it will resolve that you want to load another piece, show the loading component (we show a lame amount of text but this could be fancy loading screen.) This Details page isn't too big but imagine if it had libraries like Moment or Lodash on it! It could be a big savings.
 
-For fun let's go make the entire app load by Loadable
+Now our whole app loads async. What's great is that we can show the user _something_ (in this case just the header and the loading h1 but you should do better UX than that) and then load the rest of the content. You get to make your page fast.
 
-```javascript
-// delete route imports
-
-const loading = () => <h1>loading split code...</h1>;
-
-const LoadableDetails = Loadable({
-  loader: () => import("./Details"),
-  loading
-});
-
-const LoadableSearchParams = Loadable({
-  loader: () => import("./SearchParams"),
-  loading
-});
-
-const LoadableResults = Loadable({
-  loader: () => import("./Results"),
-  loading
-});
-
-// replace routes
-<LoadableResults path="/" />
-<LoadableDetails path="/details/:id" />
-<LoadableSearchParams path="/search-params" />
-```
-
-Now our whole app loads async. What's great is that we can show the user _something_ (in this case just the header but you should do better UX than that) and then load the rest of the content. You get to make your page fast.
-
-One more trick. Let's go make the Modal content load async! Make a new file called AdoptModalContent.js.
-
-```javascript
-import React from "react";
-
-const AdoptModalContent = props => (
-  <React.Fragment>
-    <h1>Would you like to adopt {props.name}?</h1>
-    <div className="buttons">
-      <button onClick={props.toggleModal}>Yes</button>
-      <button onClick={props.toggleModal}>No</button>
-    </div>
-  </React.Fragment>
-);
-
-export default AdoptModalContent;
-```
+One more trick. Let's go make the Modal code load async!
 
 Refactor Details.js to be.
 
 ```javascript
-// import
-import Loadable from "react-loadable";
+// delete Modal import
 
-// above Details
-const loading = () => <h1>loading split code...</h1>;
-
-const LoadableContent = Loadable({
-  loader: () => import("./AdoptModalContent"),
-  loading
-});
-
-// replace the content of the modal
-<LoadableContent toggleModal={this.toggleModal} name={name} />;
+// below imports
+const Modal = lazy(() => import("./Modal"));
 ```
 
-Now we're not just splitting on route, we're splitting other places! You can split content _anywhere_! Load one component async while the other ones load sync. Use your imagination to achieve the best UX.
+- That's it! Now we're not just splitting on route, we're splitting other places! You can split content _anywhere_! Load one component async while the other ones load sync. Use your imagination to achieve the best UX.
+- This cut out like 1KB, but the point to understand here is you can split places other than routes. Anywhere you're not using code upfront you can split and load later.
+- Notice we didn't have to use `<Suspense>` again. We already have a suspense component at the top of the app and so that still works!
 
-## 🌳 7e2e8fe0b6bec9696757b2fb752998089e5d4e5a (branch code-splitting)
+## 🌳 lolcommit (branch code-splitting)
