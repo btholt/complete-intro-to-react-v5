@@ -25,7 +25,7 @@ It's useful to know that Jest is built on top of [Jasmine][jasmine]. Jasmine doe
 
 So let's start testing our application. Run `npm install -D jest react-testing-library`.
 
-`react-testing-library` is made by another Frontend Masters teacher, [Kent C. Dodds][kcd]. This tool has a bunch of convenience features that make testing React significantly easier and is now the recommended way of testing React, supplanting Enzyme.
+`react-testing-library` is made by another Frontend Masters teacher, [Kent C. Dodds][kcd]. This tool has a bunch of convenience features that make testing React significantly easier and is now the recommended way of testing React, supplanting [Enzyme][enzyme]. Previous versions of this course teach Enzyme if you'd like to see that.
 
 Next go into your src directory and create a folder called `__tests__`. Notice that's double underscores on both sides. Why double? They borrowed it from Python where double underscores ("dunders" as I've heard them called) mean something magic happens. In this case, Jest assumes all JS files in here are tests.
 
@@ -658,9 +658,7 @@ const searchResults = getByTestId("search-results");
 expect(searchResults.textContent).toEqual("No Pets Found");
 fireEvent(getByText("Submit"), new MouseEvent("click"));
 expect(pf.pet.find).toHaveBeenCalled();
-expect(searchResults.children.length).toEqual(
-  _dogs.petfinder.pets.pet.length
-);
+expect(searchResults.children.length).toEqual(_dogs.petfinder.pets.pet.length);
 ```
 
 Here we're simulating a submit event to search for pets and then checking it properly called the API and then renders the correct animal list length. Let's go add the testid we need in Results.js
@@ -685,22 +683,6 @@ Add that your package.json: `"test:update": "jest -u",`
 
 Now your snapshot test should pass. Check out that it created a `__snapshots__` directory with your snapshot in it (if you did it `toMatchSnapshot`). You should commit this file as everyone should get the same output as you.
 
-Let's add one more test.
-
-```javascript
-test("shows modal when toggleModal is called", () => {
-  const c = create(<Details search={() => {}} />);
-  const instance = c.getInstance();
-  expect(instance.state.showModal).toBe(false);
-  instance.toggleModal();
-  expect(instance.state.showModal).toBe(true);
-});
-```
-
-This creates an instance of your component and lets your run the functions on it. I don't show you this to show you a particularly good test: testing implementation details isn't necessarily a good idea, but wanted to show you how to get a handle on an instance.
-
-You'll notice that petfinder-client doesn't like being run in Node environments since it runs on jsonp. To make it shut up, just run `jest --silent`.
-
 Let's talk about code coverage. Luckily has it built into jest because it can be a bit of a pain to set up. It's a tool called [istanbul][istanbul]. Istanbul generates a report of how much of you code is covered by tests. It's a useful metric to track you're generally adding tests when you add new features but by no means does a 100% test-covered project means that those tests are good. It's easy to write garbage tests, and garbage tests hurt more than help.
 
 In any case, run `npx jest --coverage` to try it out. It'll show you an outline of the results in the CLI and then generate a report in a new `coverage` directory (don't check this in to git.) Open coverage/lcov-report/index.html to see a nice web page outlining your test coverage. Add this to your package.json:
@@ -708,9 +690,7 @@ In any case, run `npx jest --coverage` to try it out. It'll show you an outline 
 
 One more useful thing about Jest: watch mode. You can run your tests interactively and on file-save. It'll only re-run tests that could have possibly been changed and previously failed so it's a fast feedback cycle to fix tests. Add this as well to your package.json: `"test:watch": "jest --watch",`.
 
-If you want to go further with testing, checkout [Enzyme][enzyme], which I taught in former versions on this course.
-
-## 🌳 d887a47606ef0bc7c6536e2afa9fd5b977442508 (branch testing)
+## 🌳 lolcommit (branch testing)
 
 [kcd]: https://frontendmasters.com/courses/testing-react/
 [jest]: https://jestjs.io

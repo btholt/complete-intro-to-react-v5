@@ -6,39 +6,62 @@ order: 16
 
 Emotion is a library for including your styles inside of your component files and allowing you to harness JavaScript to easily script your CSS. While previous CSS-in-JS solutions ballooned file sizes and were slow, Emotion is both small and fast. I'll show you how to get started with it; it merits its own course on all the cool and crazy things you can do with it.
 
-First run `npm install emotion react-emotion`.
+First run `npm install @emotion/core @emotion/babel-preset-css-prop`
 
 Make a new file called NavBar.js, put this in it:
 
 ```javascript
 import React from "react";
 import { Link } from "@reach/router";
-import styled from "react-emotion";
-
-const Container = styled("header")`
-  background-color: #333;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-`;
+import { css } from "@emotion/core";
 
 const NavBar = () => (
-  <Container>
+  <header
+    css={css`
+      background-color: #333;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    `}
+  >
     <Link to="/">Adopt Me!</Link>
-    <Link to="/search-params">
-      <span aria-label="search" role="img">
-        🔍
+    <Link to="/">
+      <span aria-label="logo" role="img">
+        🐩
       </span>
     </Link>
-  </Container>
+  </header>
 );
 
 export default NavBar;
 ```
 
+Add this to your `.babelrc`
+
+```json
+{
+  "presets": [
+    "@babel/preset-react",
+    "@babel/preset-env",
+    [
+      "@emotion/babel-preset-css-prop",
+      {
+        "sourceMap": false
+      }
+    ]
+  ],
+  […]
+}
+
+```
+
 Go to App.js and replace the `<header>` with `<NavBar />` after importing it at the top.
 
-So here we're using Emotion to generate React components that are styled the way we choose. Here we've made a sticky header at the top. This is 95% how you'll use Emotion: making components and then using them. But let's see some more reasons why to use them.
+- Emotion has other ways of interacting with it (generating components) but here we're using the new `css` prop way of doing it. If you want to see the old way, see v4 of this course.
+- The `css` prop allows us to use the `css` tagged template literal to write CSS. The Babel preset we added will then transpile that into code that Emotion can use and optimzie it, meaning your final code ends up being tiny.
+- If you're not into using the `css` tagged template, you can use objects instead.
+- We had to disable source maps for now because Parcel doesn't play nice with Emotion source maps. Webpack does. This will be fixed in Parcel 2.
+- If you want to see highlighting of your CSS in Visual Studio Code, download the [styled-components][sc] extension. It works with Emotion too.
 
 Make a new file called `colors.js`.
 
@@ -66,11 +89,14 @@ This allows for super simple variable sharing that ends up being scoped instead 
 Now what if we wanted to make our links underline on hover?
 
 ```javascript
-const NavLink = styled(Link)`
-  &:hover {
-    text-decoration: underline;
-  }
-`;
+<Link
+  css={css`
+    &:hover {
+      text-decoration: underline;
+    }
+  `}
+  to="/"
+>
 ```
 
 You can style other peoples' components too! Just pass the component into the styled function. You can also use `&` to represent the element in compound selectors like we've done here.
@@ -79,34 +105,29 @@ Lastly, let's make the spy glass spin!
 
 ```javascript
 // import keyframes
-import styled, { keyframes } from "react-emotion";
+import { css, keyframes } from "react-emotion";
 
 // under other styled calls
 const Spin = keyframes`
-  from {
-    transform: rotate(0deg);
-  }
   to {
     transform: rotate(360deg);
   }
 `;
 
-const SpyGlass = styled("span")`
-  display: inline-block;
-  animation: 1s ${Spin} linear infinite;
-`;
-
-// replace span
-{
-  /* eslint-disable-next-line */
-}
-<SpyGlass aria-label="search" role="img">
-  🔍
-</SpyGlass>;
+// replace logo link
+<Link
+  css={css`
+    display: inline-block;
+    animation: 1s ${Spin} linear infinite;
+  `}
+  to="/"
+>
 ```
 
-keyframes are how you do keyframes with Emotion. You create the keyframe, then use what it returns to reference inside your components, again making your keyframes tidily reusable. From there we use the keyframe, disable the a11y warning we get from ESLint (since it is still a span and ESLint just can't see it) and then render out the results (still with the correct attributes since Emotion just passes them on.)
+`keyframes` are how you do keyframes with Emotion. You create the keyframe, then use what it returns to reference inside your components, again making your keyframes tidily reusable.
 
 That's it! That's most of what you need to know to use Emotion.
 
-## 🌳 8d406c43fe1c096fe7b1b8d93aab0322dc66607b (branch emotion)
+## 🌳 lolcommit (branch emotion)
+
+[sc]: https://marketplace.visualstudio.com/items?itemName=mf.vscode-styled-components&WT.mc_id=react-github-brholt
