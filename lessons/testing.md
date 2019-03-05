@@ -615,7 +615,6 @@ test("SearchParams", async () => {
 
   const animalDropdown = getByTestId("use-dropdown-animal");
   expect(animalDropdown.children.length).toEqual(ANIMALS.length + 1);
-  expect(pf.breed.list).toHaveBeenCalled();
 });
 ```
 
@@ -631,7 +630,6 @@ Now in `useDropdow.js` put this so we can grab the correct select:
 - Using test-ids is a good idea because you're divorcing test logic from typical app logic, hence why we don't use a normal ID. If your structure changes, you just move the testid to be somewhere else and it continues working.
 - `react-testing-library` has its own cleanup to do so we pass that function to Jest to let it do it.
 - Next we use render to render out all the SearchParams in a testing vacuum to JS representation of the JS markup. From there we check that it populates the animal dropdown with the correct number of animals (the +1 is there because there's an empty option too.)
-- We're using `toHaveBeenCalled` to check on the spied methods to make sure the app is calling the API correctly. You can get really granular with what params but we'll skip that for now.
 
 Run this test via `npx jest`. If you seeit work, then place `"test": "jest"` in your package.json's scripts.
 
@@ -641,17 +639,51 @@ Let's add another test.
 
 ```javascript
 // beneat the last expect
+expect(pf.breed.list).toHaveBeenCalled();
 const breedDropdown = getByTestId("use-dropdown-breed");
 expect(breedDropdown.children.length).toEqual(_breeds.length + 1);
 ```
 
-- Because we fixed
+- We're using `toHaveBeenCalled` to check on the spied methods to make sure the app is calling the API correctly. You can get really granular with what params but we'll skip that for now.
+- Because we made the "promises" synchronous, we don't have to do any waiting for the first breed list. `react-testing-library` has tools that let you wait for DOM changes.
 
-Here we're doing a Jest test in which we're doing a snapshot test. As soon as you run this test the first time, it'll run and capture the output in a snapshot file (you'll see it after you run it successfully the first time.) Every time afterwards when you run it it will compare the output with this snapshot. If it changes, it'll fail the test. If you mean to change it, you just run `jest -u` and it will update the snapshots. Cool, right?
+Let's get a bit more complicated. Add this:
+
+```javascript
+// pull out more things from render
+const { container, getByTestId, getByText } = render(<SearchParams />);
+
+// beneath the last test
+const searchResults = getByTestId("search-results");
+expect(searchResults.textContent).toEqual("No Pets Found");
+fireEvent(getByText("Submit"), new MouseEvent("click"));
+expect(pf.pet.find).toHaveBeenCalled();
+expect(searchResults.children.length).toEqual(
+  _dogs.petfinder.pets.pet.length
+);
+```
+
+Here we're simulating a submit event to search for pets and then checking it properly called the API and then renders the correct animal list length. Let's go add the testid we need in Results.js
+
+```javascript
+// outtermost div
+<div className="search" data-testid="search-results">
+```
+
+Now we're actually testing some user interaction. The key here is try not to test the implementation details. We could refactor the component to _do_ the same the thing but internally work totally differently. Should our unit tests break? No! It should work in any case. You should test as if your components were a blackbox, as if you were simply a user of your app with zero knowledge of how it was written.
+
+One last test, the famous snapshot test:
+
+```javascript
+// last test
+expect(container.firstChild).toMatchInlineSnapshot();
+```
+
+Here we're doing a Jest test in which we're doing a snapshot test. As soon as you run this test the first time, it'll run and capture the output in a snapshot template string (you'll see it after you run it successfully the first time.) Every time afterwards when you run it it will compare the output with this snapshot. If it changes, it'll fail the test. If you mean to change it, you just run `jest -u` and it will update the snapshots. Cool, right? You can also have it write to an external file instead of inline in the code with `toMatchSnapshot`. I like that everything is in one file. It's up to you.
 
 Add that your package.json: `"test:update": "jest -u",`
 
-Now your snapshot test should pass. Check out that it created a `__snapshots__` directory with your snapshot in it. You should commit this file as everyone should get the same output as you.
+Now your snapshot test should pass. Check out that it created a `__snapshots__` directory with your snapshot in it (if you did it `toMatchSnapshot`). You should commit this file as everyone should get the same output as you.
 
 Let's add one more test.
 

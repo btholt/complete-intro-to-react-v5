@@ -1,7 +1,7 @@
 ---
 title: "Server Side Rendering"
 path: "/server-side-rendering"
-order: 20
+order: 19
 ---
 
 Performance is a central concern for front end developers. We should always be striving to serve the leanest web apps that perform faster than humans can think. This is as much a game of psychology as it is a a technological challenge. It's a challenge of loading the correct content first so a user can see a site and begin to make a decision of what they want to do (scroll down, click a button, log in, etc.) and then be prepared for that action before they make that decision.

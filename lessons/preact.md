@@ -1,7 +1,7 @@
 ---
 title: "Preact"
 path: "/preact"
-order: 21
+order: 20
 ---
 
 [Preact][preact] is a marvel of engineering initially created by one man: [Jason Miller][jm]. Jason reimplemented React but only in 3KB (at the time, React was about 45KB.) He did so by making the browser do more work where React has its own systems that can be faster performance. Preact is ideal if you want your initial payload to be very low. If you're building a new project, consider using Preact.

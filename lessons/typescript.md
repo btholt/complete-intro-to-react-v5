@@ -1,7 +1,7 @@
 ---
 title: "TypeScript"
 path: "/typescript"
-order: 23
+order: 22
 ---
 
 TypeScript is a thin layer on top of JavaScript that adds the power of a static checker to your code base. This means you'll have another layer of protection helping protect you against dumb bugs like `var x = 5; x.toUpperCase()`: things that a normal linter can't find but a type system can.
@@ -104,12 +104,12 @@ if (!data.petfinder.pet) {
 }
 ```
 
-* We need to tell TypeScript what props each component expects. Now when you import that component elsewhere, TS will make sure the consumer passes all the right props in.
-* We need to use Reach Router's Router params because the ID param will come from the router, not directly from the consumer.
-* We need to assert that we have those process.env keys, so we will throw whenever we don't.
-* We have to give all state a default setting. This prevents errors on the initial render and it gives TypeScript the ability to infer all your types.
-* It can't tell what type media is so we tell it's a PetMedia object.
-* We had to put a null check in the componentDidMount. If the animal comes back empty, we have to handle that case. Here we're just navigating back to home and returning (the return is necessary or TS still won't be happy.)
+- We need to tell TypeScript what props each component expects. Now when you import that component elsewhere, TS will make sure the consumer passes all the right props in.
+- We need to use Reach Router's Router params because the ID param will come from the router, not directly from the consumer.
+- We need to assert that we have those process.env keys, so we will throw whenever we don't.
+- We have to give all state a default setting. This prevents errors on the initial render and it gives TypeScript the ability to infer all your types.
+- It can't tell what type media is so we tell it's a PetMedia object.
+- We had to put a null check in the componentDidMount. If the animal comes back empty, we have to handle that case. Here we're just navigating back to home and returning (the return is necessary or TS still won't be happy.)
 
 Now that Details is done, let's go do Carousel.tsx
 
@@ -158,9 +158,9 @@ public handleIndexClick = (event: React.MouseEvent<HTMLElement>) => {
 }
 ```
 
-* React.Component is a generic, in that it can accept other types. Here we're telling it what its state and props will look like.
-* Class properties are still new, so we have to use State again to type the state. You would not have to do this if you used a constructor.
-* We need to type the event type coming back from the DOM. We know it'll come from an HTML element, and we have to make sure it's not a generic window event. TypeScript forces a lot of this defensive programming.
+- React.Component is a generic, in that it can accept other types. Here we're telling it what its state and props will look like.
+- Class properties are still new, so we have to use State again to type the state. You would not have to do this if you used a constructor.
+- We need to type the event type coming back from the DOM. We know it'll come from an HTML element, and we have to make sure it's not a generic window event. TypeScript forces a lot of this defensive programming.
 
 Carousel is done. Let's do Pet.tsx
 
@@ -198,9 +198,9 @@ handleBreedChange(e: React.ChangeEvent<HTMLSelectElement>) {},
 handleLocationChange(event: React.KeyboardEvent<HTMLInputElement>) {},
 ```
 
-* In general you don't want empty body functions but here it's okay because it's mostly for testing.
-* We want to type breeds to be used later.
-* You have to type the params of the SearchContext because TypeScript uses these definitions everywhere.
+- In general you don't want empty body functions but here it's okay because it's mostly for testing.
+- We want to type breeds to be used later.
+- You have to type the params of the SearchContext because TypeScript uses these definitions everywhere.
 
 Let's go do SearchBox.tsx
 
@@ -261,8 +261,8 @@ let pets: PetType[];
 export default function ResultsWithContext(props: RouterProps) { … }
 ```
 
-* Mostly not new. We're importing types from @reach/router: lots of libraries will do this.
-* We also had to use the `&` operator. This will merge those two types to create one intersection type.
+- Mostly not new. We're importing types from @reach/router: lots of libraries will do this.
+- We also had to use the `&` operator. This will merge those two types to create one intersection type.
 
 Let's go do SearchParams.tsx.
 

@@ -1,7 +1,7 @@
 ---
 title: "Code Organization"
 path: "/code-organization"
-order: 22
+order: 21
 ---
 
 People often ask what's the best way to structure their applications. React is intentionally light on this guidance because React is just one tool you use to make your application. Just because you use promises doesn't mean you should structure your app one way; same with React. That is to say, it is intentionally left to you and the community to develop our own best practices. There are many ways to do this.
