@@ -45,34 +45,54 @@
         }
       }
     })
-  </script><link as="script" rel="preload" href="/complete-intro-to-react-v5/component---src-templates-lesson-template-js-76a02bf0f363dc242a3c.js"/><link as="script" rel="preload" href="/complete-intro-to-react-v5/app-a8622f2a950f1be64845.js"/><link as="script" rel="preload" href="/complete-intro-to-react-v5/webpack-runtime-b1b06d864b5bde0cbd27.js"/><link as="fetch" rel="preload" href="/complete-intro-to-react-v5/static/d/453/path---emotion-ec-3-9ea-EJlJwJsqh1mUeOkx9OzEqN1p6Kw.json" crossOrigin="use-credentials"/></head><body><noscript id="gatsby-noscript">This app works best with JavaScript enabled.</noscript><div id="___gatsby"><div style="outline:none" tabindex="-1" role="group"><div><div class="navbar navbar-light gradient"><a class="navbar-brand" href="/complete-intro-to-react-v5/">Complete Intro to React v5</a></div><div class="main"><div class="lesson-container"><div class="lesson"><h1>Emotion</h1><h2></h2><div class="lesson-content"><p>Emotion is a library for including your styles inside of your component files and allowing you to harness JavaScript to easily script your CSS. While previous CSS-in-JS solutions ballooned file sizes and were slow, Emotion is both small and fast. I'll show you how to get started with it; it merits its own course on all the cool and crazy things you can do with it.</p>
-<p>First run <code class="language-text">npm install emotion react-emotion</code>.</p>
+  </script><link as="script" rel="preload" href="/complete-intro-to-react-v5/component---src-templates-lesson-template-js-76a02bf0f363dc242a3c.js"/><link as="script" rel="preload" href="/complete-intro-to-react-v5/app-a8622f2a950f1be64845.js"/><link as="script" rel="preload" href="/complete-intro-to-react-v5/webpack-runtime-99733e45366e5c09b451.js"/><link as="fetch" rel="preload" href="/complete-intro-to-react-v5/static/d/886/path---emotion-ec-3-9ea-bhiwrUWvfy18TNggtjZUi1apqho.json" crossOrigin="use-credentials"/></head><body><noscript id="gatsby-noscript">This app works best with JavaScript enabled.</noscript><div id="___gatsby"><div style="outline:none" tabindex="-1" role="group"><div><div class="navbar navbar-light gradient"><a class="navbar-brand" href="/complete-intro-to-react-v5/">Complete Intro to React v5</a></div><div class="main"><div class="lesson-container"><div class="lesson"><h1>Emotion</h1><h2></h2><div class="lesson-content"><p>Emotion is a library for including your styles inside of your component files and allowing you to harness JavaScript to easily script your CSS. While previous CSS-in-JS solutions ballooned file sizes and were slow, Emotion is both small and fast. I'll show you how to get started with it; it merits its own course on all the cool and crazy things you can do with it.</p>
+<p>First run <code class="language-text">npm install @emotion/core @emotion/babel-preset-css-prop</code></p>
 <p>Make a new file called NavBar.js, put this in it:</p>
 <div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript"><span class="token keyword">import</span> React <span class="token keyword">from</span> <span class="token string">"react"</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> Link <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"@reach/router"</span><span class="token punctuation">;</span>
-<span class="token keyword">import</span> styled <span class="token keyword">from</span> <span class="token string">"react-emotion"</span><span class="token punctuation">;</span>
-
-<span class="token keyword">const</span> Container <span class="token operator">=</span> <span class="token function">styled</span><span class="token punctuation">(</span><span class="token string">"header"</span><span class="token punctuation">)</span><span class="token template-string"><span class="token string">`
-  background-color: #333;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-`</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> css <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"@emotion/core"</span><span class="token punctuation">;</span>
 
 <span class="token keyword">const</span> <span class="token function-variable function">NavBar</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">(</span>
-  <span class="token operator">&lt;</span>Container<span class="token operator">></span>
+  <span class="token operator">&lt;</span>header
+    css<span class="token operator">=</span><span class="token punctuation">{</span>css<span class="token template-string"><span class="token string">`
+      background-color: #333;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    `</span></span><span class="token punctuation">}</span>
+  <span class="token operator">></span>
     <span class="token operator">&lt;</span>Link to<span class="token operator">=</span><span class="token string">"/"</span><span class="token operator">></span>Adopt Me<span class="token operator">!</span><span class="token operator">&lt;</span><span class="token operator">/</span>Link<span class="token operator">></span>
-    <span class="token operator">&lt;</span>Link to<span class="token operator">=</span><span class="token string">"/search-params"</span><span class="token operator">></span>
-      <span class="token operator">&lt;</span>span aria<span class="token operator">-</span>label<span class="token operator">=</span><span class="token string">"search"</span> role<span class="token operator">=</span><span class="token string">"img"</span><span class="token operator">></span>
-        🔍
+    <span class="token operator">&lt;</span>Link to<span class="token operator">=</span><span class="token string">"/"</span><span class="token operator">></span>
+      <span class="token operator">&lt;</span>span aria<span class="token operator">-</span>label<span class="token operator">=</span><span class="token string">"logo"</span> role<span class="token operator">=</span><span class="token string">"img"</span><span class="token operator">></span>
+        🐩
       <span class="token operator">&lt;</span><span class="token operator">/</span>span<span class="token operator">></span>
     <span class="token operator">&lt;</span><span class="token operator">/</span>Link<span class="token operator">></span>
-  <span class="token operator">&lt;</span><span class="token operator">/</span>Container<span class="token operator">></span>
+  <span class="token operator">&lt;</span><span class="token operator">/</span>header<span class="token operator">></span>
 <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 <span class="token keyword">export</span> <span class="token keyword">default</span> NavBar<span class="token punctuation">;</span></code></pre></div>
+<p>Add this to your <code class="language-text">.babelrc</code></p>
+<div class="gatsby-highlight" data-language="json"><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
+  <span class="token property">"presets"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token string">"@babel/preset-react"</span><span class="token punctuation">,</span>
+    <span class="token string">"@babel/preset-env"</span><span class="token punctuation">,</span>
+    <span class="token punctuation">[</span>
+      <span class="token string">"@emotion/babel-preset-css-prop"</span><span class="token punctuation">,</span>
+      <span class="token punctuation">{</span>
+        <span class="token property">"sourceMap"</span><span class="token operator">:</span> <span class="token boolean">false</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token punctuation">[</span>…<span class="token punctuation">]</span>
+<span class="token punctuation">}</span></code></pre></div>
 <p>Go to App.js and replace the <code class="language-text">&lt;header&gt;</code> with <code class="language-text">&lt;NavBar /&gt;</code> after importing it at the top.</p>
-<p>So here we're using Emotion to generate React components that are styled the way we choose. Here we've made a sticky header at the top. This is 95% how you'll use Emotion: making components and then using them. But let's see some more reasons why to use them.</p>
+<ul>
+<li>Emotion has other ways of interacting with it (generating components) but here we're using the new <code class="language-text">css</code> prop way of doing it. If you want to see the old way, see v4 of this course.</li>
+<li>The <code class="language-text">css</code> prop allows us to use the <code class="language-text">css</code> tagged template literal to write CSS. The Babel preset we added will then transpile that into code that Emotion can use and optimzie it, meaning your final code ends up being tiny.</li>
+<li>If you're not into using the <code class="language-text">css</code> tagged template, you can use objects instead.</li>
+<li>We had to disable source maps for now because Parcel doesn't play nice with Emotion source maps. Webpack does. This will be fixed in Parcel 2.</li>
+<li>If you want to see highlighting of your CSS in Visual Studio Code, download the <a href="https://marketplace.visualstudio.com/items?itemName=mf.vscode-styled-components&#x26;WT.mc_id=react-github-brholt">styled-components</a> extension. It works with Emotion too.</li>
+</ul>
 <p>Make a new file called <code class="language-text">colors.js</code>.</p>
 <div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript"><span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
   primary<span class="token punctuation">:</span> <span class="token string">"#ad343e"</span><span class="token punctuation">,</span>
@@ -88,38 +108,34 @@
 background<span class="token operator">-</span>color<span class="token punctuation">:</span> $<span class="token punctuation">{</span>colors<span class="token punctuation">.</span>dark<span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre></div>
 <p>This allows for super simple variable sharing that ends up being scoped instead of sometimes-unruly CSS variables.</p>
 <p>Now what if we wanted to make our links underline on hover?</p>
-<div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript"><span class="token keyword">const</span> NavLink <span class="token operator">=</span> <span class="token function">styled</span><span class="token punctuation">(</span>Link<span class="token punctuation">)</span><span class="token template-string"><span class="token string">`
-  &amp;:hover {
-    text-decoration: underline;
-  }
-`</span></span><span class="token punctuation">;</span></code></pre></div>
+<div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript"><span class="token operator">&lt;</span>Link
+  css<span class="token operator">=</span><span class="token punctuation">{</span>css<span class="token template-string"><span class="token string">`
+    &amp;:hover {
+      text-decoration: underline;
+    }
+  `</span></span><span class="token punctuation">}</span>
+  to<span class="token operator">=</span><span class="token string">"/"</span>
+<span class="token operator">></span></code></pre></div>
 <p>You can style other peoples' components too! Just pass the component into the styled function. You can also use <code class="language-text">&amp;</code> to represent the element in compound selectors like we've done here.</p>
 <p>Lastly, let's make the spy glass spin!</p>
 <div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript"><span class="token comment">// import keyframes</span>
-<span class="token keyword">import</span> styled<span class="token punctuation">,</span> <span class="token punctuation">{</span> keyframes <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"react-emotion"</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> css<span class="token punctuation">,</span> keyframes <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"react-emotion"</span><span class="token punctuation">;</span>
 
 <span class="token comment">// under other styled calls</span>
 <span class="token keyword">const</span> Spin <span class="token operator">=</span> keyframes<span class="token template-string"><span class="token string">`
-  from {
-    transform: rotate(0deg);
-  }
   to {
     transform: rotate(360deg);
   }
 `</span></span><span class="token punctuation">;</span>
 
-<span class="token keyword">const</span> SpyGlass <span class="token operator">=</span> <span class="token function">styled</span><span class="token punctuation">(</span><span class="token string">"span"</span><span class="token punctuation">)</span><span class="token template-string"><span class="token string">`
-  display: inline-block;
-  animation: 1s </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>Spin<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> linear infinite;
-`</span></span><span class="token punctuation">;</span>
-
-<span class="token comment">// replace span</span>
-<span class="token punctuation">{</span>
-  <span class="token comment">/* eslint-disable-next-line */</span>
-<span class="token punctuation">}</span>
-<span class="token operator">&lt;</span>SpyGlass aria<span class="token operator">-</span>label<span class="token operator">=</span><span class="token string">"search"</span> role<span class="token operator">=</span><span class="token string">"img"</span><span class="token operator">></span>
-  🔍
-<span class="token operator">&lt;</span><span class="token operator">/</span>SpyGlass<span class="token operator">></span><span class="token punctuation">;</span></code></pre></div>
-<p>keyframes are how you do keyframes with Emotion. You create the keyframe, then use what it returns to reference inside your components, again making your keyframes tidily reusable. From there we use the keyframe, disable the a11y warning we get from ESLint (since it is still a span and ESLint just can't see it) and then render out the results (still with the correct attributes since Emotion just passes them on.)</p>
+<span class="token comment">// replace logo link</span>
+<span class="token operator">&lt;</span>Link
+  css<span class="token operator">=</span><span class="token punctuation">{</span>css<span class="token template-string"><span class="token string">`
+    display: inline-block;
+    animation: 1s </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>Spin<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> linear infinite;
+  `</span></span><span class="token punctuation">}</span>
+  to<span class="token operator">=</span><span class="token string">"/"</span>
+<span class="token operator">></span></code></pre></div>
+<p><code class="language-text">keyframes</code> are how you do keyframes with Emotion. You create the keyframe, then use what it returns to reference inside your components, again making your keyframes tidily reusable.</p>
 <p>That's it! That's most of what you need to know to use Emotion.</p>
-<h2 id="-8d406c43fe1c096fe7b1b8d93aab0322dc66607b-branch-emotion"><a href="#-8d406c43fe1c096fe7b1b8d93aab0322dc66607b-branch-emotion" aria-hidden class="anchor"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>🌳 8d406c43fe1c096fe7b1b8d93aab0322dc66607b (branch emotion)</h2></div><div class="lesson-links"><a aria-current="page" class="prev" href="/complete-intro-to-react-v5/emotion">← Emotion</a><a class="next" href="/complete-intro-to-react-v5/redux">Redux →</a></div></div></div></div></div></div></div><script id="gatsby-script-loader">/*<![CDATA[*/window.page={"componentChunkName":"component---src-templates-lesson-template-js","jsonName":"emotion-ec3","path":"/emotion"};window.dataPath="453/path---emotion-ec-3-9ea-EJlJwJsqh1mUeOkx9OzEqN1p6Kw";/*]]>*/</script><script id="gatsby-chunk-mapping">/*<![CDATA[*/window.___chunkMapping={"app":["/app.94c1ba1634395bcc1b83.css","/app-a8622f2a950f1be64845.js"],"component---src-templates-lesson-template-js":["/component---src-templates-lesson-template-js-76a02bf0f363dc242a3c.js"],"component---src-pages-404-js":["/component---src-pages-404-js-00cd213ddd19e7c82ed0.js"],"component---src-pages-index-js":["/component---src-pages-index-js.13a53151845aec8af505.css","/component---src-pages-index-js-1c2ecdd5831f6f0a1523.js"],"pages-manifest":["/pages-manifest-0a5b971d519d4ce03b1c.js"]};/*]]>*/</script><script src="/complete-intro-to-react-v5/webpack-runtime-b1b06d864b5bde0cbd27.js" async=""></script><script src="/complete-intro-to-react-v5/app-a8622f2a950f1be64845.js" async=""></script><script src="/complete-intro-to-react-v5/component---src-templates-lesson-template-js-76a02bf0f363dc242a3c.js" async=""></script></body></html>
+<h2 id="-lolcommit-branch-emotion"><a href="#-lolcommit-branch-emotion" aria-hidden class="anchor"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>🌳 lolcommit (branch emotion)</h2></div><div class="lesson-links"><a aria-current="page" class="prev" href="/complete-intro-to-react-v5/emotion">← Emotion</a><a class="next" href="/complete-intro-to-react-v5/redux">Redux →</a></div></div></div></div></div></div></div><script id="gatsby-script-loader">/*<![CDATA[*/window.page={"componentChunkName":"component---src-templates-lesson-template-js","jsonName":"emotion-ec3","path":"/emotion"};window.dataPath="886/path---emotion-ec-3-9ea-bhiwrUWvfy18TNggtjZUi1apqho";/*]]>*/</script><script id="gatsby-chunk-mapping">/*<![CDATA[*/window.___chunkMapping={"app":["/app.94c1ba1634395bcc1b83.css","/app-a8622f2a950f1be64845.js"],"component---src-templates-lesson-template-js":["/component---src-templates-lesson-template-js-76a02bf0f363dc242a3c.js"],"component---src-pages-404-js":["/component---src-pages-404-js-00cd213ddd19e7c82ed0.js"],"component---src-pages-index-js":["/component---src-pages-index-js.13a53151845aec8af505.css","/component---src-pages-index-js-1c2ecdd5831f6f0a1523.js"],"pages-manifest":["/pages-manifest-1f85f02b9d314efb9835.js"]};/*]]>*/</script><script src="/complete-intro-to-react-v5/webpack-runtime-99733e45366e5c09b451.js" async=""></script><script src="/complete-intro-to-react-v5/app-a8622f2a950f1be64845.js" async=""></script><script src="/complete-intro-to-react-v5/component---src-templates-lesson-template-js-76a02bf0f363dc242a3c.js" async=""></script></body></html>
