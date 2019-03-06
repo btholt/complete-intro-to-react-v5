@@ -6,11 +6,13 @@
   "dependencies": {
     "@frontendmasters/pet": "^1.0.3",
     "@reach/router": "^1.2.1",
+    "express": "^4.16.4",
     "react": "^16.8.4",
     "react-dom": "^16.8.4"
   },
   "devDependencies": {
     "@babel/core": "^7.4.3",
+    "@babel/node": "^7.2.2",
     "@babel/plugin-proposal-class-properties": "^7.4.0",
     "@babel/preset-env": "^7.4.3",
     "@babel/preset-react": "^7.0.0",
@@ -26,11 +28,13 @@
     "prettier": "^1.16.1"
   },
   "scripts": {
+    "build": "parcel build --public-url ./dist/ src/index.html",
     "clear-build-cache": "rm -rf .cache/ dist/",
     "dev": "parcel src/index.html",
     "dev:mock": "cross-env PET_MOCK=mock parcel src/index.html",
     "format": "prettier --write \"src/**/*.{js,jsx}\"",
     "lint": "eslint \"src/**/*.{js,jsx}\" --quiet",
+    "start": "npm -s run build && babel-node server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Brian Holt <btholt+complete-intro-to-react@gmail.com>",
