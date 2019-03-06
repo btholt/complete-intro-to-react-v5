@@ -45,11 +45,11 @@
         }
       }
     })
-  </script><link as="script" rel="preload" href="/complete-intro-to-react-v5/component---src-templates-lesson-template-js-76a02bf0f363dc242a3c.js"/><link as="script" rel="preload" href="/complete-intro-to-react-v5/app-a8622f2a950f1be64845.js"/><link as="script" rel="preload" href="/complete-intro-to-react-v5/webpack-runtime-b1fee38f73738931f5fd.js"/><link as="fetch" rel="preload" href="/complete-intro-to-react-v5/static/d/944/path---redux-5-ed-7a4-1T5uEOpL0KxttF80wBVCmj4DYU.json" crossOrigin="use-credentials"/></head><body><noscript id="gatsby-noscript">This app works best with JavaScript enabled.</noscript><div id="___gatsby"><div style="outline:none" tabindex="-1" role="group"><div><div class="navbar navbar-light gradient"><a class="navbar-brand" href="/complete-intro-to-react-v5/">Complete Intro to React v5</a></div><div class="main"><div class="lesson-container"><div class="lesson"><h1>Redux</h1><h2></h2><div class="lesson-content"><p>Redux is a well-known library that does state management for you, very similarly to how we used context. With context, you use the provider and consumer as a sort of portal to skip passing parameters through every component. With Redux, we're taking the state management <em>out</em> of React entirely and moving it to a separate store.</p>
+  </script><link as="script" rel="preload" href="/complete-intro-to-react-v5/component---src-templates-lesson-template-js-76a02bf0f363dc242a3c.js"/><link as="script" rel="preload" href="/complete-intro-to-react-v5/app-a8622f2a950f1be64845.js"/><link as="script" rel="preload" href="/complete-intro-to-react-v5/webpack-runtime-0f630cd90923a62faea2.js"/><link as="fetch" rel="preload" href="/complete-intro-to-react-v5/static/d/329/path---redux-5-ed-7a4-tL7UdEgeBWjBH7t0BNmP0YrHJ2s.json" crossOrigin="use-credentials"/></head><body><noscript id="gatsby-noscript">This app works best with JavaScript enabled.</noscript><div id="___gatsby"><div style="outline:none" tabindex="-1" role="group"><div><div class="navbar navbar-light gradient"><a class="navbar-brand" href="/complete-intro-to-react-v5/">Complete Intro to React v5</a></div><div class="main"><div class="lesson-container"><div class="lesson"><h1>Redux</h1><h2></h2><div class="lesson-content"><p>Redux is a well-known library that does state management for you, very similarly to how we used context. With context, you use the provider and consumer as a sort of portal to skip passing parameters through every component. With Redux, we're taking the state management <em>out</em> of React entirely and moving it to a separate store.</p>
 <p>Why do we have Redux?</p>
 <ol>
 <li>Context used to be a lot worse to use and less useful. This made Redux (or Redux-like) management tools the only option</li>
-<li>Redux code is <em>extremely testable</em>. This is probably the most compelling reason to use it. Having your state mutation be broken up in such a way to make it easy to test is fantastic.</li>
+<li>Redux code is <em>extremely testable</em>. This is probably the most compelling reason to use it. Having your state mutation be broken up in such a way to make it easy to test is fantastic. This is also mitigated because we have <code class="language-text">useReducer</code> now.</li>
 <li>The debugging story is pretty good.</li>
 </ol>
 <p>So given that we do now have the next context API, how often will I use Redux? Never, I anticipate. I rarely had problems that Redux solved (they exist; I just didn't have them) and the few cases now where I would see myself using Redux I think React's context would cover it. But if Redux speaks to you, do it! Don't let me stop you. It's a great library. Just be cautious. And there are reasons to use it: if you have complex orchestrations of async data, Redux can be immensely useful and I <em>would</em> use it for that.</p>
@@ -65,25 +65,21 @@
 <li>React is then called by Redux and told to update</li>
 </ol>
 <p>So what was one step became several. But each step of this is testable, and that's great. And it's explicit and verbose. It's long to follow, but it's an easy breadcrumb trailer to follow when things go awry. So let's start writing it:</p>
-<p>Run <code class="language-text">npm install redux redux-thunk react-redux</code>. Create store.js and put in it:</p>
+<p>Run <code class="language-text">npm install redux react-redux</code>. Create store.js and put in it:</p>
 <div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> createStore<span class="token punctuation">,</span> compose<span class="token punctuation">,</span> applyMiddleware <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"redux"</span><span class="token punctuation">;</span>
-<span class="token keyword">import</span> thunk <span class="token keyword">from</span> <span class="token string">"redux-thunk"</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> reducer <span class="token keyword">from</span> <span class="token string">"./reducers"</span><span class="token punctuation">;</span>
 
 <span class="token keyword">const</span> store <span class="token operator">=</span> <span class="token function">createStore</span><span class="token punctuation">(</span>
   reducer<span class="token punctuation">,</span>
-  <span class="token function">compose</span><span class="token punctuation">(</span>
-    <span class="token function">applyMiddleware</span><span class="token punctuation">(</span>thunk<span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token keyword">typeof</span> window <span class="token operator">===</span> <span class="token string">"object"</span> <span class="token operator">&amp;&amp;</span>
-      <span class="token keyword">typeof</span> window<span class="token punctuation">.</span>devToolsExtension <span class="token operator">!==</span> <span class="token string">"undefined"</span>
-      <span class="token operator">?</span> window<span class="token punctuation">.</span><span class="token function">devToolsExtension</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-      <span class="token punctuation">:</span> f <span class="token operator">=></span> f
-  <span class="token punctuation">)</span>
+  <span class="token keyword">typeof</span> window <span class="token operator">===</span> <span class="token string">"object"</span> <span class="token operator">&amp;&amp;</span>
+    <span class="token keyword">typeof</span> window<span class="token punctuation">.</span>__REDUX_DEVTOOLS_EXTENSION__ <span class="token operator">!==</span> <span class="token string">"undefined"</span>
+    <span class="token operator">?</span> window<span class="token punctuation">.</span><span class="token function">__REDUX_DEVTOOLS_EXTENSION__</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">:</span> f <span class="token operator">=></span> f
 <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 <span class="token keyword">export</span> <span class="token keyword">default</span> store<span class="token punctuation">;</span></code></pre></div>
 <p>We're including the dev tools middleware (I'll show you at the end) as well as redux-thunk which we'll use in a second to do async actions. This is the base of a store: a reducer. A store is just basically a big object with prescribed ways of changing it. So let's go make our first reducer.</p>
-<p>Make a new folder in src called <code class="language-text">reducers.js</code>. In reducers.js, put:</p>
+<p>Make a new folder in src called <code class="language-text">reducers</code>. Create a file called <code class="language-text">index.js</code> in reducers and put:</p>
 <div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> combineReducers <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"redux"</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> location <span class="token keyword">from</span> <span class="token string">"./location"</span><span class="token punctuation">;</span>
 
@@ -104,110 +100,50 @@
 <p>The shape of the action object is up to you but there is a thing called <a href="https://github.com/redux-utilities/flux-standard-action">Flux Standard Action</a> that some people adhere to to make building tools on top of actions easier. I've not used any of those tools but I also don't have a good reason <em>not</em> to use this shape so I do. In sum, make your action shapes be <code class="language-text">{ type: &lt;[String, Number], required&gt;, payload: &lt;any?&gt;, error: &lt;any?&gt;, meta: &lt;any?&gt; }</code>. The type could in theory be a Symbol too but it messes up the dev tools.</p>
 <p>Reducers are synchronous: they cannot be async. They also must be pure with no side-effects. If you call a reducer 10,000,000 times with the same state and action, you should get the same answer on the 10,000,001st time.</p>
 <p>Okay, so now we understand how, once given a state and an action, we can make a reducer. We haven't made nor dispatched those actions yet but we're getting there. Let's make the other reducers.</p>
-<p>animal.js</p>
-<div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript"><span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span> <span class="token function">animal</span><span class="token punctuation">(</span>state <span class="token operator">=</span> <span class="token string">"dog"</span><span class="token punctuation">,</span> action<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<p>theme.js</p>
+<div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript"><span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span> <span class="token function">theme</span><span class="token punctuation">(</span>state <span class="token operator">=</span> <span class="token string">"darkblue"</span><span class="token punctuation">,</span> action<span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword">switch</span> <span class="token punctuation">(</span>action<span class="token punctuation">.</span>type<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">case</span> <span class="token string">"CHANGE_ANIMAL"</span><span class="token punctuation">:</span>
+    <span class="token keyword">case</span> <span class="token string">"CHANGE_THEME"</span><span class="token punctuation">:</span>
       <span class="token keyword">return</span> action<span class="token punctuation">.</span>payload<span class="token punctuation">;</span>
     <span class="token keyword">default</span><span class="token punctuation">:</span>
       <span class="token keyword">return</span> state<span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span></code></pre></div>
-<p>breeds.js</p>
-<div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript"><span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span> <span class="token function">animal</span><span class="token punctuation">(</span>state <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> action<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token keyword">switch</span> <span class="token punctuation">(</span>action<span class="token punctuation">.</span>type<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">case</span> <span class="token string">"CHANGE_BREEDS"</span><span class="token punctuation">:</span>
-      <span class="token keyword">return</span> action<span class="token punctuation">.</span>payload<span class="token punctuation">;</span>
-    <span class="token keyword">default</span><span class="token punctuation">:</span>
-      <span class="token keyword">return</span> state<span class="token punctuation">;</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">}</span></code></pre></div>
-<p>breed.js</p>
-<div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript"><span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span> <span class="token function">animal</span><span class="token punctuation">(</span>state <span class="token operator">=</span> <span class="token string">""</span><span class="token punctuation">,</span> action<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token keyword">switch</span> <span class="token punctuation">(</span>action<span class="token punctuation">.</span>type<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">case</span> <span class="token string">"CHANGE_ANIMAL"</span><span class="token punctuation">:</span>
-      <span class="token keyword">return</span> <span class="token string">""</span><span class="token punctuation">;</span>
-    <span class="token keyword">case</span> <span class="token string">"CHANGE_BREED"</span><span class="token punctuation">:</span>
-      <span class="token keyword">return</span> action<span class="token punctuation">.</span>payload<span class="token punctuation">;</span>
-    <span class="token keyword">default</span><span class="token punctuation">:</span>
-      <span class="token keyword">return</span> state<span class="token punctuation">;</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">}</span></code></pre></div>
-<p>In this last one, we also respond in breed.js to an animal change because that means the user switch animals and they can't search for a breed from a separate animal. This how you can have multiple cases and have one action trigger more than one reducer.</p>
 <p>index.js</p>
 <div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> combineReducers <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"redux"</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> location <span class="token keyword">from</span> <span class="token string">"./location"</span><span class="token punctuation">;</span>
-<span class="token keyword">import</span> animal <span class="token keyword">from</span> <span class="token string">"./animal"</span><span class="token punctuation">;</span>
-<span class="token keyword">import</span> breed <span class="token keyword">from</span> <span class="token string">"./breed"</span><span class="token punctuation">;</span>
-<span class="token keyword">import</span> breeds <span class="token keyword">from</span> <span class="token string">"./breeds"</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> theme <span class="token keyword">from</span> <span class="token string">"./theme"</span><span class="token punctuation">;</span>
 
 <span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token function">combineReducers</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
   location<span class="token punctuation">,</span>
-  animal<span class="token punctuation">,</span>
-  breed<span class="token punctuation">,</span>
-  breeds
+  theme
 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre></div>
 <p>Let's go make the action creators. These are the functions that the UI gives to the store to effect change: actions. These functions create actions.</p>
-<p>Create a new folder called changeAnimal.js</p>
-<div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript"><span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span> <span class="token function">changeAnimal</span><span class="token punctuation">(</span>animal<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token keyword">return</span> <span class="token punctuation">{</span> type<span class="token punctuation">:</span> <span class="token string">"CHANGE_ANIMAL"</span><span class="token punctuation">,</span> payload<span class="token punctuation">:</span> animal <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<p>Create a new folder called actionCreators and put in changeTheme.js</p>
+<div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript"><span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span> <span class="token function">changeTheme</span><span class="token punctuation">(</span>theme<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token punctuation">{</span> type<span class="token punctuation">:</span> <span class="token string">"CHANGE_THEME"</span><span class="token punctuation">,</span> payload<span class="token punctuation">:</span> theme <span class="token punctuation">}</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre></div>
 <p>That's it! This one is the simplest form: create an object and return it. Some people will inline these action shapes in their React components. I prefer this because it makes refactors simple. Let's make the other two:</p>
 <p>changeLocation.js</p>
 <div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript"><span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span> <span class="token function">changeLocation</span><span class="token punctuation">(</span>location<span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword">return</span> <span class="token punctuation">{</span> type<span class="token punctuation">:</span> <span class="token string">"CHANGE_LOCATION"</span><span class="token punctuation">,</span> payload<span class="token punctuation">:</span> location <span class="token punctuation">}</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre></div>
-<p>changeBreed.js</p>
-<div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript"><span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span> <span class="token function">changeBreed</span><span class="token punctuation">(</span>breed<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token keyword">return</span> <span class="token punctuation">{</span> type<span class="token punctuation">:</span> <span class="token string">"CHANGE_BREED"</span><span class="token punctuation">,</span> payload<span class="token punctuation">:</span> breed <span class="token punctuation">}</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre></div>
-<p>That's it for action creators. Let's also show you how to do async actions. there are a thousand flavors of how to do async with Redux. The most popular are <a href="https://github.com/redux-observable/redux-observable">redux-observable</a>, <a href="https://redux-saga.js.org/">redux-saga</a>, <a href="https://docs.psb.codes/redux-promise-middleware/">redux-promise</a>, and <a href="https://github.com/reduxjs/redux-thunk">redux-thunk</a>. We're going to use redux-thunk because it's simplest: the others are more powerful but more complex.</p>
-<p>A thunk is a function. It's the representation of a value that has not been determined yet. It's an async value, similar to a promise. If I have</p>
-<div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript"><span class="token keyword">const</span> price <span class="token operator">=</span> <span class="token number">1000</span><span class="token punctuation">;</span>
-<span class="token keyword">const</span> determinedLaterPrice <span class="token operator">=</span> <span class="token function">getPrice</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre></div>
-<p>What is the value of <code class="language-text">price</code>? 1000. This value was determined at write-time: when I wrote this code I knew the value of price. What is the value of <code class="language-text">determinedLaterPrice</code>? We don't know! It'll be determined later. That's the gist of a thunk.</p>
-<p>So with a thunk, we don't return an object, we return a function (the function returns a function) that will dispatch an action <em>later</em>. IT could still be sync, it could be async. Just not immediately. Keep in mind that reducers never see thunks: only sync action objects get dispatched to the store. These thunks just let us do AJAX before we dispatch an object. Make a new file called getBreeds.js:</p>
-<div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript"><span class="token keyword">import</span> pf <span class="token keyword">from</span> <span class="token string">"petfinder-client"</span><span class="token punctuation">;</span>
-
-<span class="token keyword">const</span> petfinder <span class="token operator">=</span> <span class="token function">pf</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-  key<span class="token punctuation">:</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">API_KEY</span><span class="token punctuation">,</span>
-  secret<span class="token punctuation">:</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">API_SECRET</span>
-<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span> <span class="token function">getBreeds</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token keyword">return</span> <span class="token keyword">function</span><span class="token punctuation">(</span>dispatch<span class="token punctuation">,</span> getState<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">const</span> <span class="token punctuation">{</span> animal <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">getState</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    petfinder<span class="token punctuation">.</span>breed<span class="token punctuation">.</span><span class="token function">list</span><span class="token punctuation">(</span><span class="token punctuation">{</span> animal <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>data <span class="token operator">=></span> <span class="token punctuation">{</span>
-      <span class="token keyword">let</span> breeds <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-      <span class="token keyword">if</span> <span class="token punctuation">(</span>
-        data<span class="token punctuation">.</span>petfinder <span class="token operator">&amp;&amp;</span>
-        data<span class="token punctuation">.</span>petfinder<span class="token punctuation">.</span>breeds <span class="token operator">&amp;&amp;</span>
-        Array<span class="token punctuation">.</span><span class="token function">isArray</span><span class="token punctuation">(</span>data<span class="token punctuation">.</span>petfinder<span class="token punctuation">.</span>breeds<span class="token punctuation">.</span>breed<span class="token punctuation">)</span>
-      <span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        breeds <span class="token operator">=</span> data<span class="token punctuation">.</span>petfinder<span class="token punctuation">.</span>breeds<span class="token punctuation">.</span>breed<span class="token punctuation">;</span>
-      <span class="token punctuation">}</span>
-      <span class="token function">dispatch</span><span class="token punctuation">(</span><span class="token punctuation">{</span> type<span class="token punctuation">:</span> <span class="token string">"CHANGE_BREEDS"</span><span class="token punctuation">,</span> payload<span class="token punctuation">:</span> breeds <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">}</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre></div>
-<p>Notice our function returns a function, a thunk. We do our AJAX action and then only after we're done do we dispatch. That's a thunk. We also could dispatch <em>multiple</em> actions, like if you wanted to show a loading indicator.</p>
+<p>That's it for action creators. In previous versions of this course, I taught how to do async actions so [check this out if you want to see that][v4-async]. there are a thousand flavors of how to do async with Redux. The most popular are <a href="https://github.com/redux-observable/redux-observable">redux-observable</a>, <a href="https://redux-saga.js.org/">redux-saga</a>, <a href="https://docs.psb.codes/redux-promise-middleware/">redux-promise</a>, and <a href="https://github.com/reduxjs/redux-thunk">redux-thunk</a>. I showed how to use redux-thunk because it's simplest: the others are more powerful but more complex.</p>
 <p>Okay, let's go integrate this now where context was being used before. Go to App.js:</p>
-<div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript"><span class="token comment">// delete pf</span>
+<div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript"><span class="token comment">// delete ThemeContext, useState import</span>
 
 <span class="token comment">// import</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> Provider <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"react-redux"</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> store <span class="token keyword">from</span> <span class="token string">"./store"</span><span class="token punctuation">;</span>
 
-<span class="token comment">// delete pf credentials loading</span>
-
-<span class="token comment">// delete constructor, handleBreedChange, handleAnimalChange, getBreeds, handleLocationChange</span>
+<span class="token comment">// delete useState call</span>
 
 <span class="token comment">// wrap app with</span>
 <span class="token operator">&lt;</span>Provider store<span class="token operator">=</span><span class="token punctuation">{</span>store<span class="token punctuation">}</span><span class="token operator">></span><span class="token punctuation">[</span>…<span class="token punctuation">]</span><span class="token operator">&lt;</span><span class="token operator">/</span>Provider<span class="token operator">></span><span class="token punctuation">;</span></code></pre></div>
 <p>Feels nice deleting a lot of code, right?</p>
 <p>Just like context makes your store available anywhere in your app, so does Provider.</p>
-<p>Now that Redux is available everywhere, let's go add it to Results.js</p>
-<div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript"><span class="token comment">// replace Consumer import</span>
+<p>Now that Redux is available everywhere, let's go add it to SearchParams.js</p>
+<div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript"><span class="token comment">// replace ThemeContext import</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> connect <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"react-redux"</span><span class="token punctuation">;</span>
 
 <span class="token comment">// replace context references</span>
@@ -216,52 +152,51 @@ animal<span class="token punctuation">:</span> <span class="token keyword">this<
 breed<span class="token punctuation">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>props<span class="token punctuation">.</span>breed<span class="token punctuation">,</span>
 
 <span class="token comment">// replace export</span>
-<span class="token keyword">const</span> <span class="token function-variable function">mapStateToProps</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">{</span> animal<span class="token punctuation">,</span> breed<span class="token punctuation">,</span> location <span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">(</span><span class="token punctuation">{</span>
-  animal<span class="token punctuation">,</span>
-  breed<span class="token punctuation">,</span>
+<span class="token keyword">const</span> <span class="token function-variable function">mapStateToProps</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">{</span> theme<span class="token punctuation">,</span> location <span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">(</span><span class="token punctuation">{</span>
+  theme<span class="token punctuation">,</span>
   location
 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token function">connect</span><span class="token punctuation">(</span>mapStateToProps<span class="token punctuation">)</span><span class="token punctuation">(</span>Results<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre></div>
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token function">connect</span><span class="token punctuation">(</span>mapStateToProps<span class="token punctuation">)</span><span class="token punctuation">(</span>SearchParams<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre></div>
 <p>Connect is a little helper that will pluck things out of state and put them into your props for you so you can reference those as if they were normal state. This makes it not too hard to keep your Redux and React separate too so you can test both independently.</p>
-<p>Let's go make SearchBox.js work:</p>
+<p>We're not quite done here. We can got the reading part of Redux done but now the writing. Let's go do that too in SearchParams.js</p>
 <div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript"><span class="token comment">//replace Consumer import</span>
-<span class="token keyword">import</span> <span class="token punctuation">{</span> connect <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"react-redux"</span><span class="token punctuation">;</span>
-<span class="token keyword">import</span> getBreeds <span class="token keyword">from</span> <span class="token string">"./actionCreators/getBreeds"</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> changeLocation <span class="token keyword">from</span> <span class="token string">"./actionCreators/changeLocation"</span><span class="token punctuation">;</span>
-<span class="token keyword">import</span> changeAnimal <span class="token keyword">from</span> <span class="token string">"./actionCreators/changeAnimal"</span><span class="token punctuation">;</span>
-<span class="token keyword">import</span> changeBreed <span class="token keyword">from</span> <span class="token string">"./actionCreators/changeBreed"</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> changeAnimal <span class="token keyword">from</span> <span class="token string">"./actionCreators/changeTheme"</span><span class="token punctuation">;</span>
 
-<span class="token comment">// delete Consumer wrapping component and function inside of it</span>
-
-<span class="token comment">// change every reference of `context.` to `this.props.` in render</span>
-
-<span class="token comment">// replace export</span>
-<span class="token keyword">const</span> <span class="token function-variable function">mapStateToProps</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">{</span> breed<span class="token punctuation">,</span> breeds<span class="token punctuation">,</span> animal<span class="token punctuation">,</span> location <span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">(</span><span class="token punctuation">{</span>
-  breed<span class="token punctuation">,</span>
-  breeds<span class="token punctuation">,</span>
-  location<span class="token punctuation">,</span>
-  animal
+<span class="token comment">// destructure the methods from props</span>
+<span class="token keyword">const</span> <span class="token function-variable function">SearchParams</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">{</span> theme<span class="token punctuation">,</span> location<span class="token punctuation">,</span> setTheme<span class="token punctuation">,</span> updateLocation <span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  <span class="token comment">/* code */</span>
 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
+<span class="token comment">// at the bottom</span>
 <span class="token keyword">const</span> <span class="token function-variable function">mapDispatchToProps</span> <span class="token operator">=</span> dispatch <span class="token operator">=></span> <span class="token punctuation">(</span><span class="token punctuation">{</span>
-  <span class="token function">handleAnimalChange</span><span class="token punctuation">(</span>event<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token function">dispatch</span><span class="token punctuation">(</span><span class="token function">changeAnimal</span><span class="token punctuation">(</span>event<span class="token punctuation">.</span>target<span class="token punctuation">.</span>value<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">dispatch</span><span class="token punctuation">(</span><span class="token function">getBreeds</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">updateLocation</span><span class="token punctuation">(</span>location<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">dispatch</span><span class="token punctuation">(</span><span class="token function">changeLocation</span><span class="token punctuation">(</span>location<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
-  <span class="token function">handleBreedChange</span><span class="token punctuation">(</span>event<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token function">dispatch</span><span class="token punctuation">(</span><span class="token function">changeBreed</span><span class="token punctuation">(</span>event<span class="token punctuation">.</span>target<span class="token punctuation">.</span>value<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">}</span><span class="token punctuation">,</span>
-  <span class="token function">handleLocationChange</span><span class="token punctuation">(</span>event<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token function">dispatch</span><span class="token punctuation">(</span><span class="token function">changeLocation</span><span class="token punctuation">(</span>event<span class="token punctuation">.</span>target<span class="token punctuation">.</span>value<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">setTheme</span><span class="token punctuation">(</span>theme<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">dispatch</span><span class="token punctuation">(</span><span class="token function">changeLocation</span><span class="token punctuation">(</span>theme<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 <span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token function">connect</span><span class="token punctuation">(</span>
   mapStateToProps<span class="token punctuation">,</span>
   mapDispatchToProps
-<span class="token punctuation">)</span><span class="token punctuation">(</span>Search<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre></div>
-<p>Now we're also using mapDispatchToState which lets us write functions to dispatch actions and thunks to Redux. Notice the first one we dispatch two. You could do this as a thunk too: either works.</p>
+<span class="token punctuation">)</span><span class="token punctuation">(</span>SearchParams<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre></div>
+<p>Now we're also using mapDispatchToState which lets us write functions to dispatch actions and thunks to Redux. Let's quickly add it to Details.js</p>
+<div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript"><span class="token comment">// replace ThemeContext import</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> connect <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"react-redux"</span><span class="token punctuation">;</span>
+
+<span class="token comment">// remove all the ThemeContext stuff and the interior function</span>
+<span class="token comment">// replace `context.theme` with just `this.props.theme` for the backgroundColor</span>
+
+<span class="token comment">// bottom</span>
+<span class="token keyword">const</span> <span class="token function-variable function">mapStateToProps</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">{</span> theme <span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">(</span><span class="token punctuation">{</span> theme <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> WrappedDetails <span class="token operator">=</span> <span class="token function">connect</span><span class="token punctuation">(</span>mapStateToProps<span class="token punctuation">)</span><span class="token punctuation">(</span>Details<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// replace &lt;Details /></span>
+<span class="token operator">&lt;</span>WrappedDetails <span class="token punctuation">{</span><span class="token operator">...</span>props<span class="token punctuation">}</span> <span class="token operator">/</span><span class="token operator">></span><span class="token punctuation">;</span></code></pre></div>
 <p>Now it should work! Redux is a great piece of technology that adds a lot of complexity to your app. Don't add it lightly. I'd say you'd rarely want to start a new project using Redux: hit the problems first and then refactor it in. You just saw how.</p>
 <p>Let's quickly try the dev tools:</p>
 <ul>
@@ -270,4 +205,5 @@ breed<span class="token punctuation">:</span> <span class="token keyword">this</
 </ul>
 <p>Download the one you're using, open up your app, and mess around the Redux tab. You can time travel, auto-generate tests, modify state, see actions, all sorts of cool stuff. Another good reason to use Redux.</p>
 <p>Hopefully you're well informed on the boons and busts of introducing Redux. It's great, just be careful.</p>
-<h2 id="-3f9ac730d9d6068ddd513c765ce1a92ba31407b4-branch-redux"><a href="#-3f9ac730d9d6068ddd513c765ce1a92ba31407b4-branch-redux" aria-hidden class="anchor"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>🌳 3f9ac730d9d6068ddd513c765ce1a92ba31407b4 (branch redux)</h2></div><div class="lesson-links"><a aria-current="page" class="prev" href="/complete-intro-to-react-v5/redux">← Redux</a><a class="next" href="/complete-intro-to-react-v5/preact">Preact →</a></div></div></div></div></div></div></div><script id="gatsby-script-loader">/*<![CDATA[*/window.page={"componentChunkName":"component---src-templates-lesson-template-js","jsonName":"redux-5ed","path":"/redux"};window.dataPath="944/path---redux-5-ed-7a4-1T5uEOpL0KxttF80wBVCmj4DYU";/*]]>*/</script><script id="gatsby-chunk-mapping">/*<![CDATA[*/window.___chunkMapping={"app":["/app.94c1ba1634395bcc1b83.css","/app-a8622f2a950f1be64845.js"],"component---src-templates-lesson-template-js":["/component---src-templates-lesson-template-js-76a02bf0f363dc242a3c.js"],"component---src-pages-404-js":["/component---src-pages-404-js-00cd213ddd19e7c82ed0.js"],"component---src-pages-index-js":["/component---src-pages-index-js.13a53151845aec8af505.css","/component---src-pages-index-js-1c2ecdd5831f6f0a1523.js"],"pages-manifest":["/pages-manifest-e6ff3f7fb44869016613.js"]};/*]]>*/</script><script src="/complete-intro-to-react-v5/webpack-runtime-b1fee38f73738931f5fd.js" async=""></script><script src="/complete-intro-to-react-v5/app-a8622f2a950f1be64845.js" async=""></script><script src="/complete-intro-to-react-v5/component---src-templates-lesson-template-js-76a02bf0f363dc242a3c.js" async=""></script></body></html>
+<p><a href="https://frontendmasters.com/courses/react-state/">If you want a deeper dive, check out the Frontend Masters course on Redux!</a></p>
+<h2 id="-lolcommit-branch-redux"><a href="#-lolcommit-branch-redux" aria-hidden class="anchor"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>🌳 lolcommit (branch redux)</h2></div><div class="lesson-links"><a aria-current="page" class="prev" href="/complete-intro-to-react-v5/redux">← Redux</a><a class="next" href="/complete-intro-to-react-v5/preact">Preact →</a></div></div></div></div></div></div></div><script id="gatsby-script-loader">/*<![CDATA[*/window.page={"componentChunkName":"component---src-templates-lesson-template-js","jsonName":"redux-5ed","path":"/redux"};window.dataPath="329/path---redux-5-ed-7a4-tL7UdEgeBWjBH7t0BNmP0YrHJ2s";/*]]>*/</script><script id="gatsby-chunk-mapping">/*<![CDATA[*/window.___chunkMapping={"app":["/app.94c1ba1634395bcc1b83.css","/app-a8622f2a950f1be64845.js"],"component---src-templates-lesson-template-js":["/component---src-templates-lesson-template-js-76a02bf0f363dc242a3c.js"],"component---src-pages-404-js":["/component---src-pages-404-js-00cd213ddd19e7c82ed0.js"],"component---src-pages-index-js":["/component---src-pages-index-js.13a53151845aec8af505.css","/component---src-pages-index-js-1c2ecdd5831f6f0a1523.js"],"pages-manifest":["/pages-manifest-f9f521e17dfc50bb7531.js"]};/*]]>*/</script><script src="/complete-intro-to-react-v5/webpack-runtime-0f630cd90923a62faea2.js" async=""></script><script src="/complete-intro-to-react-v5/app-a8622f2a950f1be64845.js" async=""></script><script src="/complete-intro-to-react-v5/component---src-templates-lesson-template-js-76a02bf0f363dc242a3c.js" async=""></script></body></html>
