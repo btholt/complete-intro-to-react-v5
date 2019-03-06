@@ -35,20 +35,17 @@ Let's go fix App.js now:
 export default App;
 ```
 
-The Modal makes reference to window in its modular scope, let's move that reference inside its componentDidMount:
+The Modal makes reference to window in its modular scope, let's move that reference inside the render function:
 
 ```javascript
-// delete modalRoot assignment
+// replace modalRoot assignment
+let modalRoot;
 
-// in constructor
-this.modalRoot = document.getElementById("modal");
-
-// update references to modalRoot to this.modalRoot
+// in function
+modalRoot = modalRoot ? modalRoot : document.getElementById("modal");
 ```
 
-Now Modal doesn't reference window in the modular scope but it _does_ in the constructor. This means you can't render a modal on initial page load. Since it's using the DOM to attach the portal, that sort of makes sense. Be careful of that.
-
-With our `.babelrc` we don't currently have `babel-preset-react` installed (unless you're continuing on from the testing portion). Run `npm install -D babel-preset-react` and put `"react"` above the `"env"` array in your `.babelrc`.
+Now Modal doesn't reference window in the modular scope but it _does_ in the render function. This means you can't render a modal on initial page load. Since it's using the DOM to attach the portal, that sort of makes sense. Be careful of that. We're using a ternary to only look it up on the first render.
 
 We need a few more modules. Run `npm install babel-cli express` to get the tools we need for Node.
 
@@ -106,7 +103,7 @@ app.listen(PORT);
 
 Run `npm run start` and then open http://localhost:3000 to see your server side rendered app. Notice it displays markup almost instantly.
 
-## 🌳 0d4aed673883b49217cc298ad7a1393e9eb331e7 (branch ssr)
+## 🌳 lolcommit (branch ssr)
 
 This is all cool, but we can make it _better_.
 
@@ -144,6 +141,6 @@ app.use((req, res) => {
 - From there we start streaming the React markup to the user.
 - After we finish with that stream, we write the end of the index.html page and close the connection.
 
-## 🌳 73f4e764a36490882b2129e0255f4501ffe2167b (branch ssr)
+## 🌳 lolcommit (branch ssr)
 
 [ex]: http://expressjs.com/
