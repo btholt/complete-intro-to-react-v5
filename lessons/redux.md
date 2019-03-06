@@ -9,7 +9,7 @@ Redux is a well-known library that does state management for you, very similarly
 Why do we have Redux?
 
 1. Context used to be a lot worse to use and less useful. This made Redux (or Redux-like) management tools the only option
-1. Redux code is _extremely testable_. This is probably the most compelling reason to use it. Having your state mutation be broken up in such a way to make it easy to test is fantastic.
+1. Redux code is _extremely testable_. This is probably the most compelling reason to use it. Having your state mutation be broken up in such a way to make it easy to test is fantastic. This is also mitigated because we have `useReducer` now.
 1. The debugging story is pretty good.
 
 So given that we do now have the next context API, how often will I use Redux? Never, I anticipate. I rarely had problems that Redux solved (they exist; I just didn't have them) and the few cases now where I would see myself using Redux I think React's context would cover it. But if Redux speaks to you, do it! Don't let me stop you. It's a great library. Just be cautious. And there are reasons to use it: if you have complex orchestrations of async data, Redux can be immensely useful and I _would_ use it for that.
@@ -27,22 +27,18 @@ Okay, let's get started. React state management is pretty simple: call setState 
 
 So what was one step became several. But each step of this is testable, and that's great. And it's explicit and verbose. It's long to follow, but it's an easy breadcrumb trailer to follow when things go awry. So let's start writing it:
 
-Run `npm install redux redux-thunk react-redux`. Create store.js and put in it:
+Run `npm install redux react-redux`. Create store.js and put in it:
 
 ```javascript
 import { createStore, compose, applyMiddleware } from "redux";
-import thunk from "redux-thunk";
 import reducer from "./reducers";
 
 const store = createStore(
   reducer,
-  compose(
-    applyMiddleware(thunk),
-    typeof window === "object" &&
-      typeof window.devToolsExtension !== "undefined"
-      ? window.devToolsExtension()
-      : f => f
-  )
+  typeof window === "object" &&
+    typeof window.__REDUX_DEVTOOLS_EXTENSION__ !== "undefined"
+    ? window.__REDUX_DEVTOOLS_EXTENSION__()
+    : f => f
 );
 
 export default store;
@@ -50,7 +46,7 @@ export default store;
 
 We're including the dev tools middleware (I'll show you at the end) as well as redux-thunk which we'll use in a second to do async actions. This is the base of a store: a reducer. A store is just basically a big object with prescribed ways of changing it. So let's go make our first reducer.
 
-Make a new folder in src called `reducers.js`. In reducers.js, put:
+Make a new folder in src called `reducers`. Create a file called `index.js` in reducers and put:
 
 ```javascript
 import { combineReducers } from "redux";
@@ -84,73 +80,39 @@ Reducers are synchronous: they cannot be async. They also must be pure with no s
 
 Okay, so now we understand how, once given a state and an action, we can make a reducer. We haven't made nor dispatched those actions yet but we're getting there. Let's make the other reducers.
 
-animal.js
+theme.js
 
 ```javascript
-export default function animal(state = "dog", action) {
+export default function theme(state = "darkblue", action) {
   switch (action.type) {
-    case "CHANGE_ANIMAL":
+    case "CHANGE_THEME":
       return action.payload;
     default:
       return state;
   }
 }
 ```
-
-breeds.js
-
-```javascript
-export default function animal(state = [], action) {
-  switch (action.type) {
-    case "CHANGE_BREEDS":
-      return action.payload;
-    default:
-      return state;
-  }
-}
-```
-
-breed.js
-
-```javascript
-export default function animal(state = "", action) {
-  switch (action.type) {
-    case "CHANGE_ANIMAL":
-      return "";
-    case "CHANGE_BREED":
-      return action.payload;
-    default:
-      return state;
-  }
-}
-```
-
-In this last one, we also respond in breed.js to an animal change because that means the user switch animals and they can't search for a breed from a separate animal. This how you can have multiple cases and have one action trigger more than one reducer.
 
 index.js
 
 ```javascript
 import { combineReducers } from "redux";
 import location from "./location";
-import animal from "./animal";
-import breed from "./breed";
-import breeds from "./breeds";
+import theme from "./theme";
 
 export default combineReducers({
   location,
-  animal,
-  breed,
-  breeds
+  theme
 });
 ```
 
 Let's go make the action creators. These are the functions that the UI gives to the store to effect change: actions. These functions create actions.
 
-Create a new folder called changeAnimal.js
+Create a new folder called actionCreators and put in changeTheme.js
 
 ```javascript
-export default function changeAnimal(animal) {
-  return { type: "CHANGE_ANIMAL", payload: animal };
+export default function changeTheme(theme) {
+  return { type: "CHANGE_THEME", payload: theme };
 }
 ```
 
@@ -164,67 +126,18 @@ export default function changeLocation(location) {
 }
 ```
 
-changeBreed.js
-
-```javascript
-export default function changeBreed(breed) {
-  return { type: "CHANGE_BREED", payload: breed };
-}
-```
-
-That's it for action creators. Let's also show you how to do async actions. there are a thousand flavors of how to do async with Redux. The most popular are [redux-observable][ro], [redux-saga][rs], [redux-promise][rp], and [redux-thunk][rt]. We're going to use redux-thunk because it's simplest: the others are more powerful but more complex.
-
-A thunk is a function. It's the representation of a value that has not been determined yet. It's an async value, similar to a promise. If I have
-
-```javascript
-const price = 1000;
-const determinedLaterPrice = getPrice();
-```
-
-What is the value of `price`? 1000. This value was determined at write-time: when I wrote this code I knew the value of price. What is the value of `determinedLaterPrice`? We don't know! It'll be determined later. That's the gist of a thunk.
-
-So with a thunk, we don't return an object, we return a function (the function returns a function) that will dispatch an action _later_. IT could still be sync, it could be async. Just not immediately. Keep in mind that reducers never see thunks: only sync action objects get dispatched to the store. These thunks just let us do AJAX before we dispatch an object. Make a new file called getBreeds.js:
-
-```javascript
-import pf from "petfinder-client";
-
-const petfinder = pf({
-  key: process.env.API_KEY,
-  secret: process.env.API_SECRET
-});
-
-export default function getBreeds() {
-  return function(dispatch, getState) {
-    const { animal } = getState();
-    petfinder.breed.list({ animal }).then(data => {
-      let breeds = [];
-      if (
-        data.petfinder &&
-        data.petfinder.breeds &&
-        Array.isArray(data.petfinder.breeds.breed)
-      ) {
-        breeds = data.petfinder.breeds.breed;
-      }
-      dispatch({ type: "CHANGE_BREEDS", payload: breeds });
-    });
-  };
-}
-```
-
-Notice our function returns a function, a thunk. We do our AJAX action and then only after we're done do we dispatch. That's a thunk. We also could dispatch _multiple_ actions, like if you wanted to show a loading indicator.
+That's it for action creators. In previous versions of this course, I taught how to do async actions so [check this out if you want to see that][v4-async]. there are a thousand flavors of how to do async with Redux. The most popular are [redux-observable][ro], [redux-saga][rs], [redux-promise][rp], and [redux-thunk][rt]. I showed how to use redux-thunk because it's simplest: the others are more powerful but more complex.
 
 Okay, let's go integrate this now where context was being used before. Go to App.js:
 
 ```javascript
-// delete pf
+// delete ThemeContext, useState import
 
 // import
 import { Provider } from "react-redux";
 import store from "./store";
 
-// delete pf credentials loading
-
-// delete constructor, handleBreedChange, handleAnimalChange, getBreeds, handleLocationChange
+// delete useState call
 
 // wrap app with
 <Provider store={store}>[…]</Provider>;
@@ -234,10 +147,10 @@ Feels nice deleting a lot of code, right?
 
 Just like context makes your store available anywhere in your app, so does Provider.
 
-Now that Redux is available everywhere, let's go add it to Results.js
+Now that Redux is available everywhere, let's go add it to SearchParams.js
 
 ```javascript
-// replace Consumer import
+// replace ThemeContext import
 import { connect } from "react-redux";
 
 // replace context references
@@ -246,59 +159,61 @@ animal: this.props.animal,
 breed: this.props.breed,
 
 // replace export
-const mapStateToProps = ({ animal, breed, location }) => ({
-  animal,
-  breed,
+const mapStateToProps = ({ theme, location }) => ({
+  theme,
   location
 });
 
-export default connect(mapStateToProps)(Results);
+export default connect(mapStateToProps)(SearchParams);
 ```
 
 Connect is a little helper that will pluck things out of state and put them into your props for you so you can reference those as if they were normal state. This makes it not too hard to keep your Redux and React separate too so you can test both independently.
 
-Let's go make SearchBox.js work:
+We're not quite done here. We can got the reading part of Redux done but now the writing. Let's go do that too in SearchParams.js
 
 ```javascript
 //replace Consumer import
-import { connect } from "react-redux";
-import getBreeds from "./actionCreators/getBreeds";
 import changeLocation from "./actionCreators/changeLocation";
-import changeAnimal from "./actionCreators/changeAnimal";
-import changeBreed from "./actionCreators/changeBreed";
+import changeAnimal from "./actionCreators/changeTheme";
 
-// delete Consumer wrapping component and function inside of it
-
-// change every reference of `context.` to `this.props.` in render
-
-// replace export
-const mapStateToProps = ({ breed, breeds, animal, location }) => ({
-  breed,
-  breeds,
-  location,
-  animal
+// destructure the methods from props
+const SearchParams = ({ theme, location, setTheme, updateLocation }) => {
+  /* code */
 });
 
+// at the bottom
 const mapDispatchToProps = dispatch => ({
-  handleAnimalChange(event) {
-    dispatch(changeAnimal(event.target.value));
-    dispatch(getBreeds());
+  updateLocation(location) {
+    dispatch(changeLocation(location));
   },
-  handleBreedChange(event) {
-    dispatch(changeBreed(event.target.value));
-  },
-  handleLocationChange(event) {
-    dispatch(changeLocation(event.target.value));
+  setTheme(theme) {
+    dispatch(changeLocation(theme));
   }
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Search);
+)(SearchParams);
 ```
 
-Now we're also using mapDispatchToState which lets us write functions to dispatch actions and thunks to Redux. Notice the first one we dispatch two. You could do this as a thunk too: either works.
+Now we're also using mapDispatchToState which lets us write functions to dispatch actions and thunks to Redux. Let's quickly add it to Details.js
+
+```javascript
+// replace ThemeContext import
+import { connect } from "react-redux";
+
+// remove all the ThemeContext stuff and the interior function
+// replace `context.theme` with just `this.props.theme` for the backgroundColor
+
+// bottom
+const mapStateToProps = ({ theme }) => ({ theme });
+
+const WrappedDetails = connect(mapStateToProps)(Details);
+
+// replace <Details />
+<WrappedDetails {...props} />;
+```
 
 Now it should work! Redux is a great piece of technology that adds a lot of complexity to your app. Don't add it lightly. I'd say you'd rarely want to start a new project using Redux: hit the problems first and then refactor it in. You just saw how.
 
@@ -311,7 +226,9 @@ Download the one you're using, open up your app, and mess around the Redux tab. 
 
 Hopefully you're well informed on the boons and busts of introducing Redux. It's great, just be careful.
 
-## 🌳 3f9ac730d9d6068ddd513c765ce1a92ba31407b4 (branch redux)
+[If you want a deeper dive, check out the Frontend Masters course on Redux!][fem]
+
+## 🌳 lolcommit (branch redux)
 
 [fsa]: https://github.com/redux-utilities/flux-standard-action
 [ro]: https://github.com/redux-observable/redux-observable
@@ -320,3 +237,4 @@ Hopefully you're well informed on the boons and busts of introducing Redux. It's
 [rt]: https://github.com/reduxjs/redux-thunk
 [fox]: https://addons.mozilla.org/en-US/firefox/addon/remotedev/
 [chrome]: https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en
+[fem]: https://frontendmasters.com/courses/react-state/
