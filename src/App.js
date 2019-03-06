@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
 import { Router, Link } from "@reach/router";
+import { Provider } from "react-redux";
+import store from "./store";
 import Details from "./Details";
 import SearchParams from "./SearchParams";
-import ThemeContext from "./ThemeContext";
 
 const App = () => {
-  const theme = useState("darkblue");
   return (
-    <ThemeContext.Provider value={theme}>
+    <Provider store={store}>
       <div>
         <header>
           <Link to="/">Adopt Me!</Link>
@@ -19,7 +19,7 @@ const App = () => {
           <Details path="/details/:id" />
         </Router>
       </div>
-    </ThemeContext.Provider>
+    </Provider>
   );
 };
 
