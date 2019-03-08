@@ -8,49 +8,48 @@ TypeScript is a thin layer on top of JavaScript that adds the power of a static 
 
 This is going to be a brief intro: how to set it up and get going with it. If you want more TypeScript goodness, check out [Mike North's course][mike].
 
-First thing, `npm install -D typescript`. Then run `npx tsc --init`. `npx` will run the TypeScript tool directly from your node_modules and init your project for you. You'll see now a tsconfig.json. We don't need to set up anything else since Parcel already knows how to handle TypeScript files.
+First thing, `npm install -D typescript`. Then run `npx tsc --init`. `npx` will run the TypeScript tool directly from your node_modules and init your project for you. You'll see now a tsconfig.json. We don't need to set up anything else since Parcel already knows how to handle TypeScript files. Open your new `tsconfig.json` file and uncomment the `jsx` field. Replace `preserve` with `react`. This lets TypeScript that you're writing React.
 
 Next we need to install the types for our project. Not all projects are written in TypeScript so another project, DefinitelyTyped, provides third party types for your library. In order to install these types, run `npm install -D @types/react @types/react-dom @types/reach__router`. This will grab all these type definitions.
 
-This is a migration: we're going to migrate one file at a time to being a TypeScript file. As we migrate each file, we'll change it from being a `.js` file to a `.tsx` file. Let's start with Modal.tsx (make sure you rename it to `.tsx`)
+This is a migration: we're going to migrate one file at a time to being a TypeScript file. As we migrate each file, we'll change it from being a `.js` file to a `.tsx` file. Let's start with Modal.tsx (make sure you rename it to `.tsx`).
 
 ```typescript
-// taken from React docs
-import React from "react";
+import React, { useEffect, useRef, ReactChild } from "react";
 import { createPortal } from "react-dom";
 
 const modalRoot = document.getElementById("modal");
 
-class Modal extends React.Component {
-  private el = document.createElement("div");
+const Modal = ({ children }: { children: ReactChild[] }) => {
+  const elRef = useRef(document.createElement("div"));
 
-  public componentDidMount() {
-    if (modalRoot) {
-      modalRoot.appendChild(this.el);
+  useEffect(() => {
+    if (!modalRoot) {
+      return;
     }
-  }
+    modalRoot.appendChild(elRef.current);
+    return () => {
+      modalRoot.removeChild(elRef.current);
+    };
+  }, []);
 
-  public componentWillUnmount() {
-    if (modalRoot) {
-      modalRoot.removeChild(this.el);
-    }
-  }
-
-  public render() {
-    return createPortal(this.props.children, this.el);
-  }
-}
+  return createPortal(<div>{children}</div>, elRef.current);
+};
 
 export default Modal;
 ```
 
-Fairly similar. We had to make it so `el` could never potentially be null by moving it out of the constructor. Then we have to do a null check on modalRoot because that could be null too. TypeScript will force you to do this a lot, but it will save you run time errors. Notice we didn't write any types down: TypeScript is smart enough to figure out types on its own most of the time.
+Fairly similar. We had to make it so the ref could never potentially be null by instantiating it inside the ref. Yes, this will create a new DOM node every time you render, and no that's probably not a big deal. You can do it like we had been doing by using the type `HTMLDivElement | null` but then you have to null check _anywhere_ you use `elRef.current` which is burdensome. This is fine for now; we can refactor if it ends up being a problem.
 
-We also need to say if each item is public or private. All life cycle methods are public since React calls them, but nothing should be accessing `el`, only the element itself.
+Then we have to do a null check on modalRoot inside the effect because that could be null too. TypeScript will force you to do this a lot, but it will save you run time errors. Notice we didn't write many types down (just children and the ref type): TypeScript is smart enough to figure out types on its own most of the time.
+
+Notice we're importing the `ReactChild` type from React. Types can be exported from libraries and modules. And then we're asserting it's an array of ReactChildren by throwing the `[]` on the end.
+
+We're also using a generic here. Refs can be one of many things. In this case
 
 Let's take the time now to migrate from ESLint to TSLint. TypeScript has its own linter that it uses and it's helpful to have those additional rules.
 
-1. Run `npm uninstall eslint babel-eslint eslint-config-prettier eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-react`
+1. Run `npm uninstall eslint babel-eslint eslint-config-prettier eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-react eslint-plugin-react-hooks`
 1. Run `npm install -D tslint tslint-react tslint-config-prettier`
 1. Delete .eslintrc.json
 1. Change your package.json lint entry to `"lint": "tslint --project .",`
@@ -62,20 +61,33 @@ Let's take the time now to migrate from ESLint to TSLint. TypeScript has its own
   "rules": {
     "ordered-imports": false,
     "object-literal-sort-keys": false,
-    "interface-name": false,
     "member-ordering": false,
-    "no-console": false
+    "no-console": false,
+    "jsx-no-lambda": false
   }
 }
 ```
 
 Now you're linting as well as type checking! I disabled some really annoying rules for you. You're welcome.
 
+Let's quickly do ThemeContext.tsx
+
+```tsx
+// replace
+const ThemeContext = createContext<[string, (theme: string) => void]>([
+  "green",
+  () => {}
+]);
+```
+
+- Here we just have to tell TS that we have a strict ordering of string and function. This will make other files easier to type.
+- We're telling it that this function will accept a string which TypeScript will enforce for us later.
+
 Let's go fix another file. Details.tsx.
 
 ```tsx
 // imports
-import { PetResponse, PetMedia } from "petfinder-client";
+import pf, { PetResponse, PetMedia } from "petfinder-client";
 import { navigate, RouteComponentProps } from "@reach/router";
 
 // before pf call
@@ -84,6 +96,8 @@ if (!process.env.API_KEY || !process.env.API_SECRET) {
 }
 
 class Details extends React.Component<RouteComponentProps<{ id: string }>> { … }
+
+// add public to methods
 
 // replace state
 public state = {
@@ -97,38 +111,72 @@ public state = {
   breed: ""
 };
 
-// first thing inside petfinder.pet.get.then
-if (!data.petfinder.pet) {
+// first thing inside componentDidMount
+if (!this.props.id) {
   navigate("/");
   return;
 }
+
+// first thing inside petfinder.pet.get.then
+.then((data: PetResponse) => {
+  if (!data.petfinder.pet) {
+    navigate("/");
+    return;
+  }
+  // […]
+})
+
+// error boundary
+export default function DetailsErrorBoundary(
+  props: RouteComponentProps<{ id: string }>
+) { … }
 ```
 
 - We need to tell TypeScript what props each component expects. Now when you import that component elsewhere, TS will make sure the consumer passes all the right props in.
 - We need to use Reach Router's Router params because the ID param will come from the router, not directly from the consumer.
-- We need to assert that we have those process.env keys, so we will throw whenever we don't.
+- We need to assert that we have those process.env keys, so we will throw whenever we don't. Same thing with the ID from the route props. If Details somehow gets rendered without it, we need to navigate to home (better to a 404 page but we don't have one.)
 - We have to give all state a default setting. This prevents errors on the initial render and it gives TypeScript the ability to infer all your types.
 - It can't tell what type media is so we tell it's a PetMedia object.
 - We had to put a null check in the componentDidMount. If the animal comes back empty, we have to handle that case. Here we're just navigating back to home and returning (the return is necessary or TS still won't be happy.)
+- TS still won't be happy because our other pages haven't been typed yet. We're getting there.
 
-Now that Details is done, let's go do Carousel.tsx
+Let's go do ErrorBoundary.tsx now
+
+```tsx
+// delete constructor, replace with this:
+public state = {
+  redirect: "",
+  hasError: false
+};
+
+// add public to all methods
+
+// add types to componentDidCatch parameters
+public componentDidCatch(error: Error, info: ErrorInfo) {
+}
+```
+
+- We didn't have to change from a constructor to a public class property but it makes typing so much easier because TS knows how to handle it implicitly if you use public class properties.
+- We had to type the parameters. We have TS in strict mode which means it doesn't like anything to be an `any` type.
+
+Now that that is done, let's go do Carousel.tsx
 
 ```tsx
 // import
-import { PetMedia, PetPhoto } from "./petfinder-types";
+import { PetMedia, PetPhoto } from "petfinder-client";
 
 // above Carousel
-interface Props {
+interface IProps {
   media: PetMedia;
 }
 
-interface State {
+interface IState {
   active: number;
   photos: PetPhoto[];
 }
 
 // add types to class
-class Carousel extends React.Component<Props, State> { … }
+class Carousel extends React.Component<IProps, IState> { … }
 
 // add public to all methods / props
 
@@ -139,7 +187,7 @@ public state: State = {
 };
 
 // modify getDerivedStateFromProps
-public static getDerivedStateFromProps({ media }: Props) {
+public static getDerivedStateFromProps({ media }: IProps) {
   let photos: PetPhoto[] = [];
   …
 }
@@ -158,7 +206,7 @@ public handleIndexClick = (event: React.MouseEvent<HTMLElement>) => {
 }
 ```
 
-- React.Component is a generic, in that it can accept other types. Here we're telling it what its state and props will look like.
+- React.Component is a generic, in that it can accept other types. Here we're telling it what its state and props will look like. We start the interfaces off with a capital I because this signifies that this is an interface. This is a common pattern and one TSLint enforces.
 - Class properties are still new, so we have to use State again to type the state. You would not have to do this if you used a constructor.
 - We need to type the event type coming back from the DOM. We know it'll come from an HTML element, and we have to make sure it's not a generic window event. TypeScript forces a lot of this defensive programming.
 
@@ -168,7 +216,7 @@ Carousel is done. Let's do Pet.tsx
 // import
 import { PetMedia, PetPhoto } from "petfinder-client";
 
-interface Props {
+interface IProps {
   name: string;
   animal: string;
   breed: string;
@@ -177,161 +225,101 @@ interface Props {
   id: string;
 }
 
-class Pet extends React.Component<Props> { … }
+class Pet extends React.Component<IProps> { … }
 
 // add type
 let photos: PetPhoto[] = [];
 ```
 
-Getting easier! Let's go do SearchContext.ts. Notice here it could be ts or tsx; there's no JSX in it so we can just leave it as ts.
-
-```ts
-// at top
-/* tslint:disable no-empty */
-
-// type breeds
-breeds: [] as string[],
-
-// add params to functions
-handleAnimalChange(e: React.KeyboardEvent<HTMLInputElement>) {},
-handleBreedChange(e: React.ChangeEvent<HTMLSelectElement>) {},
-handleLocationChange(event: React.KeyboardEvent<HTMLInputElement>) {},
-```
-
-- In general you don't want empty body functions but here it's okay because it's mostly for testing.
-- We want to type breeds to be used later.
-- You have to type the params of the SearchContext because TypeScript uses these definitions everywhere.
-
-Let's go do SearchBox.tsx
+Now let's go do useDropdown.tsx
 
 ```tsx
-// add interface, add public to render, add type to generic
-interface Props {
-  search: () => void;
-}
+import { createContext, SetStateAction, Dispatch } from "react";
 
-class Search extends React.Component<Props> {
-  public render() {
-    …
-  }
-}
+const ThemeContext = createContext<[string, Dispatch<SetStateAction<string>>]>([
+  "green",
+  (theme: string) => theme
+]);
+
+export default ThemeContext;
 ```
 
-Easy. Now let's go do Results.tsx
+- We have to be very specifc that we're expecting a useState-like response, hence all the specificity here. We all need to ensure the return function looks and acts just like useState's updater does. It's a lot of ceremony to give ourselves guarantees.
+
+Let's go do SearchParams.tsx
 
 ```tsx
-// import
-import pf, { Pet as PetType } from "petfinder-client";
+// update React import, add Reach Router import
+import React, {
+  useState,
+  useEffect,
+  useContext,
+  FunctionComponent
+} from "react";
 import { RouteComponentProps } from "@reach/router";
 
+// above pf() call
 if (!process.env.API_KEY || !process.env.API_SECRET) {
   throw new Error("you need API keys");
 }
 
-// above class
-interface Props {
-  searchParams: {
-    location: string;
-    animal: string;
-    breed: string;
-  };
+// replace function declaration
+const SearchParams: FunctionComponent<RouteComponentProps> = () => {
+  …
 }
 
-interface State {
-  pets: PetType[];
+// replace useState calls
+const [pets, setPets] = useState([] as Pet[]);
+const [breeds, updateBreeds] = useState([] as string[]);
+
+// replace setPets call
+if (res.petfinder.pets) {
+  setPets(
+    Array.isArray(res.petfinder.pets.pet)
+      ? res.petfinder.pets.pet
+      : [res.petfinder.pets.pet as Pet]
+  );
 }
 
-class Results extends React.Component<Props & RouteComponentProps, State> { … }
-
-// add public to all methods
-
-// constructor
-constructor(props: Props) {
-  super(props);
-
-  this.state = {
-    pets: [] as PetType[]
-  };
+// replace setBreeds call
+if (data.petfinder.breeds) {
+  updateBreeds(
+    Array.isArray(data.petfinder.breeds.breed)
+      ? data.petfinder.breeds.breed
+      : [data.petfinder.breeds.breed as string]
+  );
 }
-
-// inside .then
-let pets: PetType[];
-
-// export at the bottom
-export default function ResultsWithContext(props: RouterProps) { … }
 ```
 
-- Mostly not new. We're importing types from @reach/router: lots of libraries will do this.
-- We also had to use the `&` operator. This will merge those two types to create one intersection type.
+- Always need to be defensive about undefined errors. This is one of the benefits of TypeScript, even if it's a bit annoying.
+- Occasionally you need to give TypeScript a hint to what it's going to get. That's what `as` for: you're saying I'm sure it's going to be this.
+- We have to let React know what sort of parameters this component expects. And in this case it's a Reach Router route so it expects a path so we need let TypeScript in on the secret.
 
-Let's go do SearchParams.tsx.
+Now let's go do Results.tsx
 
 ```tsx
 // import
-import { navigate, RouteComponentProps } from "@reach/router";
+import React, { FunctionComponent } from "react";
+import { Pet as IPet } from "petfinder-client";
 
-// add type generic
-class Search extends React.Component<RouteComponentProps> { … }
+// above class
+interface IProps {
+  pets: IPet[];
+}
+
+// replace function declaration
+const Results: FunctionComponent<IProps> = ({ pets }) => { … }
 ```
+
+- This how you type FunctionComponents. Not too bad.
 
 Lastly, let's do App.tsx.
 
 ```tsx
-// above pf call
-if (!process.env.API_KEY || !process.env.API_SECRET) {
-  throw new Error("you need API keys");
-}
-
-// below pf call
-interface State {
-  location: string;
-  animal: string;
-  breed: string;
-  breeds: string[];
-  handleAnimalChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-  handleBreedChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-  handleLocationChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  getBreeds: () => void;
-}
-
-// replace class declaration
-class App extends React.Component<{}, State> { … }
-
-// add public to all methods
-
-// add type to breeds inside state
-breeds: [] as string[],
-
-// redo event listeners
-public handleLocationChange = (
-  event: React.ChangeEvent<HTMLInputElement>
-) => {
-  if (event.target instanceof HTMLInputElement) {
-    this.setState({
-      location: event.target.value
-    });
-  }
-};
-public handleAnimalChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-  if (event.target instanceof HTMLInputElement) {
-    this.setState(
-      {
-        animal: event.target.value
-      },
-      this.getBreeds
-    );
-  }
-};
-public handleBreedChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-  if (event.target instanceof HTMLSelectElement) {
-    this.setState({
-      breed: event.target.value
-    });
-  }
-};
+// Nothing!
 ```
 
-Most of this is making the functions matching the call signatures we've defined for them. Everything else should feel familiar.
+Because of the rest of the work we did, App needs no changes! Hooray! 🎉
 
 This probably felt burdensome to do. In fact, it is. I had a difficult time writing this! Converting existing JS codebasees to TypeScript necessitates a certain amount of writing and rewriting to get all the type signatures in a place that the compiler can verify everything. Be cautious before you call for your team to rewrite.
 
@@ -341,7 +329,7 @@ Last thing, let's add a type check to our package.json just in case someone isn'
 
 Congrats! You finished TypeScript.
 
-## 🌳 206b5545a1d66c5940d900f346a8ccc90af1bfc4 (branch typescript)
+## 🌳 lolcommit (branch typescript)
 
 [mike]: https://frontendmasters.com/courses/typescript/
 [dt]: https://www.definitelytyped.org
