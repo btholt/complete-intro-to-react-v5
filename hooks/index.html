@@ -45,8 +45,9 @@
         }
       }
     })
-  </script><link as="script" rel="preload" href="/complete-intro-to-react-v5/component---src-templates-lesson-template-js-76a02bf0f363dc242a3c.js"/><link as="script" rel="preload" href="/complete-intro-to-react-v5/app-a8622f2a950f1be64845.js"/><link as="script" rel="preload" href="/complete-intro-to-react-v5/webpack-runtime-c8fe4d329dba7013f3bc.js"/><link as="fetch" rel="preload" href="/complete-intro-to-react-v5/static/d/83/path---hooks-e-61-1fb-PRBqo8YW3ayKVDLc2n5SjCu74.json" crossOrigin="use-credentials"/></head><body><noscript id="gatsby-noscript">This app works best with JavaScript enabled.</noscript><div id="___gatsby"><div style="outline:none" tabindex="-1" role="group"><div><div class="navbar navbar-light gradient"><a class="navbar-brand" href="/complete-intro-to-react-v5/">Complete Intro to React v5</a></div><div class="main"><div class="lesson-container"><div class="lesson"><h1>Hooks</h1><h2></h2><div class="lesson-content"><h3 id="️-important-️"><a href="#%EF%B8%8F-important-%EF%B8%8F" aria-hidden class="anchor"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>⚠️ IMPORTANT ⚠️</h3>
-<p>If you've been following the whole class so far, ignore this. If you're hopping into the middle of this class just to look at the hooks portion, you can still follow this lesson! So far we've been building an app but you can just head to [CodePen][codepen] where I've provided you with enough of a skeleton to follow this lesson.</p>
+  </script><link as="script" rel="preload" href="/complete-intro-to-react-v5/component---src-templates-lesson-template-js-76a02bf0f363dc242a3c.js"/><link as="script" rel="preload" href="/complete-intro-to-react-v5/app-a8622f2a950f1be64845.js"/><link as="script" rel="preload" href="/complete-intro-to-react-v5/webpack-runtime-486dcd8fce630bf858ac.js"/><link as="fetch" rel="preload" href="/complete-intro-to-react-v5/static/d/832/path---hooks-e-61-1fb-lvupEbuJ3bgDzmoaH0O7nqoW0vQ.json" crossOrigin="use-credentials"/></head><body><noscript id="gatsby-noscript">This app works best with JavaScript enabled.</noscript><div id="___gatsby"><div style="outline:none" tabindex="-1" role="group"><div><div class="navbar navbar-light gradient"><a class="navbar-brand" href="/complete-intro-to-react-v5/">Complete Intro to React v5</a></div><div class="main"><div class="lesson-container"><div class="lesson"><h1>Hooks</h1><h2></h2><div class="lesson-content"><h3 id="️-important-️"><a href="#%EF%B8%8F-important-%EF%B8%8F" aria-hidden class="anchor"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>⚠️ IMPORTANT ⚠️</h3>
+<p>If you've been following the whole class so far, ignore this. If you're hopping into the middle of this class just to look at the hooks portion, you can still follow this lesson and build along with us! So far we've been building an app that you can checkout on GitHub and then fast-forward this commit: lolcommit.</p>
+<p>If you just want an explaination the hooks in general, check out the <a href="hooks-in-depth">last section</a></p>
 <h2 id="getting-started-with-hooks"><a href="#getting-started-with-hooks" aria-hidden class="anchor"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Getting started with hooks</h2>
 <p>Now we want to make it so you can modify what your search parameters are. Let's make a new route called SearchParams.js and have it accept these search parameters.</p>
 <div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript"><span class="token keyword">import</span> React<span class="token punctuation">,</span> <span class="token punctuation">{</span> useState<span class="token punctuation">,</span> useEffect <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"react"</span><span class="token punctuation">;</span>
@@ -73,7 +74,7 @@
 <span class="token comment">// in App.js, replace all the Pets</span>
 <span class="token operator">&lt;</span>SearchParams <span class="token operator">/</span><span class="token operator">></span></code></pre></div>
 <p>Now navigate to <a href="http://localhost:1234">http://localhost:1234</a> and see that your have one input box that says "Seattle, WA". Try and type in it. You'll see that you can't modify it. Why? Let's think about how React works: when you type in the input, React detects that a DOM event happens. When that happens, React thinks <em>something</em> may have changed so it runs a re-render. Providing your render functions are fast, this is a very quick operation. It then diffs what's currently there and what its render pass came up with. It then updates the minimum amount of DOM necessary.</p>
-<p>Notice we're using <code class="language-text">className</code> instead of <code class="language-text">class</code> on the HTML element for CSS classes. This is because <code class="language-text">class</code> is a reserved word in JS and JSX is still just JS. So instead they opted to use <code class="language-text">className</code> which is the [name of the JS API][js-api] for interacting with class names.</p>
+<p>Notice we're using <code class="language-text">className</code> instead of <code class="language-text">class</code> on the HTML element for CSS classes. This is because <code class="language-text">class</code> is a reserved word in JS and JSX is still just JS. So instead they opted to use <code class="language-text">className</code> which is the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/className">name of the JS API</a> for interacting with class names.</p>
 <p>Like <code class="language-text">className</code>, <code class="language-text">htmlFor</code> is used because <code class="language-text">for</code> is a reserved word in JS.</p>
 <p>So if we type in our input and it re-renders, what gets out in the <code class="language-text">input</code> tag? Well, its value is tied to <code class="language-text">location</code> and nothing changed that, so it remains the same. In other words, two way data binding is <em>not</em> free in React. I say this is a feature because it makes you explicit on how you handle your data. Let's go make it work.</p>
 <div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript"><span class="token comment">// in SearchParams.js</span>
@@ -211,85 +212,4 @@
 <p>You will have ESLint errors around un-used variables. This is expected. We'll use them in the next lesson.</p>
 <p>Let's go make it make AJAX requests now!</p>
 <p> </p>
-<h2 id="-lolcommithash"><a href="#-lolcommithash" aria-hidden class="anchor"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>🌳 <a href="https://github.com/btholt/complete-intro-to-react-v5/commit/lolcommithash">lolcommithash</a></h2>
-<!--
-Now we want to populate the third dropdown, breed, based on the API. Every time animal changes, we need to request a new set of breeds. Let's do that. Also let's make it so console statements just warn.
-
-```javascript
-// replace handleAnimalChange
-handleAnimalChange = event => {
-  this.setState(
-    {
-      animal: event.target.value
-    },
-    this.getBreeds
-  );
-};
-handleBreedChange = event => {
-  this.setState({
-    breed: event.target.value
-  });
-};
-getBreeds() {
-  if (this.state.animal) {
-    petfinder.breed
-      .list({ animal: this.state.animal })
-      .then(data => {
-        if (
-          data.petfinder &&
-          data.petfinder.breeds &&
-          Array.isArray(data.petfinder.breeds.breed)
-        ) {
-          this.setState({
-            breeds: data.petfinder.breeds.breed
-          });
-        } else {
-          this.setState({ breeds: [] });
-        }
-      })
-      .catch(console.error);
-  } else {
-    this.setState({
-      breeds: []
-    });
-  }
-}
-
-// beneath animal dropdown
-<label htmlFor="breed">
-  Breed
-  <select
-    disabled={!this.state.breeds.length}
-    id="breed"
-    value={this.state.breed}
-    onChange={this.handleBreedChange}
-    onBlur={this.handleBreedChange}
-  >
-    <option />
-    {this.state.breeds.map(breed => (
-      <option key={breed} value={breed}>
-        {breed}
-      </option>
-    ))}
-  </select>
-</label>
-<button>Submit</button>
-```
-
-We need to be reactive to every time animal changes to request new breeds. Whenever you call setState, it's not instant. React is smart enough to wait for you to make all your changes and then batch together re-renders into one go. So, because of that, if I do `this.setState({ number: this.state.number + 1}); console.log(this.state.number)`, that console.log will _probably_ be the previous number, before you called setState (it may not be either.) In either case, if you need to _guarantee_ that setState gets flushed, you can give setState an optional second param that it will call _after_ it finishes. Then we can guarantee getBreeds will work like we expect. Everything else is not new.
-
-So now we have the data of what we want to search. How do we pass that into the Results page? Let me give you three options:
-
-1. Move the state from living in SearchParams and into App. We can then pass that state from App into both SearchParams and Results. We then make functions that can modify that state and pass that into SearchParams that modify its parents state. This is a really common pattern but probably the least preferred options here. This can get hairy because your App component, as you may imagine in a large app, could end up holding _a lot_ of state.
-1. Make everything a URL parameter and use Reach Router to maintain the state _in the URL_. This is probably the preferred option here. This makes it possible to deep link into searches in the Result page. This is what I'd normally do.
-1. Because I want to show you how to use context, we're going to do that! Next lesson!
-
-We'll make the button work in the next lesson.
-
-&nbsp;
-
-## 🌳 [0d4309ac626aa403cc96ccdec91acdfe50f62e49](https://github.com/btholt/complete-intro-to-react-v5/commit/0d4309ac626aa403cc96ccdec91acdfe50f62e49)
-
--->
-<p>[js-api]:
-[codepen]:</p></div><div class="lesson-links"><a aria-current="page" class="prev" href="/complete-intro-to-react-v5/hooks">← Hooks</a><a class="next" href="/complete-intro-to-react-v5/async">Handling Async →</a></div></div></div></div></div></div></div><script id="gatsby-script-loader">/*<![CDATA[*/window.page={"componentChunkName":"component---src-templates-lesson-template-js","jsonName":"hooks-e61","path":"/hooks"};window.dataPath="83/path---hooks-e-61-1fb-PRBqo8YW3ayKVDLc2n5SjCu74";/*]]>*/</script><script id="gatsby-chunk-mapping">/*<![CDATA[*/window.___chunkMapping={"app":["/app.94c1ba1634395bcc1b83.css","/app-a8622f2a950f1be64845.js"],"component---src-templates-lesson-template-js":["/component---src-templates-lesson-template-js-76a02bf0f363dc242a3c.js"],"component---src-pages-404-js":["/component---src-pages-404-js-00cd213ddd19e7c82ed0.js"],"component---src-pages-index-js":["/component---src-pages-index-js.13a53151845aec8af505.css","/component---src-pages-index-js-b37d80c9fbed7c3e0d56.js"],"pages-manifest":["/pages-manifest-4efa127ff2a3c8a61654.js"]};/*]]>*/</script><script src="/complete-intro-to-react-v5/webpack-runtime-c8fe4d329dba7013f3bc.js" async=""></script><script src="/complete-intro-to-react-v5/app-a8622f2a950f1be64845.js" async=""></script><script src="/complete-intro-to-react-v5/component---src-templates-lesson-template-js-76a02bf0f363dc242a3c.js" async=""></script></body></html>
+<h2 id="-lolcommithash"><a href="#-lolcommithash" aria-hidden class="anchor"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>🌳 <a href="https://github.com/btholt/complete-intro-to-react-v5/commit/lolcommithash">lolcommithash</a></h2></div><div class="lesson-links"><a aria-current="page" class="prev" href="/complete-intro-to-react-v5/hooks">← Hooks</a><a class="next" href="/complete-intro-to-react-v5/async">Handling Async →</a></div></div></div></div></div></div></div><script id="gatsby-script-loader">/*<![CDATA[*/window.page={"componentChunkName":"component---src-templates-lesson-template-js","jsonName":"hooks-e61","path":"/hooks"};window.dataPath="832/path---hooks-e-61-1fb-lvupEbuJ3bgDzmoaH0O7nqoW0vQ";/*]]>*/</script><script id="gatsby-chunk-mapping">/*<![CDATA[*/window.___chunkMapping={"app":["/app.94c1ba1634395bcc1b83.css","/app-a8622f2a950f1be64845.js"],"component---src-templates-lesson-template-js":["/component---src-templates-lesson-template-js-76a02bf0f363dc242a3c.js"],"component---src-pages-404-js":["/component---src-pages-404-js-00cd213ddd19e7c82ed0.js"],"component---src-pages-index-js":["/component---src-pages-index-js.13a53151845aec8af505.css","/component---src-pages-index-js-c8936805cc4c27858089.js"],"pages-manifest":["/pages-manifest-5515de1beaa17b5edde2.js"]};/*]]>*/</script><script src="/complete-intro-to-react-v5/webpack-runtime-486dcd8fce630bf858ac.js" async=""></script><script src="/complete-intro-to-react-v5/app-a8622f2a950f1be64845.js" async=""></script><script src="/complete-intro-to-react-v5/component---src-templates-lesson-template-js-76a02bf0f363dc242a3c.js" async=""></script></body></html>
