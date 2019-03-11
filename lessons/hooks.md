@@ -6,7 +6,9 @@ path: "/hooks"
 
 ### ⚠️ IMPORTANT ⚠️
 
-If you've been following the whole class so far, ignore this. If you're hopping into the middle of this class just to look at the hooks portion, you can still follow this lesson! So far we've been building an app but you can just head to [CodePen][codepen] where I've provided you with enough of a skeleton to follow this lesson.
+If you've been following the whole class so far, ignore this. If you're hopping into the middle of this class just to look at the hooks portion, you can still follow this lesson and build along with us! So far we've been building an app that you can checkout on GitHub and then fast-forward this commit: lolcommit.
+
+If you just want an explaination the hooks in general, check out the [last section](hooks-in-depth)
 
 ## Getting started with hooks
 
@@ -215,85 +217,4 @@ Let's go make it make AJAX requests now!
 
 ## 🌳 [lolcommithash](https://github.com/btholt/complete-intro-to-react-v5/commit/lolcommithash)
 
-<!--
-Now we want to populate the third dropdown, breed, based on the API. Every time animal changes, we need to request a new set of breeds. Let's do that. Also let's make it so console statements just warn.
-
-```javascript
-// replace handleAnimalChange
-handleAnimalChange = event => {
-  this.setState(
-    {
-      animal: event.target.value
-    },
-    this.getBreeds
-  );
-};
-handleBreedChange = event => {
-  this.setState({
-    breed: event.target.value
-  });
-};
-getBreeds() {
-  if (this.state.animal) {
-    petfinder.breed
-      .list({ animal: this.state.animal })
-      .then(data => {
-        if (
-          data.petfinder &&
-          data.petfinder.breeds &&
-          Array.isArray(data.petfinder.breeds.breed)
-        ) {
-          this.setState({
-            breeds: data.petfinder.breeds.breed
-          });
-        } else {
-          this.setState({ breeds: [] });
-        }
-      })
-      .catch(console.error);
-  } else {
-    this.setState({
-      breeds: []
-    });
-  }
-}
-
-// beneath animal dropdown
-<label htmlFor="breed">
-  Breed
-  <select
-    disabled={!this.state.breeds.length}
-    id="breed"
-    value={this.state.breed}
-    onChange={this.handleBreedChange}
-    onBlur={this.handleBreedChange}
-  >
-    <option />
-    {this.state.breeds.map(breed => (
-      <option key={breed} value={breed}>
-        {breed}
-      </option>
-    ))}
-  </select>
-</label>
-<button>Submit</button>
-```
-
-We need to be reactive to every time animal changes to request new breeds. Whenever you call setState, it's not instant. React is smart enough to wait for you to make all your changes and then batch together re-renders into one go. So, because of that, if I do `this.setState({ number: this.state.number + 1}); console.log(this.state.number)`, that console.log will _probably_ be the previous number, before you called setState (it may not be either.) In either case, if you need to _guarantee_ that setState gets flushed, you can give setState an optional second param that it will call _after_ it finishes. Then we can guarantee getBreeds will work like we expect. Everything else is not new.
-
-So now we have the data of what we want to search. How do we pass that into the Results page? Let me give you three options:
-
-1. Move the state from living in SearchParams and into App. We can then pass that state from App into both SearchParams and Results. We then make functions that can modify that state and pass that into SearchParams that modify its parents state. This is a really common pattern but probably the least preferred options here. This can get hairy because your App component, as you may imagine in a large app, could end up holding _a lot_ of state.
-1. Make everything a URL parameter and use Reach Router to maintain the state _in the URL_. This is probably the preferred option here. This makes it possible to deep link into searches in the Result page. This is what I'd normally do.
-1. Because I want to show you how to use context, we're going to do that! Next lesson!
-
-We'll make the button work in the next lesson.
-
-&nbsp;
-
-## 🌳 [0d4309ac626aa403cc96ccdec91acdfe50f62e49](https://github.com/btholt/complete-intro-to-react-v5/commit/0d4309ac626aa403cc96ccdec91acdfe50f62e49)
-
--->
-
-[js-api]:
-[codepen]:
+[js-api]: https://developer.mozilla.org/en-US/docs/Web/API/Element/className
