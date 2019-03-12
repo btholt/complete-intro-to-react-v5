@@ -1,7 +1,7 @@
 ---
 title: "Context"
 path: "/context"
-order: 12
+order: 13
 ---
 
 Historically I have not taught context when teaching React. This was for a couple reasons. First of all, the API they were using was still unofficial, however they standardized it in version 16. Secondly, normally you don't need context; React's state is enough. Thirdly, the old API was bad, in my opinion. The new one is pretty good.
@@ -114,5 +114,9 @@ const [theme, setTheme] = useContext(ThemeContext);
 - You can multiple layers of context. If I wrapped SearchParams in its own `Provider` (in addition to the one that already exists), the SearchParams context would read from that because it's the closet one whereas Details would read from the top level one because it's the only one.
 
 That's it for context! Something like theming would be perfect for context. It's for app-level data. Everything else should be boring-ol' state.
+
+&nbsp;
+
+## 🌳 [6aafd4a2a80f0dc956d3c3b117e2022b6fbdfef1](https://github.com/btholt/complete-intro-to-react-v5/commit/6aafd4a2a80f0dc956d3c3b117e2022b6fbdfef1)
 
 [v4]: https://btholt.github.io/complete-intro-to-react-v4/context

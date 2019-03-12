@@ -1,7 +1,7 @@
 ---
 title: "Code Splitting"
 path: "/code-splitting"
-order: 17
+order: 18
 ---
 
 Code splitting is _essential_ to having small application sizes, particularly with React. React is already thirty-ish kilobytes just for the framework. This isn't huge but it's enough that it will slow down your initial page loads (by up to a second on 2G speeds.) If you have a lot third party libraries on top of that, you've sunk yourself before they've even started loading your page.
@@ -49,4 +49,4 @@ const Modal = lazy(() => import("./Modal"));
 - This cut out like 1KB, but the point to understand here is you can split places other than routes. Anywhere you're not using code upfront you can split and load later.
 - Notice we didn't have to use `<Suspense>` again. We already have a suspense component at the top of the app and so that still works!
 
-## 🌳 lolcommit (branch code-splitting)
+## 🌳 branch [code-splitting](https://github.com/btholt/complete-intro-to-react-v5/tree/code-splitting)

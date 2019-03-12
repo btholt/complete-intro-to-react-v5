@@ -1,7 +1,7 @@
 ---
 title: "TypeScript"
 path: "/typescript"
-order: 20
+order: 21
 ---
 
 TypeScript is a thin layer on top of JavaScript that adds the power of a static checker to your code base. This means you'll have another layer of protection helping protect you against dumb bugs like `var x = 5; x.toUpperCase()`: things that a normal linter can't find but a type system can.
@@ -329,7 +329,7 @@ Last thing, let's add a type check to our package.json just in case someone isn'
 
 Congrats! You finished TypeScript.
 
-## 🌳 lolcommit (branch typescript)
+## 🌳 branch [typescript](https://github.com/btholt/complete-intro-to-react-v5/tree/typescript)
 
 [mike]: https://frontendmasters.com/courses/typescript/
 [dt]: https://www.definitelytyped.org

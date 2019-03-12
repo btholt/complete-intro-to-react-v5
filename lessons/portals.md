@@ -1,7 +1,7 @@
 ---
 title: "Portals and Refs"
 path: "/portals-and-refs"
-order: 13
+order: 14
 ---
 
 Another very new feature React is something called a Portal. You can think of the portal as a separate mount point (the actual DOM node which your app is put into) for your React app. The most common use case for this is going to be doing modals. You'll have your normal app with its normal mount point and then you can also put different content into a separate mount point (like a modal or a contextual nav bar) directly from a component. Pretty cool!
@@ -88,7 +88,7 @@ That's it! That's how you make a modal using a portal in React. This used to be 
 
 &nbsp;
 
-## 🌳 [lolcommit](https://github.com/btholt/complete-intro-to-react-v5/commit/lolcommit)
+## 🌳 [38ae5138caa276f823983960fc479b368d3978ce](https://github.com/btholt/complete-intro-to-react-v5/commit/38ae5138caa276f823983960fc479b368d3978ce)
 
 &nbsp;
 

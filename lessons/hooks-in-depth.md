@@ -1,7 +1,7 @@
 ---
 title: "Hooks in Depth"
 path: "/hooks-in-depth"
-order: 21
+order: 22
 ---
 
 [Open this CodeSandbox.][codesandbox] All of the examples are in there. We will not be using the code in project for this section, just this CodeSandbox.

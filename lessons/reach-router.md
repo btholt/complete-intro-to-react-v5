@@ -1,5 +1,5 @@
 ---
-order: 9
+order: 10
 path: "/reach-router"
 title: "Reach Router"
 ---
@@ -71,7 +71,11 @@ import { Router, Link } from "@reach/router";
 </header>;
 ```
 
-## 🌳 [lolcommit](https://github.com/btholt/complete-intro-to-react-v5/commit/lolcommit)
+&nbsp;
+
+## 🌳 [df2717245d61ab153c220d18c4d1bf858aee4311](https://github.com/btholt/complete-intro-to-react-v5/commit/df2717245d61ab153c220d18c4d1bf858aee4311)
+
+&nbsp;
 
 Now if you click the header, it'll take you back to the Results page. Cool. Now let's round out the Details page.
 

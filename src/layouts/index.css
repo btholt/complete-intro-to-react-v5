@@ -1,5 +1,5 @@
 .gradient {
-  background: linear-gradient(135deg, #ffa84c 0%, #ff7b0d 100%);
+  background: linear-gradient(135deg, #61dafb 0%, #2d9ab7 100%);
 }
 
 .navbar {
@@ -11,14 +11,14 @@
 }
 
 .jumbotron.gradient {
-  color: white;
+  color: #2d2d2d;
   text-transform: uppercase;
   font-weight: bold;
 }
 
 .navbar-brand.navbar-brand {
   text-transform: uppercase;
-  color: white;
+  color: #2d2d2d;
   font-weight: bold;
 }
 
@@ -56,7 +56,7 @@
 }
 
 .lesson-title {
-  color: white;
+  color: #2d2d2d;
   text-transform: uppercase;
   font-weight: bold;
 }

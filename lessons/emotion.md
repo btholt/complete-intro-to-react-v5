@@ -1,7 +1,7 @@
 ---
 title: "Emotion"
 path: "/emotion"
-order: 16
+order: 17
 ---
 
 Emotion is a library for including your styles inside of your component files and allowing you to harness JavaScript to easily script your CSS. While previous CSS-in-JS solutions ballooned file sizes and were slow, Emotion is both small and fast. I'll show you how to get started with it; it merits its own course on all the cool and crazy things you can do with it.
@@ -128,6 +128,6 @@ const Spin = keyframes`
 
 That's it! That's most of what you need to know to use Emotion.
 
-## 🌳 lolcommit (branch emotion)
+## 🌳 ## 🌳 branch [emotion](https://github.com/btholt/complete-intro-to-react-v5/tree/emotion)
 
 [sc]: https://marketplace.visualstudio.com/items?itemName=mf.vscode-styled-components&WT.mc_id=react-github-brholt

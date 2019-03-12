@@ -7,26 +7,24 @@ export default function Template(props) {
 
   const { frontmatter, html } = markdownRemark;
   const prevLink =
-    frontmatter.order > 0 ? (
+    frontmatter.order > 1 ? (
       <Link
         className="prev"
         to={
-          allMarkdownRemark.edges[frontmatter.order - 1].node.frontmatter.path
+          allMarkdownRemark.edges[frontmatter.order - 2].node.frontmatter.path
         }
       >
         {"← " +
-          allMarkdownRemark.edges[frontmatter.order - 1].node.frontmatter.title}
+          allMarkdownRemark.edges[frontmatter.order - 2].node.frontmatter.title}
       </Link>
     ) : null;
   const nextLink =
-    frontmatter.order + 1 < allMarkdownRemark.edges.length ? (
+    frontmatter.order < allMarkdownRemark.edges.length ? (
       <Link
         className="next"
-        to={
-          allMarkdownRemark.edges[frontmatter.order + 1].node.frontmatter.path
-        }
+        to={allMarkdownRemark.edges[frontmatter.order].node.frontmatter.path}
       >
-        {allMarkdownRemark.edges[frontmatter.order + 1].node.frontmatter.title +
+        {allMarkdownRemark.edges[frontmatter.order].node.frontmatter.title +
           " →"}
       </Link>
     ) : null;

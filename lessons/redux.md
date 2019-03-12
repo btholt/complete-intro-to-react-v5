@@ -1,7 +1,7 @@
 ---
 title: "Redux"
 path: "/redux"
-order: 18
+order: 19
 ---
 
 Redux is a well-known library that does state management for you, very similarly to how we used context. With context, you use the provider and consumer as a sort of portal to skip passing parameters through every component. With Redux, we're taking the state management _out_ of React entirely and moving it to a separate store.
@@ -228,7 +228,7 @@ Hopefully you're well informed on the boons and busts of introducing Redux. It's
 
 [If you want a deeper dive, check out the Frontend Masters course on Redux!][fem]
 
-## 🌳 lolcommit (branch redux)
+## 🌳 branch [redux](https://github.com/btholt/complete-intro-to-react-v5/tree/redux)
 
 [fsa]: https://github.com/redux-utilities/flux-standard-action
 [ro]: https://github.com/redux-observable/redux-observable

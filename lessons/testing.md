@@ -1,7 +1,7 @@
 ---
 title: "Testing"
 path: "/testing"
-order: 15
+order: 16
 ---
 
 _Note: This is where the Intermediate React course starts. All lessons from 15-22 on out are self-contained and always start from the [master branch](https://github.com/btholt/complete-intro-to-react-v5) of the git repository._
@@ -690,7 +690,7 @@ In any case, run `npx jest --coverage` to try it out. It'll show you an outline 
 
 One more useful thing about Jest: watch mode. You can run your tests interactively and on file-save. It'll only re-run tests that could have possibly been changed and previously failed so it's a fast feedback cycle to fix tests. Add this as well to your package.json: `"test:watch": "jest --watch",`.
 
-## 🌳 lolcommit (branch testing)
+## 🌳 branch [testing](https://github.com/btholt/complete-intro-to-react-v5/tree/testing)
 
 [kcd]: https://frontendmasters.com/courses/testing-react/
 [jest]: https://jestjs.io

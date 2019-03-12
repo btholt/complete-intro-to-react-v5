@@ -1,5 +1,5 @@
 ---
-order: 8
+order: 9
 path: "/async"
 title: "Handling Async"
 ---
@@ -142,5 +142,11 @@ export default Pet;
 ```
 
 Looks much better! The links don't go anywhere yet but we'll get there. We don't have a good loading experience yet though. Right now we just seem unresponsive. Using a new tool to React called Suspense we can make the DOM rendering wait until we finish loading our data, show a loader, and then once it finishes we can resume rendering it. This is coming soon; for now you would just keep track of a loading Boolean and then conditionally show your component or a loading spinner based on whether it was finished loading or not.
+
+&nbsp;
+
+## 🌳 [f25cf9f49485626674c4020e340af1e3f81f1f19](https://github.com/btholt/complete-intro-to-react-v5/commit/f25cf9f49485626674c4020e340af1e3f81f1f19)
+
+&nbsp;
 
 [evergreen]: https://www.techopedia.com/definition/31094/evergreen-browser

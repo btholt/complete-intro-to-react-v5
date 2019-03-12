@@ -1,5 +1,5 @@
 ---
-order: 11
+order: 12
 title: "Error Boundaries"
 path: "/error-boundaries"
 ---
@@ -90,7 +90,7 @@ if (this.state.redirect) {
 
 &nbsp;
 
-## 🌳 [lolcommit](https://github.com/btholt/complete-intro-to-react-v5/commit/lolcommit)
+## 🌳 [cb8f5488cc5d90d6001ef81d2e4cadda5167efa3](https://github.com/btholt/complete-intro-to-react-v5/commit/cb8f5488cc5d90d6001ef81d2e4cadda5167efa3)
 
 [azure]: https://azure.microsoft.com/en-us/services/monitor/?WT.mc_id=reactintro-github-brholt
 [sentry]: https://sentry.io/
