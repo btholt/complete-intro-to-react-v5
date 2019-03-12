@@ -2,6 +2,14 @@ body {
   background-color: #282828;
 }
 
+a {
+  color: #3389a0;
+}
+
+a:hover {
+  color: #006c7f;
+}
+
 .index {
   width: 97%;
   max-width: 750px;
