@@ -3,7 +3,6 @@
 }
 
 .navbar {
-  border-bottom: 1px solid #ccc;
   position: sticky;
   width: 100%;
   top: 0;
@@ -12,12 +11,14 @@
 
 .jumbotron.gradient {
   color: #2d2d2d;
+  text-shadow: 2px 2px 2px #ddd;
   text-transform: uppercase;
   font-weight: bold;
 }
 
 .navbar-brand.navbar-brand {
   text-transform: uppercase;
+  text-shadow: 1px 1px 1px #ddd;
   color: #2d2d2d;
   font-weight: bold;
 }
@@ -57,6 +58,7 @@
 
 .lesson-title {
   color: #2d2d2d;
+  text-shadow: 1px 1px 1px #ddd;
   text-transform: uppercase;
   font-weight: bold;
 }
