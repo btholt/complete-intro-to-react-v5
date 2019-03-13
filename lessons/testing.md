@@ -1,7 +1,7 @@
 ---
 title: "Testing"
 path: "/testing"
-order: 16
+order: 22
 ---
 
 _Note: This is where the Intermediate React course starts. All lessons from 15-22 on out are self-contained and always start from the [master branch](https://github.com/btholt/complete-intro-to-react-v5) of the git repository._
