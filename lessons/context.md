@@ -19,7 +19,7 @@ Make a new file called ThemeContext.js
 ```javascript
 import { createContext } from "react";
 
-const ThemeContext = React.createContext(["green", () => {}]);
+const ThemeContext = createContext(["green", () => {}]);
 
 export default ThemeContext;
 ```
@@ -43,7 +43,7 @@ const theme = useState("darkblue");
 // wrap the rest of the app
 <ThemeContext.Provider value={theme}>
   […]
-</ThemeContext>
+</ThemeContext.Provider>
 ```
 
 - We're going to use the `useState` hook because theme is actually going to be kept track of like any other piece of state: it's not any different. You can think of context like a wormhole: whatever you chuck in one side of the wormhole is going to come out the other side.
