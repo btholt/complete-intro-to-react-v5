@@ -24,7 +24,7 @@ const SearchParams = () => {
       <form>
         <label htmlFor="location">
           Location
-          <input id="location" location={location} placeholder="Location" />
+          <input id="location" value={location} placeholder="Location" />
         </label>
         <button>Submit</button>
       </form>
