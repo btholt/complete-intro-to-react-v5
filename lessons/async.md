@@ -12,18 +12,13 @@ const [pets, setPets] = useState([]);
 
 // below state declarations
 async function requestPets() {
-  const res = await petfinder.pet.find({
+  const { animals } = await pet.animals({
     location,
     breed,
-    animal,
-    output: "full"
+    type: animal
   });
 
-  setPets(
-    Array.isArray(res.petfinder.pets.pet)
-      ? res.petfinder.pets.pet
-      : [res.petfinder.pets.pet]
-  );
+  setPets(animals || []);
 }
 
 // replace <form>
@@ -68,20 +63,16 @@ const Results = ({ pets }) => {
         <h1>No Pets Found</h1>
       ) : (
         pets.map(pet => {
-          let breed;
-          if (Array.isArray(pet.breeds.breed)) {
-            breed = pet.breeds.breed.join(", ");
-          } else {
-            breed = pet.breeds.breed;
-          }
           return (
             <Pet
-              animal={pet.animal}
+              animal={pet.type}
               key={pet.id}
               name={pet.name}
-              breed={breed}
-              media={pet.media}
-              location={`${pet.contact.city}, ${pet.contact.state}`}
+              breed={pet.breeds.primary}
+              media={pet.photos}
+              location={`${pet.contact.address.city}, ${
+                pet.contact.address.state
+              }`}
               id={pet.id}
             />
           );
@@ -115,14 +106,10 @@ import React from "react";
 
 const Pet = props => {
   const { name, animal, breed, media, location, id } = props;
-  let photos = [];
-  if (media && media.photos && media.photos.photo) {
-    photos = media.photos.photo.filter(photo => photo["@size"] === "pn");
-  }
 
   let hero = "http://placecorgi.com/300/300";
-  if (photos[0] && photos[0].value) {
-    hero = photos[0].value;
+  if (media.length) {
+    hero = media[0].small;
   }
 
   return (

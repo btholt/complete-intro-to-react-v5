@@ -6,50 +6,22 @@ title: "Effects"
 
 Back to React! Let's make our app be able to read live data about animals to adopt! This data is courteous of [Petfinder.com][petfinder], a wonderful service that provides a free API for adopting animals. Unfortunately, this service is USA-based, so please use USA locations only or else it won't return any results.
 
-Please register [here][api] for an API key from Petfinder.
-
-Create a file in the root of your project (same directory as package.json) that is called `.env`. Put this in there:
-
-```
-API_KEY=<Your API key>
-API_SECRET=<Your API secret>
-```
-
-### ⚠️ IMPORTANT ⚠️
-
-Whenever you add, remove, or change something from your .env file, you need to delete the .cache and dist directories (so that Parcel will do a clean build.) If later you're seeing you're getting unauthorized errors from the API, this is a likely culprit. If it helps, add this to your package.json and run it whenver you change your .env file before running `npm run dev` again.
-
-If you see an error like this in your console, you're having this problem.
-
-![Error saying that you're getting a syntax error due to "<"](./images/syntaxError.png)
-
-```json
-{
-  "scripts": {
-    "clear-build-cache": "rm -rf .cache/ dist/"
-  }
-}
-```
-
-Again, it's critical to clear your build cache first, _then_ stop and start your dev server when you modify your .env file. I'm emphasizing this a lot because a lot of people get tripped up here.
-
 Now Parcel will read these variables out of your .env file and make them available inside of your app. Now you don't have to commit secrets to your codebase and that's _always_ a good thing. If someone gets access to GitHub for your code, they won't necessarily get your API keys. You'll use a different service like [Azure Key Vault][keyvault] or [Kubernetes Secrets][kube] to manage your secrets.
 
-Now that your secrets are in there, let's install the Petfinder Client. I wrote this little wrapper for the API; it's not good. It's optimized for this use case only. Run `npm install petfinder-client`. In App.js, add:
+Now that your secrets are in there, let's install the API client. Frontend Masters and myself have proxied the Petfinder API for you so you don't have to sign up for an account and overwhelm the Petfinder people. Do note we have aggressively cached this API so the data will only be refreshed once a day. We've also limited the locations you can search to to Seattle, WA and San Francisco, CA so that the cache can be more effective.
+
+Run `npm install @frontendmasters/pet`.
+
+In App.js:
 
 ```javascript
 // at the top
-import pf from "petfinder-client";
-
-// under imports
-const petfinder = pf({
-  key: process.env.API_KEY,
-  secret: process.env.API_SECRET
-});
+import React, { useEffect } from "react";
+import pet, { ANIMALS } from "@frontendmasters/pet";
 
 // inside render method, below useDropdown calls
 useEffect(() => {
-  petfinder.breed.list({ animal: "dog" }).then(console.log, console.error);
+  pet.breeds("dog").then(console.log, console.error);
 });
 ```
 
@@ -62,12 +34,11 @@ So rather just having `dog` be the static animal, let's make that dynamic and le
 ```javascript
 // replace effect
 useEffect(() => {
-  petfinder.breed.list({ animal }).then(data => {
-    updateBreeds(
-      Array.isArray(data.petfinder.breeds.breed)
-        ? data.petfinder.breeds.breed
-        : [data.petfinder.breeds.breed]
-    );
+  updateBreeds([]);
+  updateBreed("");
+  pet.breeds(animal).then(({ breeds }) => {
+    const breedStrings = breeds.map(({ name }) => name);
+    updateBreeds(breedStrings);
   }, console.error);
 }, [animal]);
 ```
@@ -76,6 +47,7 @@ useEffect(() => {
 - Petfinder API does weird stuff where it returns an array if there are more than one breed but just returns a string if there's only one. It's dumb.
 - The array at the end is peculiar but essential. By default, effects will run at the end of every re-render. This is problematic for us because we're updating breeds, which causes a re-render, which causes another effect, which causes another re-render, etc. What you can to prevent this spiral is give it an array at the end of variables as a second parameter. Now this effect will only happen if one of those variables changes. In this case, it will only cause the effect if `animal` changes. Which is exactly what we want.
 - Effects are always called after the first render no matter what.
+- We have to pull the strings out of the objects from the API since the dropdown expect a list of strings, hence the map which does just that.
 
 We want to console.error the messages if there's an error. Let's go turn that warning off in ESLint.
 
@@ -117,7 +89,6 @@ Now it updates the breed to empty whenever you change animal since you can't hav
 
 - `git checkout f702290c687a717356403dabd97658b3bbce7ad0 -f`
 - `npm install`
-- Add API keys to your `.env` file
 - Run `npm run dev`.
 
 &nbsp;

@@ -49,13 +49,17 @@ Now go to Details.js and add:
 
 ```javascript
 // at the top
+import { navigate } from "@reach/router";
 import Modal from "./Modal";
 
 // add showModal
 state = { loading: true, showModal: false };
 
-// above render
-toggleModal = () => this.setState({ showModal: !this.state.showModal });
+// add setState inside componentDidMount
+url: animal.url,
+  // above render
+  (toggleModal = () => this.setState({ showModal: !this.state.showModal }));
+adopt = () => navigate(this.state.url);
 
 // add showModal
 const {
@@ -65,6 +69,7 @@ const {
   location,
   description,
   name,
+  url,
   showModal
 } = this.state;
 
@@ -75,7 +80,7 @@ const {
       <div>
         <h1>Would you like to adopt {name}?</h1>
         <div className="buttons">
-          <button onClick={this.toggleModal}>Yes</button>
+          <button onClick={this.adopt}>Yes</button>
           <button onClick={this.toggleModal}>No</button>
         </div>
       </div>
@@ -83,6 +88,8 @@ const {
   ) : null;
 }
 ```
+
+We're using the progamattic way of navigating using Reach Router. This is bad accessibility so you should be extra cautious when doing this. The button should be an `<a>` tag but I wanted to show you how to do it. But now if you click Yes on the adopt modal it'll take you to the page when you actually can adopt the pet!
 
 That's it! That's how you make a modal using a portal in React. This used to be significantly more difficult to do but with portals it became trivial. The nice thing about portals is that despite the actual elements being in different DOM trees, these are in the same React trees, so you can do event bubbling up from the modal. Some times this is useful if you want to make your Modal more flexible (like we did.)
 

@@ -95,9 +95,11 @@ Let's add the ESLint rule. Run `npm install -D eslint-plugin-react-hooks`. Add t
 
 Let's next make the animal drop down.
 
+Run `npm install @frontendmasters/pet`.
+
 ```javascript
 // under React import
-import { ANIMALS } from "petfinder-client";
+import { ANIMALS } from "@frontendmasters/pet";
 
 // under location
 const [animal, updateAnimal] = useState("");

@@ -11,41 +11,23 @@ Let's go make Details.js as a class.
 ```javascript
 // replace Details.js
 import React from "react";
-import pf from "petfinder-client";
-
-const petfinder = pf({
-  key: process.env.API_KEY,
-  secret: process.env.API_SECRET
-});
+import pet from "@frontendmasters/pet";
 
 class Details extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = { loading: true };
-  }
+  state = { loading: true };
   componentDidMount() {
-    petfinder.pet
-      .get({
-        output: "full",
-        id: this.props.id
-      })
-      .then(data => {
-        let breed;
-        if (Array.isArray(data.petfinder.pet.breeds.breed)) {
-          breed = data.petfinder.pet.breeds.breed.join(", ");
-        } else {
-          breed = data.petfinder.pet.breeds.breed;
-        }
+    pet
+      .animal(this.props.id)
+      .then(({ animal }) => {
         this.setState({
-          name: data.petfinder.pet.name,
-          animal: data.petfinder.pet.animal,
-          location: `${data.petfinder.pet.contact.city}, ${
-            data.petfinder.pet.contact.state
+          name: animal.name,
+          animal: animal.type,
+          location: `${animal.contact.address.city}, ${
+            animal.contact.address.state
           }`,
-          description: data.petfinder.pet.description,
-          media: data.petfinder.pet.media,
-          breed,
+          description: animal.description,
+          media: animal.photos,
+          breed: animal.breeds.primary,
           loading: false
         });
       })
@@ -84,7 +66,7 @@ The constructor is annoying. We can use something called class properties to mak
 Since we're going to take ahold of our own Babel configuration, we need to take over _all of it_. Parcel won't do it for us anymore. So install the following:
 
 ```bash
-npm install -D babel-eslint @babel/core @babel/preset-env @babel/plugin-proposal-class-properties
+npm install -D babel-eslint @babel/core @babel/preset-env @babel/plugin-proposal-class-properties @babel/preset-react
 ```
 
 Now make a file called `.babelrc` with the following:
@@ -129,23 +111,32 @@ class Carousel extends React.Component {
     active: 0
   };
   static getDerivedStateFromProps({ media }) {
-    let photos = [];
-    if (media && media.photos && media.photos.photo) {
-      photos = media.photos.photo.filter(photo => photo["@size"] === "pn");
+    let photos = ["http://placecorgi.com/600/600"];
+
+    if (media.length) {
+      photos = media.map(({ large }) => large);
     }
 
     return { photos };
   }
+  handleIndexClick = event => {
+    this.setState({
+      active: +event.target.dataset.index
+    });
+  };
   render() {
     const { photos, active } = this.state;
     return (
       <div className="carousel">
-        <img src={photos[active].value} alt="animal" />
+        <img src={photos[active]} alt="animal" />
         <div className="carousel-smaller">
           {photos.map((photo, index) => (
+            // eslint-disable-next-line
             <img
-              key={photo.value}
-              src={photo.value}
+              key={photo}
+              onClick={this.handleIndexClick}
+              data-index={index}
+              src={photo}
               className={index === active ? "active" : ""}
               alt="animal thumbnail"
             />
