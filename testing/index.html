@@ -45,14 +45,13 @@
         }
       }
     })
-  </script><link as="script" rel="preload" href="/complete-intro-to-react-v5/component---src-templates-lesson-template-js-0e1086e8991339459b3b.js"/><link as="script" rel="preload" href="/complete-intro-to-react-v5/app-a8622f2a950f1be64845.js"/><link as="script" rel="preload" href="/complete-intro-to-react-v5/webpack-runtime-ec9d43f2b2bc4e255505.js"/><link as="fetch" rel="preload" href="/complete-intro-to-react-v5/static/d/819/path---testing-570-13a-AcT4shHOIqhvPjCzGUFqf0VeOA.json" crossOrigin="use-credentials"/></head><body><noscript id="gatsby-noscript">This app works best with JavaScript enabled.</noscript><div id="___gatsby"><div style="outline:none" tabindex="-1" role="group"><div><div class="navbar navbar-light gradient"><a class="navbar-brand" href="/complete-intro-to-react-v5/">Complete Intro to React v5</a></div><div class="main"><div class="lesson-container"><div class="lesson"><h1>Testing</h1><h2></h2><div class="lesson-content"><p><em>Note: This is where the Intermediate React course starts. All lessons from 15-22 on out are self-contained and always start from the <a href="https://github.com/btholt/complete-intro-to-react-v5">master branch</a> of the git repository.</em></p>
+  </script><link as="script" rel="preload" href="/complete-intro-to-react-v5/component---src-templates-lesson-template-js-0e1086e8991339459b3b.js"/><link as="script" rel="preload" href="/complete-intro-to-react-v5/app-a8622f2a950f1be64845.js"/><link as="script" rel="preload" href="/complete-intro-to-react-v5/webpack-runtime-e6b99699306a57f68419.js"/><link as="fetch" rel="preload" href="/complete-intro-to-react-v5/static/d/652/path---testing-570-13a-LOz14wNONb204E7U7GZclwmTE5k.json" crossOrigin="use-credentials"/></head><body><noscript id="gatsby-noscript">This app works best with JavaScript enabled.</noscript><div id="___gatsby"><div style="outline:none" tabindex="-1" role="group"><div><div class="navbar navbar-light gradient"><a class="navbar-brand" href="/complete-intro-to-react-v5/">Complete Intro to React v5</a></div><div class="main"><div class="lesson-container"><div class="lesson"><h1>Testing</h1><h2></h2><div class="lesson-content"><p><em>Note: This is where the Intermediate React course starts. All lessons from 15-22 on out are self-contained and always start from the <a href="https://github.com/btholt/complete-intro-to-react-v5">master branch</a> of the git repository.</em></p>
 <p><strong>To get reset to the latest code:</strong></p>
 <ul>
 <li><code class="language-text">git clone git@github.com:btholt/complete-intro-to-react-v5.git</code></li>
 <li><code class="language-text">git checkout master -f</code></li>
 <li>Make sure you have <a href="https://nodejs.org">Node.js installed</a>.</li>
 <li><code class="language-text">npm install</code></li>
-<li>Add <code class="language-text">API_KEY</code> and <code class="language-text">API_SECRET</code> to a <code class="language-text">.env</code> file (<a href="effects">more info in previous section</a>)</li>
 <li><code class="language-text">npm run dev</code> to start the server on <a href="http://localhost:1234/">http://localhost:1234/</a></li>
 </ul>
 <p>This is meant to be a very brief treatise on how to do testing on React applications. Frontend Masters already has a <a href="https://frontendmasters.com/courses/testing-react/">thorough course on how to test React applications</a> here from Kent C. Dodds. This will be a brief intro on how to set up Jest tests for the application we just created.</p>
@@ -62,8 +61,10 @@
 <p>So let's start testing our application. Run <code class="language-text">npm install -D jest react-testing-library</code>.</p>
 <p><code class="language-text">react-testing-library</code> is made by another Frontend Masters teacher, <a href="https://frontendmasters.com/courses/testing-react/">Kent C. Dodds</a>. This tool has a bunch of convenience features that make testing React significantly easier and is now the recommended way of testing React, supplanting <a href="http://airbnb.io/enzyme/">Enzyme</a>. Previous versions of this course teach Enzyme if you'd like to see that.</p>
 <p>Next go into your src directory and create a folder called <code class="language-text">__tests__</code>. Notice that's double underscores on both sides. Why double? They borrowed it from Python where double underscores ("dunders" as I've heard them called) mean something magic happens. In this case, Jest assumes all JS files in here are tests.</p>
-<p>We're going to write tests for SearchParams. But remember that SearchParmas use <code class="language-text">petfinder-client</code> to make API requests, something we can't do in Node.js. Luckily we can make a mock of it. In the root directly of the project, create a folder called <code class="language-text">__mocks__</code>. If a put a file in here called <code class="language-text">lodash.js</code>, that file will be imported anywhere I have <code class="language-text">import _ from &quot;lodash&quot;</code>. It's so we can mock modules (like <code class="language-text">petfinder-client</code>) that wouldn't make sense to run in Node or for your tests. So create the folder, create a file called <code class="language-text">petfinder-client.js</code> and put in it:</p>
-<div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> act <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"react-testing-library"</span><span class="token punctuation">;</span>
+<p>We're going to write tests for SearchParams. But remember that SearchParmas use <code class="language-text">@frontendmasters/pet</code> to make API requests, something we can't do in Node.js. Luckily we can make a mock of it. In the root directly of the project, create a folder called <code class="language-text">__mocks__</code>. If a put a file in here called <code class="language-text">lodash.js</code>, that file will be imported anywhere I have <code class="language-text">import _ from &quot;lodash&quot;</code>. It's so we can mock modules (like <code class="language-text">@frontendmasters/pet</code>) that wouldn't make sense to run in Node or for your tests. So create the folder, create a folder inside that called <code class="language-text">@frontendmasters</code> (to signify the scoped package's organization) and then put <code class="language-text">pet.js</code> inside of that.</p>
+<div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> readFileSync <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"fs"</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> path <span class="token keyword">from</span> <span class="token string">"path"</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> act <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"react-testing-library"</span><span class="token punctuation">;</span>
 
 <span class="token keyword">const</span> breeds <span class="token operator">=</span> <span class="token punctuation">[</span>
   <span class="token string">"Bichon Frise"</span><span class="token punctuation">,</span>
@@ -75,556 +76,40 @@
   <span class="token string">"Maltese"</span>
 <span class="token punctuation">]</span><span class="token punctuation">;</span>
 
-<span class="token keyword">const</span> doggos <span class="token operator">=</span> <span class="token punctuation">{</span>
-  petfinder<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-    lastOffset<span class="token punctuation">:</span> <span class="token string">"25"</span><span class="token punctuation">,</span>
-    pets<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-      pet<span class="token punctuation">:</span> <span class="token punctuation">[</span>
-        <span class="token punctuation">{</span>
-          options<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-            option<span class="token punctuation">:</span> <span class="token string">"hasShots"</span>
-          <span class="token punctuation">}</span><span class="token punctuation">,</span>
-          status<span class="token punctuation">:</span> <span class="token string">"A"</span><span class="token punctuation">,</span>
-          contact<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-            phone<span class="token punctuation">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
-            state<span class="token punctuation">:</span> <span class="token string">"WA"</span><span class="token punctuation">,</span>
-            address2<span class="token punctuation">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
-            email<span class="token punctuation">:</span> <span class="token string">"example@example.com"</span><span class="token punctuation">,</span>
-            city<span class="token punctuation">:</span> <span class="token string">"Puyallup"</span><span class="token punctuation">,</span>
-            zip<span class="token punctuation">:</span> <span class="token string">"98372"</span><span class="token punctuation">,</span>
-            fax<span class="token punctuation">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
-            address1<span class="token punctuation">:</span> <span class="token string">"1234 Fake Ave"</span>
-          <span class="token punctuation">}</span><span class="token punctuation">,</span>
-          age<span class="token punctuation">:</span> <span class="token string">"Senior"</span><span class="token punctuation">,</span>
-          size<span class="token punctuation">:</span> <span class="token string">"S"</span><span class="token punctuation">,</span>
-          media<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-            photos<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-              photo<span class="token punctuation">:</span> <span class="token punctuation">[</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"pnt"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"1"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/43884893/1/?bust=1548744791&amp;width=60&amp;-pnt.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"fpm"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"1"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/43884893/1/?bust=1548744791&amp;width=95&amp;-fpm.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"x"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"1"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/43884893/1/?bust=1548744791&amp;width=500&amp;-x.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"pn"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"1"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/43884893/1/?bust=1548744791&amp;width=300&amp;-pn.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"t"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"1"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/43884893/1/?bust=1548744791&amp;width=50&amp;-t.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"pnt"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"2"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/43884893/2/?bust=1548744798&amp;width=60&amp;-pnt.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"fpm"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"2"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/43884893/2/?bust=1548744798&amp;width=95&amp;-fpm.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"x"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"2"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/43884893/2/?bust=1548744798&amp;width=500&amp;-x.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"pn"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"2"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/43884893/2/?bust=1548744798&amp;width=300&amp;-pn.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"t"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"2"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/43884893/2/?bust=1548744798&amp;width=50&amp;-t.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"pnt"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"3"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/43884893/3/?bust=1549603726&amp;width=60&amp;-pnt.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"fpm"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"3"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/43884893/3/?bust=1549603726&amp;width=95&amp;-fpm.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"x"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"3"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/43884893/3/?bust=1549603726&amp;width=500&amp;-x.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"pn"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"3"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/43884893/3/?bust=1549603726&amp;width=300&amp;-pn.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"t"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"3"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/43884893/3/?bust=1549603726&amp;width=50&amp;-t.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"pnt"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"4"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/43884893/4/?bust=1549603726&amp;width=60&amp;-pnt.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"fpm"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"4"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/43884893/4/?bust=1549603726&amp;width=95&amp;-fpm.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"x"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"4"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/43884893/4/?bust=1549603726&amp;width=500&amp;-x.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"pn"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"4"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/43884893/4/?bust=1549603726&amp;width=300&amp;-pn.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"t"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"4"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/43884893/4/?bust=1549603726&amp;width=50&amp;-t.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"pnt"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"5"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/43884893/5/?bust=1549603726&amp;width=60&amp;-pnt.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"fpm"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"5"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/43884893/5/?bust=1549603726&amp;width=95&amp;-fpm.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"x"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"5"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/43884893/5/?bust=1549603726&amp;width=500&amp;-x.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"pn"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"5"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/43884893/5/?bust=1549603726&amp;width=300&amp;-pn.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"t"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"5"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/43884893/5/?bust=1549603726&amp;width=50&amp;-t.jpg"</span>
-                <span class="token punctuation">}</span>
-              <span class="token punctuation">]</span>
-            <span class="token punctuation">}</span>
-          <span class="token punctuation">}</span><span class="token punctuation">,</span>
-          id<span class="token punctuation">:</span> <span class="token string">"0000"</span><span class="token punctuation">,</span>
-          shelterPetId<span class="token punctuation">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
-          breeds<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-            breed<span class="token punctuation">:</span> <span class="token string">"Havanese"</span>
-          <span class="token punctuation">}</span><span class="token punctuation">,</span>
-          name<span class="token punctuation">:</span> <span class="token string">"Luna"</span><span class="token punctuation">,</span>
-          sex<span class="token punctuation">:</span> <span class="token string">"F"</span><span class="token punctuation">,</span>
-          description<span class="token punctuation">:</span> <span class="token string">"Luna is a very special little Havanese mix."</span><span class="token punctuation">,</span>
-          mix<span class="token punctuation">:</span> <span class="token string">"yes"</span><span class="token punctuation">,</span>
-          shelterId<span class="token punctuation">:</span> <span class="token string">"XXXX"</span><span class="token punctuation">,</span>
-          lastUpdate<span class="token punctuation">:</span> <span class="token string">"2019-01-29T06:55:53Z"</span><span class="token punctuation">,</span>
-          animal<span class="token punctuation">:</span> <span class="token string">"Dog"</span>
-        <span class="token punctuation">}</span><span class="token punctuation">,</span>
-        <span class="token punctuation">{</span>
-          options<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-            option<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"specialNeeds"</span><span class="token punctuation">,</span> <span class="token string">"hasShots"</span><span class="token punctuation">]</span>
-          <span class="token punctuation">}</span><span class="token punctuation">,</span>
-          status<span class="token punctuation">:</span> <span class="token string">"A"</span><span class="token punctuation">,</span>
-          contact<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-            phone<span class="token punctuation">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
-            state<span class="token punctuation">:</span> <span class="token string">"WA"</span><span class="token punctuation">,</span>
-            address2<span class="token punctuation">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
-            email<span class="token punctuation">:</span> <span class="token string">"example@example.com"</span><span class="token punctuation">,</span>
-            city<span class="token punctuation">:</span> <span class="token string">"Puyallup"</span><span class="token punctuation">,</span>
-            zip<span class="token punctuation">:</span> <span class="token string">"98372"</span><span class="token punctuation">,</span>
-            fax<span class="token punctuation">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
-            address1<span class="token punctuation">:</span> <span class="token string">"1234 FAke Ave"</span>
-          <span class="token punctuation">}</span><span class="token punctuation">,</span>
-          age<span class="token punctuation">:</span> <span class="token string">"Senior"</span><span class="token punctuation">,</span>
-          size<span class="token punctuation">:</span> <span class="token string">"S"</span><span class="token punctuation">,</span>
-          media<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-            photos<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-              photo<span class="token punctuation">:</span> <span class="token punctuation">[</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"pnt"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"1"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/43884811/1/?bust=1548744501&amp;width=60&amp;-pnt.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"fpm"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"1"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/43884811/1/?bust=1548744501&amp;width=95&amp;-fpm.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"x"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"1"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/43884811/1/?bust=1548744501&amp;width=500&amp;-x.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"pn"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"1"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/43884811/1/?bust=1548744501&amp;width=300&amp;-pn.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"t"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"1"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/43884811/1/?bust=1548744501&amp;width=50&amp;-t.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"pnt"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"2"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/43884811/2/?bust=1548744504&amp;width=60&amp;-pnt.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"fpm"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"2"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/43884811/2/?bust=1548744504&amp;width=95&amp;-fpm.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"x"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"2"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/43884811/2/?bust=1548744504&amp;width=500&amp;-x.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"pn"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"2"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/43884811/2/?bust=1548744504&amp;width=300&amp;-pn.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"t"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"2"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/43884811/2/?bust=1548744504&amp;width=50&amp;-t.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"pnt"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"3"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/43884811/3/?bust=1549603831&amp;width=60&amp;-pnt.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"fpm"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"3"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/43884811/3/?bust=1549603831&amp;width=95&amp;-fpm.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"x"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"3"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/43884811/3/?bust=1549603831&amp;width=500&amp;-x.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"pn"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"3"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/43884811/3/?bust=1549603831&amp;width=300&amp;-pn.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"t"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"3"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/43884811/3/?bust=1549603831&amp;width=50&amp;-t.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"pnt"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"4"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/43884811/4/?bust=1549603831&amp;width=60&amp;-pnt.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"fpm"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"4"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/43884811/4/?bust=1549603831&amp;width=95&amp;-fpm.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"x"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"4"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/43884811/4/?bust=1549603831&amp;width=500&amp;-x.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"pn"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"4"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/43884811/4/?bust=1549603831&amp;width=300&amp;-pn.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"t"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"4"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/43884811/4/?bust=1549603831&amp;width=50&amp;-t.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"pnt"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"5"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/43884811/5/?bust=1549603831&amp;width=60&amp;-pnt.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"fpm"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"5"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/43884811/5/?bust=1549603831&amp;width=95&amp;-fpm.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"x"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"5"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/43884811/5/?bust=1549603831&amp;width=500&amp;-x.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"pn"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"5"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/43884811/5/?bust=1549603831&amp;width=300&amp;-pn.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"t"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"5"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/43884811/5/?bust=1549603831&amp;width=50&amp;-t.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"pnt"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"6"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/43884811/6/?bust=1549603832&amp;width=60&amp;-pnt.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"fpm"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"6"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/43884811/6/?bust=1549603832&amp;width=95&amp;-fpm.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"x"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"6"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/43884811/6/?bust=1549603832&amp;width=500&amp;-x.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"pn"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"6"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/43884811/6/?bust=1549603832&amp;width=300&amp;-pn.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"t"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"6"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/43884811/6/?bust=1549603832&amp;width=50&amp;-t.jpg"</span>
-                <span class="token punctuation">}</span>
-              <span class="token punctuation">]</span>
-            <span class="token punctuation">}</span>
-          <span class="token punctuation">}</span><span class="token punctuation">,</span>
-          id<span class="token punctuation">:</span> <span class="token string">"0001"</span><span class="token punctuation">,</span>
-          shelterPetId<span class="token punctuation">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
-          breeds<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-            breed<span class="token punctuation">:</span> <span class="token string">"Havanese"</span>
-          <span class="token punctuation">}</span><span class="token punctuation">,</span>
-          name<span class="token punctuation">:</span> <span class="token string">"Piper"</span><span class="token punctuation">,</span>
-          sex<span class="token punctuation">:</span> <span class="token string">"F"</span><span class="token punctuation">,</span>
-          description<span class="token punctuation">:</span> <span class="token string">"Piper is a very special little Havanese mix."</span><span class="token punctuation">,</span>
-          mix<span class="token punctuation">:</span> <span class="token string">"yes"</span><span class="token punctuation">,</span>
-          shelterId<span class="token punctuation">:</span> <span class="token string">"XXXX"</span><span class="token punctuation">,</span>
-          lastUpdate<span class="token punctuation">:</span> <span class="token string">"2019-01-29T06:51:49Z"</span><span class="token punctuation">,</span>
-          animal<span class="token punctuation">:</span> <span class="token string">"Dog"</span>
-        <span class="token punctuation">}</span><span class="token punctuation">,</span>
-        <span class="token punctuation">{</span>
-          options<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-            option<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"altered"</span><span class="token punctuation">,</span> <span class="token string">"hasShots"</span><span class="token punctuation">,</span> <span class="token string">"housetrained"</span><span class="token punctuation">]</span>
-          <span class="token punctuation">}</span><span class="token punctuation">,</span>
-          status<span class="token punctuation">:</span> <span class="token string">"A"</span><span class="token punctuation">,</span>
-          contact<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-            phone<span class="token punctuation">:</span> <span class="token string">"email only  "</span><span class="token punctuation">,</span>
-            state<span class="token punctuation">:</span> <span class="token string">"WA"</span><span class="token punctuation">,</span>
-            address2<span class="token punctuation">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
-            email<span class="token punctuation">:</span> <span class="token string">"example@example.com"</span><span class="token punctuation">,</span>
-            city<span class="token punctuation">:</span> <span class="token string">"Blaine"</span><span class="token punctuation">,</span>
-            zip<span class="token punctuation">:</span> <span class="token string">"98230"</span><span class="token punctuation">,</span>
-            fax<span class="token punctuation">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
-            address1<span class="token punctuation">:</span> <span class="token keyword">null</span>
-          <span class="token punctuation">}</span><span class="token punctuation">,</span>
-          age<span class="token punctuation">:</span> <span class="token string">"Adult"</span><span class="token punctuation">,</span>
-          size<span class="token punctuation">:</span> <span class="token string">"S"</span><span class="token punctuation">,</span>
-          media<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-            photos<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-              photo<span class="token punctuation">:</span> <span class="token punctuation">[</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"pnt"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"1"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/44114309/1/?bust=1551287084&amp;width=60&amp;-pnt.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"fpm"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"1"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/44114309/1/?bust=1551287084&amp;width=95&amp;-fpm.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"x"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"1"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/44114309/1/?bust=1551287084&amp;width=500&amp;-x.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"pn"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"1"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/44114309/1/?bust=1551287084&amp;width=300&amp;-pn.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"t"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"1"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/44114309/1/?bust=1551287084&amp;width=50&amp;-t.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"pnt"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"2"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/44114309/2/?bust=1551287097&amp;width=60&amp;-pnt.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"fpm"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"2"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/44114309/2/?bust=1551287097&amp;width=95&amp;-fpm.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"x"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"2"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/44114309/2/?bust=1551287097&amp;width=500&amp;-x.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"pn"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"2"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/44114309/2/?bust=1551287097&amp;width=300&amp;-pn.jpg"</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span>
-                  <span class="token string">"@size"</span><span class="token punctuation">:</span> <span class="token string">"t"</span><span class="token punctuation">,</span>
-                  <span class="token string">"@id"</span><span class="token punctuation">:</span> <span class="token string">"2"</span><span class="token punctuation">,</span>
-                  value<span class="token punctuation">:</span>
-                    <span class="token string">"http://photos.petfinder.com/photos/pets/44114309/2/?bust=1551287097&amp;width=50&amp;-t.jpg"</span>
-                <span class="token punctuation">}</span>
-              <span class="token punctuation">]</span>
-            <span class="token punctuation">}</span>
-          <span class="token punctuation">}</span><span class="token punctuation">,</span>
-          id<span class="token punctuation">:</span> <span class="token string">"44114309"</span><span class="token punctuation">,</span>
-          shelterPetId<span class="token punctuation">:</span> <span class="token string">"Lolita and Charlotte"</span><span class="token punctuation">,</span>
-          breeds<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-            breed<span class="token punctuation">:</span> <span class="token string">"Havanese"</span>
-          <span class="token punctuation">}</span><span class="token punctuation">,</span>
-          name<span class="token punctuation">:</span> <span class="token string">"Lolita and Charlotte"</span><span class="token punctuation">,</span>
-          sex<span class="token punctuation">:</span> <span class="token string">"F"</span><span class="token punctuation">,</span>
-          description<span class="token punctuation">:</span>
-            <span class="token string">"These dogs, Charlotte and Lolita, will be memorial dogs to a great Furbaby Rescue volunteer who passed away suddenly."</span><span class="token punctuation">,</span>
-          mix<span class="token punctuation">:</span> <span class="token string">"yes"</span><span class="token punctuation">,</span>
-          shelterId<span class="token punctuation">:</span> <span class="token string">"XXXX"</span><span class="token punctuation">,</span>
-          lastUpdate<span class="token punctuation">:</span> <span class="token string">"2019-02-27T17:05:45Z"</span><span class="token punctuation">,</span>
-          animal<span class="token punctuation">:</span> <span class="token string">"Dog"</span>
-        <span class="token punctuation">}</span>
-      <span class="token punctuation">]</span>
-    <span class="token punctuation">}</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> doggos <span class="token operator">=</span> <span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span>
+  <span class="token function">readFileSync</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">,</span> <span class="token string">"/res.json"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 <span class="token keyword">export</span> <span class="token keyword">const</span> <span class="token constant">ANIMALS</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">"dog"</span><span class="token punctuation">,</span> <span class="token string">"cat"</span><span class="token punctuation">,</span> <span class="token string">"bird"</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
 <span class="token keyword">export</span> <span class="token keyword">const</span> _breeds <span class="token operator">=</span> breeds<span class="token punctuation">;</span>
-<span class="token keyword">export</span> <span class="token keyword">const</span> _dogs <span class="token operator">=</span> doggos<span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> _dogs <span class="token operator">=</span> doggos<span class="token punctuation">.</span>animals<span class="token punctuation">;</span>
 
 <span class="token keyword">const</span> mock <span class="token operator">=</span> <span class="token punctuation">{</span>
-  breed<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-    list<span class="token punctuation">:</span> jest<span class="token punctuation">.</span><span class="token function">fn</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
-      <span class="token keyword">const</span> mockData <span class="token operator">=</span> <span class="token punctuation">{</span>
-        petfinder<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-          breeds<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-            breed<span class="token punctuation">:</span> breeds
-          <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
-      <span class="token punctuation">}</span><span class="token punctuation">;</span>
-
-      <span class="token keyword">return</span> <span class="token punctuation">{</span>
-        then<span class="token punctuation">:</span> callback <span class="token operator">=></span>
-          <span class="token function">act</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
-            <span class="token function">callback</span><span class="token punctuation">(</span>mockData<span class="token punctuation">)</span><span class="token punctuation">;</span>
-          <span class="token punctuation">}</span><span class="token punctuation">)</span>
-      <span class="token punctuation">}</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span><span class="token punctuation">)</span>
-  <span class="token punctuation">}</span><span class="token punctuation">,</span>
-  pet<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-    find<span class="token punctuation">:</span> jest<span class="token punctuation">.</span><span class="token function">fn</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
-      <span class="token keyword">return</span> <span class="token punctuation">{</span>
-        then<span class="token punctuation">:</span> callback <span class="token operator">=></span>
-          <span class="token function">act</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
-            <span class="token function">callback</span><span class="token punctuation">(</span>doggos<span class="token punctuation">)</span><span class="token punctuation">;</span>
-          <span class="token punctuation">}</span><span class="token punctuation">)</span>
-      <span class="token punctuation">}</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span><span class="token punctuation">)</span>
-  <span class="token punctuation">}</span>
+  breeds<span class="token punctuation">:</span> jest<span class="token punctuation">.</span><span class="token function">fn</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>
+      then<span class="token punctuation">:</span> callback <span class="token operator">=></span>
+        <span class="token function">act</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+          <span class="token function">callback</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+            breeds
+          <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  animals<span class="token punctuation">:</span> jest<span class="token punctuation">.</span><span class="token function">fn</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>
+      then<span class="token punctuation">:</span> callback <span class="token operator">=></span>
+        <span class="token function">act</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+          <span class="token function">callback</span><span class="token punctuation">(</span>doggos<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
 <span class="token punctuation">}</span><span class="token punctuation">;</span>
 
-<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token keyword">return</span> mock<span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre></div>
+<span class="token keyword">export</span> <span class="token keyword">default</span> mock<span class="token punctuation">;</span></code></pre></div>
+<p>After that, <a href="https://raw.githubusercontent.com/btholt/complete-intro-to-react-v5/testing/__mocks__/@frontendmasters/res.json">go copy and paste this fixture</a> into your same directory as the mock <code class="language-text">pet.js</code> and call it <code class="language-text">res.json</code>.</p>
 <ul>
-<li>A lot of the length here is from mock data. I just literally looked at one of the responses from Petfinder and took a few items. Feel free to do the same.</li>
-<li>Here we're having to do a few odd things. The first you'll notice we're mimicking the API of the <code class="language-text">petfinder-client</code>. We're exporting an <code class="language-text">ANIMALS</code> variable and a default object which has <code class="language-text">breed.list</code> and <code class="language-text">pet.find</code> methods.</li>
+<li>I just literally looked at one of the responses from Petfinder and took out the identifiying information.</li>
+<li>Here we're having to do a few odd things. The first you'll notice we're mimicking the API of the <code class="language-text">pet</code> client. We're exporting an <code class="language-text">ANIMALS</code> variable and a default object which has <code class="language-text">breeds</code> and <code class="language-text">animals</code> methods.</li>
 <li>These are in turn returning fake promises. We're doing this so we can wrap these actions in <code class="language-text">act</code> calls from <code class="language-text">react-testing-library</code> (that method actually originates from <code class="language-text">react-test-renderer</code>, the underlying <code class="language-text">react-dom</code>-like library made for testing.) <code class="language-text">act</code> allows React to correctly batch updates to better simulate the browser. If you don't do this, the behavior can be non-deterministic (which means if you run it twice you make get two different results) and cause flaky tests. It has the added benefit of being synchronous and faster.</li>
 <li>We're also exporting the breeds and dogs objects which are the underlying data structures. This is because we want to compare that if we return five breeds from the API, that we have five options inside the dropdown.</li>
 <li>We're using <code class="language-text">jest.fn</code> so we can spy on these functions later to make sure that the app is calling the API on startup.</li>
@@ -632,19 +117,18 @@
 <p>Now make a file called SearchParams.test.js. In there put:</p>
 <div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript"><span class="token keyword">import</span> React <span class="token keyword">from</span> <span class="token string">"react"</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> render<span class="token punctuation">,</span> cleanup <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"react-testing-library"</span><span class="token punctuation">;</span>
-<span class="token keyword">import</span> petfinder<span class="token punctuation">,</span> <span class="token punctuation">{</span> _breeds<span class="token punctuation">,</span> _dogs<span class="token punctuation">,</span> <span class="token constant">ANIMALS</span> <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"petfinder-client"</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> pet<span class="token punctuation">,</span> <span class="token punctuation">{</span> _breeds<span class="token punctuation">,</span> _dogs<span class="token punctuation">,</span> <span class="token constant">ANIMALS</span> <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"@frontendmasters/pet"</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> SearchParams <span class="token keyword">from</span> <span class="token string">"../SearchParams"</span><span class="token punctuation">;</span>
 
 <span class="token function">afterEach</span><span class="token punctuation">(</span>cleanup<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 <span class="token function">test</span><span class="token punctuation">(</span><span class="token string">"SearchParams"</span><span class="token punctuation">,</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
-  <span class="token keyword">const</span> pf <span class="token operator">=</span> <span class="token function">petfinder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token keyword">const</span> <span class="token punctuation">{</span> getByTestId <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">render</span><span class="token punctuation">(</span><span class="token operator">&lt;</span>SearchParams <span class="token operator">/</span><span class="token operator">></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
   <span class="token keyword">const</span> animalDropdown <span class="token operator">=</span> <span class="token function">getByTestId</span><span class="token punctuation">(</span><span class="token string">"use-dropdown-animal"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token function">expect</span><span class="token punctuation">(</span>animalDropdown<span class="token punctuation">.</span>children<span class="token punctuation">.</span>length<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toEqual</span><span class="token punctuation">(</span><span class="token constant">ANIMALS</span><span class="token punctuation">.</span>length <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre></div>
-<p>Now in <code class="language-text">useDropdow.js</code> put this so we can grab the correct select:</p>
+<p>Now in <code class="language-text">useDropdown.js</code> put this so we can grab the correct select:</p>
 <div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript"> <span class="token operator">&lt;</span>select
   data<span class="token operator">-</span>testid<span class="token operator">=</span><span class="token punctuation">{</span>id<span class="token punctuation">}</span>
   <span class="token punctuation">[</span>…<span class="token punctuation">]</span>
@@ -658,7 +142,7 @@
 <p><code class="language-text">test</code> and <code class="language-text">expect</code> come from Jasmine via Jest and are injected in the global scope. To fix your lint errors, add this your <code class="language-text">env</code> in your .eslintrc.json: <code class="language-text">&quot;jest&quot;: true</code>.</p>
 <p>Let's add another test.</p>
 <div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript"><span class="token comment">// beneat the last expect</span>
-<span class="token function">expect</span><span class="token punctuation">(</span>pf<span class="token punctuation">.</span>breed<span class="token punctuation">.</span>list<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toHaveBeenCalled</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">expect</span><span class="token punctuation">(</span>pet<span class="token punctuation">.</span>breeds<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toHaveBeenCalled</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">const</span> breedDropdown <span class="token operator">=</span> <span class="token function">getByTestId</span><span class="token punctuation">(</span><span class="token string">"use-dropdown-breed"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token function">expect</span><span class="token punctuation">(</span>breedDropdown<span class="token punctuation">.</span>children<span class="token punctuation">.</span>length<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toEqual</span><span class="token punctuation">(</span>_breeds<span class="token punctuation">.</span>length <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre></div>
 <ul>
@@ -673,8 +157,21 @@
 <span class="token keyword">const</span> searchResults <span class="token operator">=</span> <span class="token function">getByTestId</span><span class="token punctuation">(</span><span class="token string">"search-results"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token function">expect</span><span class="token punctuation">(</span>searchResults<span class="token punctuation">.</span>textContent<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toEqual</span><span class="token punctuation">(</span><span class="token string">"No Pets Found"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token function">fireEvent</span><span class="token punctuation">(</span><span class="token function">getByText</span><span class="token punctuation">(</span><span class="token string">"Submit"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">MouseEvent</span><span class="token punctuation">(</span><span class="token string">"click"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token function">expect</span><span class="token punctuation">(</span>pf<span class="token punctuation">.</span>pet<span class="token punctuation">.</span>find<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toHaveBeenCalled</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token function">expect</span><span class="token punctuation">(</span>searchResults<span class="token punctuation">.</span>children<span class="token punctuation">.</span>length<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toEqual</span><span class="token punctuation">(</span>_dogs<span class="token punctuation">.</span>petfinder<span class="token punctuation">.</span>pets<span class="token punctuation">.</span>pet<span class="token punctuation">.</span>length<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre></div>
+<span class="token function">expect</span><span class="token punctuation">(</span>pet<span class="token punctuation">.</span>animals<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toHaveBeenCalled</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">expect</span><span class="token punctuation">(</span>searchResults<span class="token punctuation">.</span>children<span class="token punctuation">.</span>length<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toEqual</span><span class="token punctuation">(</span>_dogs<span class="token punctuation">.</span>length<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre></div>
+<p>We have a bit of a problem though. Jest expects to be to run this tests synchronously and we're doing async await. We can't force JS into doing this sync. If wanted to this this way, we either have to monkey patch promises in the testing environment (gross, but this is how Facebook does it) or we can refactor to not use async await. This is simpler for our learning purporses, so let's do that. In SearchParams.js</p>
+<div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript"><span class="token comment">// refactor requestPets</span>
+<span class="token keyword">function</span> <span class="token function">requestPets</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  pet
+    <span class="token punctuation">.</span><span class="token function">animals</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      location<span class="token punctuation">,</span>
+      breed<span class="token punctuation">,</span>
+      type<span class="token punctuation">:</span> animal
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">{</span> animals <span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+      <span class="token function">setPets</span><span class="token punctuation">(</span>animals <span class="token operator">||</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre></div>
 <p>Here we're simulating a submit event to search for pets and then checking it properly called the API and then renders the correct animal list length. Let's go add the testid we need in Results.js</p>
 <div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript"><span class="token comment">// outtermost div</span>
 <span class="token operator">&lt;</span>div className<span class="token operator">=</span><span class="token string">"search"</span> data<span class="token operator">-</span>testid<span class="token operator">=</span><span class="token string">"search-results"</span><span class="token operator">></span></code></pre></div>
@@ -689,4 +186,4 @@
 <p>In any case, run <code class="language-text">npx jest --coverage</code> to try it out. It'll show you an outline of the results in the CLI and then generate a report in a new <code class="language-text">coverage</code> directory (don't check this in to git.) Open coverage/lcov-report/index.html to see a nice web page outlining your test coverage. Add this to your package.json:
 <code class="language-text">&quot;test:coverage&quot;: &quot;jest --coverage&quot;,</code>.</p>
 <p>One more useful thing about Jest: watch mode. You can run your tests interactively and on file-save. It'll only re-run tests that could have possibly been changed and previously failed so it's a fast feedback cycle to fix tests. Add this as well to your package.json: <code class="language-text">&quot;test:watch&quot;: &quot;jest --watch&quot;,</code>.</p>
-<h2 id="-branch-testing"><a href="#-branch-testing" aria-hidden class="anchor"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>🌳 branch <a href="https://github.com/btholt/complete-intro-to-react-v5/tree/testing">testing</a></h2></div><div class="lesson-links"><a class="prev" href="/complete-intro-to-react-v5/redux">← Redux</a></div></div></div></div></div></div></div><script id="gatsby-script-loader">/*<![CDATA[*/window.page={"componentChunkName":"component---src-templates-lesson-template-js","jsonName":"testing-570","path":"/testing"};window.dataPath="819/path---testing-570-13a-AcT4shHOIqhvPjCzGUFqf0VeOA";/*]]>*/</script><script id="gatsby-chunk-mapping">/*<![CDATA[*/window.___chunkMapping={"app":["/app.c6de19830c74e969e310.css","/app-a8622f2a950f1be64845.js"],"component---src-templates-lesson-template-js":["/component---src-templates-lesson-template-js-0e1086e8991339459b3b.js"],"component---src-pages-404-js":["/component---src-pages-404-js-00cd213ddd19e7c82ed0.js"],"component---src-pages-index-js":["/component---src-pages-index-js.bec155781499eaf03f9a.css","/component---src-pages-index-js-61d5acdaea0a97bd75df.js"],"pages-manifest":["/pages-manifest-a66bc56830adc02b1ae3.js"]};/*]]>*/</script><script src="/complete-intro-to-react-v5/webpack-runtime-ec9d43f2b2bc4e255505.js" async=""></script><script src="/complete-intro-to-react-v5/app-a8622f2a950f1be64845.js" async=""></script><script src="/complete-intro-to-react-v5/component---src-templates-lesson-template-js-0e1086e8991339459b3b.js" async=""></script></body></html>
+<h2 id="-branch-testing"><a href="#-branch-testing" aria-hidden class="anchor"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>🌳 branch <a href="https://github.com/btholt/complete-intro-to-react-v5/tree/testing">testing</a></h2></div><div class="lesson-links"><a class="prev" href="/complete-intro-to-react-v5/redux">← Redux</a></div></div></div></div></div></div></div><script id="gatsby-script-loader">/*<![CDATA[*/window.page={"componentChunkName":"component---src-templates-lesson-template-js","jsonName":"testing-570","path":"/testing"};window.dataPath="652/path---testing-570-13a-LOz14wNONb204E7U7GZclwmTE5k";/*]]>*/</script><script id="gatsby-chunk-mapping">/*<![CDATA[*/window.___chunkMapping={"app":["/app.c6de19830c74e969e310.css","/app-a8622f2a950f1be64845.js"],"component---src-templates-lesson-template-js":["/component---src-templates-lesson-template-js-0e1086e8991339459b3b.js"],"component---src-pages-404-js":["/component---src-pages-404-js-00cd213ddd19e7c82ed0.js"],"component---src-pages-index-js":["/component---src-pages-index-js.bec155781499eaf03f9a.css","/component---src-pages-index-js-61d5acdaea0a97bd75df.js"],"pages-manifest":["/pages-manifest-a2e3d364f0ed870793b3.js"]};/*]]>*/</script><script src="/complete-intro-to-react-v5/webpack-runtime-e6b99699306a57f68419.js" async=""></script><script src="/complete-intro-to-react-v5/app-a8622f2a950f1be64845.js" async=""></script><script src="/complete-intro-to-react-v5/component---src-templates-lesson-template-js-0e1086e8991339459b3b.js" async=""></script></body></html>
