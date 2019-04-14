@@ -45,64 +45,18 @@
         }
       }
     })
-  </script><link as="script" rel="preload" href="/complete-intro-to-react-v5/component---src-templates-lesson-template-js-0e1086e8991339459b3b.js"/><link as="script" rel="preload" href="/complete-intro-to-react-v5/app-a8622f2a950f1be64845.js"/><link as="script" rel="preload" href="/complete-intro-to-react-v5/webpack-runtime-8b572d7cecdae0014854.js"/><link as="fetch" rel="preload" href="/complete-intro-to-react-v5/static/d/214/path---effects-287-8f1-mR12j29g3B7AR9v74hzLG77GJtg.json" crossOrigin="use-credentials"/></head><body><noscript id="gatsby-noscript">This app works best with JavaScript enabled.</noscript><div id="___gatsby"><div style="outline:none" tabindex="-1" role="group"><div><div class="navbar navbar-light gradient"><a class="navbar-brand" href="/complete-intro-to-react-v5/">Complete Intro to React v5</a></div><div class="main"><div class="lesson-container"><div class="lesson"><h1>Effects</h1><h2></h2><div class="lesson-content"><p>Back to React! Let's make our app be able to read live data about animals to adopt! This data is courteous of <a href="https://www.petfinder.com/">Petfinder.com</a>, a wonderful service that provides a free API for adopting animals. Unfortunately, this service is USA-based, so please use USA locations only or else it won't return any results.</p>
-<p>Please register <a href="https://www.petfinder.com/developers/api-key">here</a> for an API key from Petfinder.</p>
-<p>Create a file in the root of your project (same directory as package.json) that is called <code class="language-text">.env</code>. Put this in there:</p>
-<div class="gatsby-highlight" data-language="text"><pre class="language-text"><code class="language-text">API_KEY=&lt;Your API key&gt;
-API_SECRET=&lt;Your API secret&gt;</code></pre></div>
-<h3 id="️-important-️"><a href="#%EF%B8%8F-important-%EF%B8%8F" aria-hidden class="anchor"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>⚠️ IMPORTANT ⚠️</h3>
-<p>Whenever you add, remove, or change something from your .env file, you need to delete the .cache and dist directories (so that Parcel will do a clean build.) If later you're seeing you're getting unauthorized errors from the API, this is a likely culprit. If it helps, add this to your package.json and run it whenver you change your .env file before running <code class="language-text">npm run dev</code> again.</p>
-<p>If you see an error like this in your console, you're having this problem.</p>
-<p><a
-    class="gatsby-resp-image-link"
-    href="/complete-intro-to-react-v5/static/905dc98e8816a1073e23d4cb3a26f920/c4694/syntaxError.png"
-    style="display: block"
-    target="_blank"
-    rel="noopener"
-  >
-    <span
-    class="gatsby-resp-image-wrapper"
-    style="position: relative; display: block;  max-width: 800px; margin-left: auto; margin-right: auto;"
-  >
-    <span
-      class="gatsby-resp-image-background-image"
-      style="padding-bottom: 6.099110546378653%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAABCAIAAABR8BlyAAAACXBIWXMAAAsSAAALEgHS3X78AAAARUlEQVQI12MoNnSKt3FPcvZNdPSOsnULtXBMdvJNcvKJsXVPdPJOcPCKd/CMsHaOsfMIMLb0s/HwcwvzdQrw94jysnQBACF4EZyasN9sAAAAAElFTkSuQmCC'); background-size: cover; display: block;"
-    ></span>
-    <img
-        class="gatsby-resp-image-image"
-        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;box-shadow:inset 0px 0px 0px 400px white;"
-        alt="Error saying that you're getting a syntax error due to "<""
-        title=""
-        src="/complete-intro-to-react-v5/static/905dc98e8816a1073e23d4cb3a26f920/ad675/syntaxError.png"
-        srcset="/complete-intro-to-react-v5/static/905dc98e8816a1073e23d4cb3a26f920/07382/syntaxError.png 200w,
-/complete-intro-to-react-v5/static/905dc98e8816a1073e23d4cb3a26f920/8d35a/syntaxError.png 400w,
-/complete-intro-to-react-v5/static/905dc98e8816a1073e23d4cb3a26f920/ad675/syntaxError.png 800w,
-/complete-intro-to-react-v5/static/905dc98e8816a1073e23d4cb3a26f920/d1b74/syntaxError.png 1200w,
-/complete-intro-to-react-v5/static/905dc98e8816a1073e23d4cb3a26f920/c4694/syntaxError.png 1574w"
-        sizes="(max-width: 800px) 100vw, 800px"
-      />
-  </span>
-  </a></p>
-<div class="gatsby-highlight" data-language="json"><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
-  <span class="token property">"scripts"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token property">"clear-build-cache"</span><span class="token operator">:</span> <span class="token string">"rm -rf .cache/ dist/"</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">}</span></code></pre></div>
-<p>Again, it's critical to clear your build cache first, <em>then</em> stop and start your dev server when you modify your .env file. I'm emphasizing this a lot because a lot of people get tripped up here.</p>
+  </script><link as="script" rel="preload" href="/complete-intro-to-react-v5/component---src-templates-lesson-template-js-0e1086e8991339459b3b.js"/><link as="script" rel="preload" href="/complete-intro-to-react-v5/app-a8622f2a950f1be64845.js"/><link as="script" rel="preload" href="/complete-intro-to-react-v5/webpack-runtime-ec9d43f2b2bc4e255505.js"/><link as="fetch" rel="preload" href="/complete-intro-to-react-v5/static/d/453/path---effects-287-8f1-WIMwcRiZ10tNB2VksAe7M2fYQ.json" crossOrigin="use-credentials"/></head><body><noscript id="gatsby-noscript">This app works best with JavaScript enabled.</noscript><div id="___gatsby"><div style="outline:none" tabindex="-1" role="group"><div><div class="navbar navbar-light gradient"><a class="navbar-brand" href="/complete-intro-to-react-v5/">Complete Intro to React v5</a></div><div class="main"><div class="lesson-container"><div class="lesson"><h1>Effects</h1><h2></h2><div class="lesson-content"><p>Back to React! Let's make our app be able to read live data about animals to adopt! This data is courteous of <a href="https://www.petfinder.com/">Petfinder.com</a>, a wonderful service that provides a free API for adopting animals. Unfortunately, this service is USA-based, so please use USA locations only or else it won't return any results.</p>
 <p>Now Parcel will read these variables out of your .env file and make them available inside of your app. Now you don't have to commit secrets to your codebase and that's <em>always</em> a good thing. If someone gets access to GitHub for your code, they won't necessarily get your API keys. You'll use a different service like <a href="https://azure.microsoft.com/en-us/services/key-vault/?WT.mc_id=react-github-brholt">Azure Key Vault</a> or <a href="https://kubernetes.io/docs/concepts/configuration/secret/">Kubernetes Secrets</a> to manage your secrets.</p>
-<p>Now that your secrets are in there, let's install the Petfinder Client. I wrote this little wrapper for the API; it's not good. It's optimized for this use case only. Run <code class="language-text">npm install petfinder-client</code>. In App.js, add:</p>
+<p>Now that your secrets are in there, let's install the API client. Frontend Masters and myself have proxied the Petfinder API for you so you don't have to sign up for an account and overwhelm the Petfinder people. Do note we have aggressively cached this API so the data will only be refreshed once a day. We've also limited the locations you can search to to Seattle, WA and San Francisco, CA so that the cache can be more effective.</p>
+<p>Run <code class="language-text">npm install @frontendmasters/pet</code>.</p>
+<p>In App.js:</p>
 <div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript"><span class="token comment">// at the top</span>
-<span class="token keyword">import</span> pf <span class="token keyword">from</span> <span class="token string">"petfinder-client"</span><span class="token punctuation">;</span>
-
-<span class="token comment">// under imports</span>
-<span class="token keyword">const</span> petfinder <span class="token operator">=</span> <span class="token function">pf</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-  key<span class="token punctuation">:</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">API_KEY</span><span class="token punctuation">,</span>
-  secret<span class="token punctuation">:</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">API_SECRET</span>
-<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> React<span class="token punctuation">,</span> <span class="token punctuation">{</span> useEffect <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"react"</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> pet<span class="token punctuation">,</span> <span class="token punctuation">{</span> <span class="token constant">ANIMALS</span> <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"@frontendmasters/pet"</span><span class="token punctuation">;</span>
 
 <span class="token comment">// inside render method, below useDropdown calls</span>
 <span class="token function">useEffect</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
-  petfinder<span class="token punctuation">.</span>breed<span class="token punctuation">.</span><span class="token function">list</span><span class="token punctuation">(</span><span class="token punctuation">{</span> animal<span class="token punctuation">:</span> <span class="token string">"dog"</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>console<span class="token punctuation">.</span>log<span class="token punctuation">,</span> console<span class="token punctuation">.</span>error<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  pet<span class="token punctuation">.</span><span class="token function">breeds</span><span class="token punctuation">(</span><span class="token string">"dog"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>console<span class="token punctuation">.</span>log<span class="token punctuation">,</span> console<span class="token punctuation">.</span>error<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre></div>
 <ul>
 <li>pf takes in credentials and returns an API object. You only have to give it credentials here; anywhere else you import it it'll retain the same credentials. The API response has a silly and ridiculous structure.</li>
@@ -112,12 +66,11 @@ API_SECRET=&lt;Your API secret&gt;</code></pre></div>
 <p>So rather just having <code class="language-text">dog</code> be the static animal, let's make that dynamic and let's make it actually save the breed it gets.</p>
 <div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript"><span class="token comment">// replace effect</span>
 <span class="token function">useEffect</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
-  petfinder<span class="token punctuation">.</span>breed<span class="token punctuation">.</span><span class="token function">list</span><span class="token punctuation">(</span><span class="token punctuation">{</span> animal <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>data <span class="token operator">=></span> <span class="token punctuation">{</span>
-    <span class="token function">updateBreeds</span><span class="token punctuation">(</span>
-      Array<span class="token punctuation">.</span><span class="token function">isArray</span><span class="token punctuation">(</span>data<span class="token punctuation">.</span>petfinder<span class="token punctuation">.</span>breeds<span class="token punctuation">.</span>breed<span class="token punctuation">)</span>
-        <span class="token operator">?</span> data<span class="token punctuation">.</span>petfinder<span class="token punctuation">.</span>breeds<span class="token punctuation">.</span>breed
-        <span class="token punctuation">:</span> <span class="token punctuation">[</span>data<span class="token punctuation">.</span>petfinder<span class="token punctuation">.</span>breeds<span class="token punctuation">.</span>breed<span class="token punctuation">]</span>
-    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">updateBreeds</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">updateBreed</span><span class="token punctuation">(</span><span class="token string">""</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  pet<span class="token punctuation">.</span><span class="token function">breeds</span><span class="token punctuation">(</span>animal<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">{</span> breeds <span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> breedStrings <span class="token operator">=</span> breeds<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">{</span> name <span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token operator">=></span> name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">updateBreeds</span><span class="token punctuation">(</span>breedStrings<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span><span class="token punctuation">,</span> console<span class="token punctuation">.</span>error<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>animal<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre></div>
 <ul>
@@ -125,6 +78,7 @@ API_SECRET=&lt;Your API secret&gt;</code></pre></div>
 <li>Petfinder API does weird stuff where it returns an array if there are more than one breed but just returns a string if there's only one. It's dumb.</li>
 <li>The array at the end is peculiar but essential. By default, effects will run at the end of every re-render. This is problematic for us because we're updating breeds, which causes a re-render, which causes another effect, which causes another re-render, etc. What you can to prevent this spiral is give it an array at the end of variables as a second parameter. Now this effect will only happen if one of those variables changes. In this case, it will only cause the effect if <code class="language-text">animal</code> changes. Which is exactly what we want.</li>
 <li>Effects are always called after the first render no matter what.</li>
+<li>We have to pull the strings out of the objects from the API since the dropdown expect a list of strings, hence the map which does just that.</li>
 </ul>
 <p>We want to console.error the messages if there's an error. Let's go turn that warning off in ESLint.</p>
 <div class="gatsby-highlight" data-language="json"><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
@@ -152,7 +106,6 @@ API_SECRET=&lt;Your API secret&gt;</code></pre></div>
 <ul>
 <li><code class="language-text">git checkout f702290c687a717356403dabd97658b3bbce7ad0 -f</code></li>
 <li><code class="language-text">npm install</code></li>
-<li>Add API keys to your <code class="language-text">.env</code> file</li>
 <li>Run <code class="language-text">npm run dev</code>.</li>
 </ul>
-<p> </p></div><div class="lesson-links"><a class="prev" href="/complete-intro-to-react-v5/hooks">← Hooks</a><a class="next" href="/complete-intro-to-react-v5/dev-tools">Dev Tools →</a></div></div></div></div></div></div></div><script id="gatsby-script-loader">/*<![CDATA[*/window.page={"componentChunkName":"component---src-templates-lesson-template-js","jsonName":"effects-287","path":"/effects"};window.dataPath="214/path---effects-287-8f1-mR12j29g3B7AR9v74hzLG77GJtg";/*]]>*/</script><script id="gatsby-chunk-mapping">/*<![CDATA[*/window.___chunkMapping={"app":["/app.c6de19830c74e969e310.css","/app-a8622f2a950f1be64845.js"],"component---src-templates-lesson-template-js":["/component---src-templates-lesson-template-js-0e1086e8991339459b3b.js"],"component---src-pages-404-js":["/component---src-pages-404-js-00cd213ddd19e7c82ed0.js"],"component---src-pages-index-js":["/component---src-pages-index-js.bec155781499eaf03f9a.css","/component---src-pages-index-js-61d5acdaea0a97bd75df.js"],"pages-manifest":["/pages-manifest-00872dcbe5958048b5b5.js"]};/*]]>*/</script><script src="/complete-intro-to-react-v5/webpack-runtime-8b572d7cecdae0014854.js" async=""></script><script src="/complete-intro-to-react-v5/app-a8622f2a950f1be64845.js" async=""></script><script src="/complete-intro-to-react-v5/component---src-templates-lesson-template-js-0e1086e8991339459b3b.js" async=""></script></body></html>
+<p> </p></div><div class="lesson-links"><a class="prev" href="/complete-intro-to-react-v5/hooks">← Hooks</a><a class="next" href="/complete-intro-to-react-v5/dev-tools">Dev Tools →</a></div></div></div></div></div></div></div><script id="gatsby-script-loader">/*<![CDATA[*/window.page={"componentChunkName":"component---src-templates-lesson-template-js","jsonName":"effects-287","path":"/effects"};window.dataPath="453/path---effects-287-8f1-WIMwcRiZ10tNB2VksAe7M2fYQ";/*]]>*/</script><script id="gatsby-chunk-mapping">/*<![CDATA[*/window.___chunkMapping={"app":["/app.c6de19830c74e969e310.css","/app-a8622f2a950f1be64845.js"],"component---src-templates-lesson-template-js":["/component---src-templates-lesson-template-js-0e1086e8991339459b3b.js"],"component---src-pages-404-js":["/component---src-pages-404-js-00cd213ddd19e7c82ed0.js"],"component---src-pages-index-js":["/component---src-pages-index-js.bec155781499eaf03f9a.css","/component---src-pages-index-js-61d5acdaea0a97bd75df.js"],"pages-manifest":["/pages-manifest-a66bc56830adc02b1ae3.js"]};/*]]>*/</script><script src="/complete-intro-to-react-v5/webpack-runtime-ec9d43f2b2bc4e255505.js" async=""></script><script src="/complete-intro-to-react-v5/app-a8622f2a950f1be64845.js" async=""></script><script src="/complete-intro-to-react-v5/component---src-templates-lesson-template-js-0e1086e8991339459b3b.js" async=""></script></body></html>
