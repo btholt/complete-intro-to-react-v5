@@ -128,6 +128,6 @@ const Spin = keyframes`
 
 That's it! That's most of what you need to know to use Emotion.
 
-## 🌳 ## 🌳 branch [emotion](https://github.com/btholt/complete-intro-to-react-v5/tree/emotion)
+## 🌳 branch [emotion](https://github.com/btholt/complete-intro-to-react-v5/tree/emotion)
 
 [sc]: https://marketplace.visualstudio.com/items?itemName=mf.vscode-styled-components&WT.mc_id=react-github-brholt
