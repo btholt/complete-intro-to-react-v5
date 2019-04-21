@@ -8,7 +8,7 @@ TypeScript is a thin layer on top of JavaScript that adds the power of a static 
 
 This is going to be a brief intro: how to set it up and get going with it. If you want more TypeScript goodness, check out [Mike North's course][mike].
 
-First thing, `npm install -D typescript`. Then run `npx tsc --init`. `npx` will run the TypeScript tool directly from your node_modules and init your project for you. You'll see now a tsconfig.json. We don't need to set up anything else since Parcel already knows how to handle TypeScript files. Open your new `tsconfig.json` file and uncomment the `jsx` field. Replace `preserve` with `react`. This lets TypeScript that you're writing React.
+First thing, `npm install -D typescript`. Then run `npx tsc --init`. `npx` will run the TypeScript tool directly from your node_modules and init your project for you. You'll see now a tsconfig.json. We don't need to set up anything else since Parcel already knows how to handle TypeScript files. Open your new `tsconfig.json` file and uncomment the `jsx` field. Replace `preserve` with `react`. This lets TypeScript that you're writing React. Then update the target to be `ES2018` so that you can use async / await and promises.
 
 Next we need to install the types for our project. Not all projects are written in TypeScript so another project, DefinitelyTyped, provides third party types for your library. In order to install these types, run `npm install -D @types/react @types/react-dom @types/reach__router`. This will grab all these type definitions.
 
@@ -87,13 +87,8 @@ Let's go fix another file. Details.tsx.
 
 ```tsx
 // imports
-import pf, { PetResponse, PetMedia } from "petfinder-client";
+import pet, { Photo, AnimalResponse } from "@frontendmasters/pet";
 import { navigate, RouteComponentProps } from "@reach/router";
-
-// before pf call
-if (!process.env.API_KEY || !process.env.API_SECRET) {
-  throw new Error("no API keys");
-}
 
 class Details extends React.Component<RouteComponentProps<{ id: string }>> { … }
 
@@ -107,7 +102,8 @@ public state = {
   animal: "",
   location: "",
   description: "",
-  media: {} as PetMedia,
+  media: [] as Photo[],
+  url: "",
   breed: ""
 };
 
@@ -117,14 +113,13 @@ if (!this.props.id) {
   return;
 }
 
-// first thing inside petfinder.pet.get.then
-.then((data: PetResponse) => {
-  if (!data.petfinder.pet) {
-    navigate("/");
-    return;
-  }
-  // […]
-})
+// replace then inside componentDidMount
+ pet
+  .animal(+this.props.id)
+  .then(({ animal }: AnimalResponse) => {
+
+// replace catch
+.catch((err: Error) => this.setState({ error: err }));
 
 // error boundary
 export default function DetailsErrorBoundary(
@@ -136,7 +131,7 @@ export default function DetailsErrorBoundary(
 - We need to use Reach Router's Router params because the ID param will come from the router, not directly from the consumer.
 - We need to assert that we have those process.env keys, so we will throw whenever we don't. Same thing with the ID from the route props. If Details somehow gets rendered without it, we need to navigate to home (better to a 404 page but we don't have one.)
 - We have to give all state a default setting. This prevents errors on the initial render and it gives TypeScript the ability to infer all your types.
-- It can't tell what type media is so we tell it's a PetMedia object.
+- It can't tell what type media is so we tell it's an array of Photos from the pet library.
 - We had to put a null check in the componentDidMount. If the animal comes back empty, we have to handle that case. Here we're just navigating back to home and returning (the return is necessary or TS still won't be happy.)
 - TS still won't be happy because our other pages haven't been typed yet. We're getting there.
 
@@ -163,16 +158,16 @@ Now that that is done, let's go do Carousel.tsx
 
 ```tsx
 // import
-import { PetMedia, PetPhoto } from "petfinder-client";
+import { Photo } from "@frontendmasters/pet";
 
 // above Carousel
 interface IProps {
-  media: PetMedia;
+  media: Photo[];
 }
 
 interface IState {
   active: number;
-  photos: PetPhoto[];
+  photos: string[];
 }
 
 // add types to class
@@ -187,8 +182,9 @@ public state: State = {
 };
 
 // modify getDerivedStateFromProps
-public static getDerivedStateFromProps({ media }: IProps) {
-  let photos: PetPhoto[] = [];
+public static getDerivedStateFromProps({
+    media
+  }: IProps): { photos: string[] } {
   …
 }
 
@@ -207,29 +203,30 @@ public handleIndexClick = (event: React.MouseEvent<HTMLElement>) => {
 ```
 
 - React.Component is a generic, in that it can accept other types. Here we're telling it what its state and props will look like. We start the interfaces off with a capital I because this signifies that this is an interface. This is a common pattern and one TSLint enforces.
-- Class properties are still new, so we have to use State again to type the state. You would not have to do this if you used a constructor.
+- We could do this without specifying IState like we did. I'm doing to show you how you can also pass in IState and IProps because it sometimes it's a useful pattern.
 - We need to type the event type coming back from the DOM. We know it'll come from an HTML element, and we have to make sure it's not a generic window event. TypeScript forces a lot of this defensive programming.
 
 Carousel is done. Let's do Pet.tsx
 
 ```tsx
 // import
-import { PetMedia, PetPhoto } from "petfinder-client";
+import React, { FunctionComponent } from "react";
+import { Photo } from "@frontendmasters/pet";
 
 interface IProps {
   name: string;
   animal: string;
   breed: string;
-  media: PetMedia;
+  media: Photo[];
   location: string;
-  id: string;
+  id: id;
 }
 
-class Pet extends React.Component<IProps> { … }
+const Pet: FunctionComponent<IProps> = props => { … }
 
-// add type
-let photos: PetPhoto[] = [];
 ```
+
+- Here we're telling TS that Pet is a Function Component for React and that it fits all the shapes of a React component.
 
 Now let's go do useDropdown.tsx
 
@@ -257,11 +254,7 @@ import React, {
   FunctionComponent
 } from "react";
 import { RouteComponentProps } from "@reach/router";
-
-// above pf() call
-if (!process.env.API_KEY || !process.env.API_SECRET) {
-  throw new Error("you need API keys");
-}
+import pet, { ANIMALS, Animal } from "@frontendmasters/pet";
 
 // replace function declaration
 const SearchParams: FunctionComponent<RouteComponentProps> = () => {
@@ -269,26 +262,8 @@ const SearchParams: FunctionComponent<RouteComponentProps> = () => {
 }
 
 // replace useState calls
-const [pets, setPets] = useState([] as Pet[]);
+const [pets, setPets] = useState([] as Animal[]);
 const [breeds, updateBreeds] = useState([] as string[]);
-
-// replace setPets call
-if (res.petfinder.pets) {
-  setPets(
-    Array.isArray(res.petfinder.pets.pet)
-      ? res.petfinder.pets.pet
-      : [res.petfinder.pets.pet as Pet]
-  );
-}
-
-// replace setBreeds call
-if (data.petfinder.breeds) {
-  updateBreeds(
-    Array.isArray(data.petfinder.breeds.breed)
-      ? data.petfinder.breeds.breed
-      : [data.petfinder.breeds.breed as string]
-  );
-}
 ```
 
 - Always need to be defensive about undefined errors. This is one of the benefits of TypeScript, even if it's a bit annoying.
@@ -300,11 +275,11 @@ Now let's go do Results.tsx
 ```tsx
 // import
 import React, { FunctionComponent } from "react";
-import { Pet as IPet } from "petfinder-client";
+import { Animal } from "@frontendmasters/pet";
 
 // above class
 interface IProps {
-  pets: IPet[];
+  pets: Animal[];
 }
 
 // replace function declaration
@@ -320,6 +295,8 @@ Lastly, let's do App.tsx.
 ```
 
 Because of the rest of the work we did, App needs no changes! Hooray! 🎉
+
+Last thing: open `index.html` and change the link from `App.js` to `App.tsx` and then you should be good to go!
 
 This probably felt burdensome to do. In fact, it is. I had a difficult time writing this! Converting existing JS codebasees to TypeScript necessitates a certain amount of writing and rewriting to get all the type signatures in a place that the compiler can verify everything. Be cautious before you call for your team to rewrite.
 
