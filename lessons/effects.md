@@ -6,11 +6,13 @@ title: "Effects"
 
 Back to React! Let's make our app be able to read live data about animals to adopt! This data is courteous of [Petfinder.com][petfinder], a wonderful service that provides a free API for adopting animals. Unfortunately, this service is USA-based, so please use USA locations only or else it won't return any results.
 
-Now Parcel will read these variables out of your .env file and make them available inside of your app. Now you don't have to commit secrets to your codebase and that's _always_ a good thing. If someone gets access to GitHub for your code, they won't necessarily get your API keys. You'll use a different service like [Azure Key Vault][keyvault] or [Kubernetes Secrets][kube] to manage your secrets.
+Since this Petfinder is a real service and we don't want to hammer their API, we've built a client that heavily caches responses and limits your location to only `Seattle, WA` and `San Francisco, CA`. If you request something else, it'll force you into one of these locations. We do this to cause less load on their servers. In the future this may change. Occasionally this API has gone down, so the API client can run in offline mode too. In order to run in offline mode, just make sure that `PET_MOCK=mock` is in your environmental variables. To accomplish, let's add this mock ability to your npm scripts. Run `npm install -D cross-env` and then add this to your package.json's scripts:
 
-Now that your secrets are in there, let's install the API client. Frontend Masters and myself have proxied the Petfinder API for you so you don't have to sign up for an account and overwhelm the Petfinder people. Do note we have aggressively cached this API so the data will only be refreshed once a day. We've also limited the locations you can search to to Seattle, WA and San Francisco, CA so that the cache can be more effective.
+`"dev:mock": "cross-env PET_MOCK=mock npm run dev",`.
 
-Run `npm install @frontendmasters/pet`.
+Now any time you run this `npm run dev:mock` instead of `npm run dev` you'll get mock data and not hit the API. This will work offline and if the API is down or taking too long.
+
+Now let's go install the client. Run `npm install @frontendmasters/pet`.
 
 In App.js:
 
