@@ -2,9 +2,7 @@
 
 [See the course website here][v5].
 
-Before starting the course, please have [VSCode][vscode] or another code editor installed. Brian is using a font called [Dankmono][dankmono] in the course (not necessary to install -- just for those curious).
-
-This course was written for and recorded by [Frontend Masters][fem]. The code here is licensed under the Apache 2.0 license and the [course notes][v4] are licensed under the Creative Commons Attribution-NonCommercial 4.0 International license.
+Before starting the course, please have [VSCode][vscode] or another code editor installed. Brian is using a font called [Dankmono][dankmono] (not necessary to install -- just for those curious), but [FiraCode][firacode] is another great option. This course was written for and recorded by [Frontend Masters][fem]. The code here is licensed under the Apache 2.0 license and the [course notes][v4] are licensed under the Creative Commons Attribution-NonCommercial 4.0 International license.
 
 
 <!-- as the [Complete Intro to React v5][course] and [Intermediate React][course-intermediate] courses.  -->
@@ -19,6 +17,8 @@ If you run into anything else, open an issue and we'll try to clarify or help.
 
 [v5]: https://bit.ly/react-v5
 [vscode]: https://code.visualstudio.com/
+[dankmono]: https://dank.sh/
+[firacode]: https://github.com/tonsky/FiraCode
 <!-- [fem]: https://frontendmasters.com/ -->
 <!-- [course]: https://frontendmasters.com/courses/complete-react-v5/ -->
 <!-- [course-intermediate]: https://frontendmasters.com/courses/intermediate-react-v2/ -->
