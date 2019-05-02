@@ -36,13 +36,13 @@ import path from "path";
 import { act } from "react-testing-library";
 
 const breeds = [
-  "Bichon Frise",
-  "Bolognese",
-  "Bolonka",
-  "Coton de Tulear",
-  "Havanese",
-  "Lowchen",
-  "Maltese"
+  { name: "Bichon Frise" },
+  { name: "Bolognese" },
+  { name: "Bolonka" },
+  { name: "Coton de Tulear" },
+  { name: "Havanese" },
+  { name: "Lowchen" },
+  { name: "Maltese" }
 ];
 
 const doggos = JSON.parse(
