@@ -14,7 +14,7 @@ Now any time you run this `npm run dev:mock` instead of `npm run dev` you'll get
 
 Now let's go install the client. Run `npm install @frontendmasters/pet`.
 
-In App.js:
+In SearchParam.js:
 
 ```javascript
 // at the top
