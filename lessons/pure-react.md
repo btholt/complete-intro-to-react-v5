@@ -22,8 +22,8 @@ Let's start your project. Create your project directory. I'm going to call mine 
 
 <body>
   <div id="root">not rendered</div>
-  <script src="https://unpkg.com/react@16.8.0-alpha.1/umd/react.development.js"></script>
-  <script src="https://unpkg.com/react-dom@16.8.0-alpha.1/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/react@16.8.4/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@16.8.4/umd/react-dom.development.js"></script>
   <script>
     // Your code is going to go here
   </script>

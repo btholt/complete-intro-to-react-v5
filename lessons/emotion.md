@@ -25,11 +25,9 @@ const NavBar = () => (
     `}
   >
     <Link to="/">Adopt Me!</Link>
-    <Link to="/">
-      <span aria-label="logo" role="img">
-        🐩
-      </span>
-    </Link>
+    <span aria-label="logo" role="img">
+      🐩
+    </span>
   </header>
 );
 
@@ -67,10 +65,11 @@ Make a new file called `colors.js`.
 
 ```javascript
 export default {
-  primary: "#ad343e",
-  secondary: "#f2af29",
-  dark: "#333",
-  light: "#000"
+  primary: "#bf3334",
+  secondary: "#d9c148",
+  dark: "#122622",
+  light: "#81a69b",
+  accent: "#122622"
 };
 ```
 
@@ -101,7 +100,7 @@ Now what if we wanted to make our links underline on hover?
 
 You can style other peoples' components too! Just pass the component into the styled function. You can also use `&` to represent the element in compound selectors like we've done here.
 
-Lastly, let's make the spy glass spin!
+Lastly, let's make the dog spin!
 
 ```javascript
 // import keyframes
@@ -115,13 +114,17 @@ const Spin = keyframes`
 `;
 
 // replace logo link
-<Link
+<span
   css={css`
     display: inline-block;
     animation: 1s ${Spin} linear infinite;
+    font-size: 60px;
   `}
-  to="/"
+  aria-label="logo"
+  role="img"
 >
+  🐩
+</span>;
 ```
 
 `keyframes` are how you do keyframes with Emotion. You create the keyframe, then use what it returns to reference inside your components, again making your keyframes tidily reusable.
