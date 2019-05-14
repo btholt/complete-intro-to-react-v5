@@ -134,7 +134,7 @@ Now we have a more flexible component that accepts props from its parent. Props 
 
 &nbsp;
 
-## 🌳 [274369f9645e3cd941edbceba580bb638824262b](https://github.com/btholt/complete-intro-to-react-v5/commit/274369f9645e3cd941edbceba580bb638824262b)
+## 🌳 [20a475100fa259460bf6db4e09c822d3e760124b](https://github.com/btholt/complete-intro-to-react-v5/commit/20a475100fa259460bf6db4e09c822d3e760124b)
 
 &nbsp;
 

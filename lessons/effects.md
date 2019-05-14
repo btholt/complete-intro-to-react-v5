@@ -83,18 +83,6 @@ updateBreed("");
 
 Now it updates the breed to empty whenever you change animal since you can't have a poodle cat (as cool as that sounds).
 
-&nbsp;
-
-## 🌳 [f702290c687a717356403dabd97658b3bbce7ad0](https://github.com/btholt/complete-intro-to-react-5/commit/f702290c687a717356403dabd97658b3bbce7ad0)
-
-**To use reset code to this commit:**
-
-- `git checkout f702290c687a717356403dabd97658b3bbce7ad0 -f`
-- `npm install`
-- Run `npm run dev`.
-
-&nbsp;
-
 [petfinder]: https://www.petfinder.com/
 [api]: https://www.petfinder.com/developers/api-key
 [keyvault]: https://azure.microsoft.com/en-us/services/key-vault/?WT.mc_id=react-github-brholt

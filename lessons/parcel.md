@@ -62,15 +62,15 @@ import Pet from "./Pet";
 // remove Pet component
 ```
 
-Load the page again. Still works! Now we can separate components into separate files. Parcel does more us than just this but we'll get to that in future sections.
+Load the page again. Still works! Now we can separate components into separate files. Parcel does more than just this but we'll get to that in future sections.
 
 &nbsp;
 
-## 🌳 [5416ec938c31452f0acb15d759759f069783420f](https://github.com/btholt/complete-intro-to-react-v5/commit/5416ec938c31452f0acb15d759759f069783420f)
+## 🌳 [6963d65a8808e3d342fb005e42ab2317193c7065](https://github.com/btholt/complete-intro-to-react-v5/commit/6963d65a8808e3d342fb005e42ab2317193c7065)
 
 **To reset your code to this commit, run:**
 
-- `git checkout 5416ec938c31452f0acb15d759759f069783420f -f` (warning, this will overwrite anything in the project that conflicts with what you're checking out)
+- `git checkout 6963d65a8808e3d342fb005e42ab2317193c7065 -f` (warning, this will overwrite anything in the project that conflicts with what you're checking out)
 - `npm install`
 - `npm run dev`
 - Go to http://localhost:1234

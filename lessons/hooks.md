@@ -6,9 +6,9 @@ path: "/hooks"
 
 ### ⚠️ IMPORTANT ⚠️
 
-If you've been following the whole class so far, ignore this. If you're hopping into the middle of this class just to look at the hooks portion, you can still follow this lesson and build along with us! So far we've been building an app that you can checkout on GitHub and then fast-forward this commit: [48b9b090661af6c57015fae31d689a701d5f6000](https://github.com/btholt/complete-intro-to-react-v5/commit/48b9b090661af6c57015fae31d689a701d5f6000).
+If you've been following the whole class so far, ignore this. If you're hopping into the middle of this class just to look at the hooks portion, you can still follow this lesson and build along with us! So far we've been building an app that you can checkout on GitHub and then fast-forward this commit: [0f7977ae3ce923ecf7094b82056a809fcaf1e905](https://github.com/btholt/complete-intro-to-react-v5/commit/0f7977ae3ce923ecf7094b82056a809fcaf1e905).
 
-If you just want an explaination the hooks in general, check out the [last section, Hooks in Depth](hooks-in-depth)
+If you just want an explanation of hooks in general, check out the [last section, Hooks in Depth](hooks-in-depth)
 
 ## Getting started with hooks
 
@@ -217,6 +217,6 @@ Let's go make it make AJAX requests now!
 
 &nbsp;
 
-## 🌳 [0c99513c7ac016619e86b8c9bc0edb9658cfb536](https://github.com/btholt/complete-intro-to-react-v5/commit/0c99513c7ac016619e86b8c9bc0edb9658cfb536)
+## 🌳 [3c42e352230a758143fd528fbbe3084eae8a8e67](https://github.com/btholt/complete-intro-to-react-v5/commit/3c42e352230a758143fd528fbbe3084eae8a8e67)
 
 [js-api]: https://developer.mozilla.org/en-US/docs/Web/API/Element/className
