@@ -92,8 +92,6 @@ console.log(`listening on ${PORT}`);
 app.listen(PORT);
 ```
 
-## Note: you may have to `npm install petfinder-client@0.0.2` if you're seeing errors around `export { ANIMALS }`. My bad.
-
 - [Express.js][ex] is a Node.js web server framework. It's the most common one and a simple one to learn.
 - We'll be listening on port 3000 (http://locahost:**3000**) unless a environment variable is passed in saying otherwise. We do this because if you try to deploy this, you'll need to watch for PORT.
 - We'll statically serve what Parcel built.

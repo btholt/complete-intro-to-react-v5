@@ -4,6 +4,8 @@ path: "/hooks-in-depth"
 order: 16
 ---
 
+_Note: This is where the Intermediate React course starts. All lessons from 16-22 on out are self-contained and always start from the [master branch](https://github.com/btholt/complete-intro-to-react-v5) of the git repository._
+
 [Open this CodeSandbox.][codesandbox] All of the examples are in there. We will not be using the code in project for this section, just this CodeSandbox.
 
 In the preceding course, we went over `useState`, `useEffect`, `useContext`, and `useRef`. These are the most common hooks and likely 99% of what you're going to use. However it's good to know what other tools are in your toolbox for the 1% of problems. We'll go through, example-by-example, and work out what all these hooks can do for you. (we'll review the ones we've talked about already too.)

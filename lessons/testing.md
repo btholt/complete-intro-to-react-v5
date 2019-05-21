@@ -4,8 +4,6 @@ path: "/testing"
 order: 22
 ---
 
-_Note: This is where the Intermediate React course starts. All lessons from 15-22 on out are self-contained and always start from the [master branch](https://github.com/btholt/complete-intro-to-react-v5) of the git repository._
-
 **To get reset to the latest code:**
 
 - `git clone git@github.com:btholt/complete-intro-to-react-v5.git`
@@ -28,7 +26,7 @@ So let's start testing our application. Run `npm install -D jest react-testing-l
 
 Next go into your src directory and create a folder called `__tests__`. Notice that's double underscores on both sides. Why double? They borrowed it from Python where double underscores ("dunders" as I've heard them called) mean something magic happens. In this case, Jest assumes all JS files in here are tests.
 
-We're going to write tests for SearchParams. But remember that SearchParmas use `@frontendmasters/pet` to make API requests, something we can't do in Node.js. Luckily we can make a mock of it. In the root directly of the project, create a folder called `__mocks__`. If a put a file in here called `lodash.js`, that file will be imported anywhere I have `import _ from "lodash"`. It's so we can mock modules (like `@frontendmasters/pet`) that wouldn't make sense to run in Node or for your tests. So create the folder, create a folder inside that called `@frontendmasters` (to signify the scoped package's organization) and then put `pet.js` inside of that.
+We're going to write tests for SearchParams. But remember that SearchParams use `@frontendmasters/pet` to make API requests, something we can't do in Node.js. Luckily we can make a mock of it. In the root directly of the project, create a folder called `__mocks__`. If a put a file in here called `lodash.js`, that file will be imported anywhere I have `import _ from "lodash"`. It's so we can mock modules (like `@frontendmasters/pet`) that wouldn't make sense to run in Node or for your tests. So create the folder, create a folder inside that called `@frontendmasters` (to signify the scoped package's organization) and then put `pet.js` inside of that.
 
 ```javascript
 import { readFileSync } from "fs";
