@@ -2,10 +2,11 @@
 
 [See the course website here][v5].
 
-Before starting the course, please have [VSCode][vscode] or another code editor installed. Brian is using a font called [Dankmono][dankmono] (not necessary to install -- just for those curious), but [FiraCode][firacode] is another great option. This course was written for and recorded by [Frontend Masters][fem]. The code here is licensed under the Apache 2.0 license and the [course notes][v5] are licensed under the Creative Commons Attribution-NonCommercial 4.0 International license.
+Before starting the course, please have [VSCode][vscode] or another code editor installed.
 
+The master branch and commits within are all covered in [Introduction to React v5][course]. The other branches, excluding the [gh-pages-src][gh-pages] and gh-pages branches (these create the [course website][v5]), are all covered in [Intermediate React][course-intermediate] as modular segments that can be taken individually, or out of order.
 
-<!-- as the [Complete Intro to React v5][course] and [Intermediate React][course-intermediate] courses.  -->
+Brian is using a font called [Dankmono][dankmono] (not necessary to install -- just for those curious), but [FiraCode][firacode] is another great option. This course was written for and recorded by [Frontend Masters][fem]. The code here is licensed under the Apache 2.0 license and the [course notes][v5] are licensed under the Creative Commons Attribution-NonCommercial 4.0 International license.
 
 ## Debugging
 
@@ -15,10 +16,15 @@ See [this issue](https://github.com/btholt/complete-intro-to-react-v4/issues/3#i
 
 If you run into anything else, open an issue and we'll try to clarify or help.
 
+## See a Bug or Typo?
+
+Pull requests are extremely welcome! If you see a typo in the course website, you can access the website code through the [gh-pages-src][gh-pages] branch of this repository.
+
+[gh-pages]: https://github.com/btholt/complete-intro-to-react-v5/tree/gh-pages-src
 [v5]: https://bit.ly/react-v5
 [vscode]: https://code.visualstudio.com/
 [dankmono]: https://dank.sh/
 [firacode]: https://github.com/tonsky/FiraCode
 [fem]: https://frontendmasters.com/
-<!-- [course]: https://frontendmasters.com/courses/complete-react-v5/ -->
-<!-- [course-intermediate]: https://frontendmasters.com/courses/intermediate-react-v2/ -->
+[course]: https://frontendmasters.com/courses/complete-react-v5/
+[course-intermediate]: https://frontendmasters.com/courses/intermediate-react-v2/
