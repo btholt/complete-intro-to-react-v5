@@ -20,7 +20,11 @@ First we'll start with [Jest][jest]. Jest is the testing framework that Facebook
 
 It's useful to know that Jest is built on top of [Jasmine][jasmine]. Jasmine does the underlying testing part while Jest is the highlevel runner of the tests. Sometimes it's useful to consult the Jasmine docs too.
 
-So let's start testing our application. Run `npm install -D jest react-testing-library`.
+Ever since, [this issue](https://github.com/testing-library/dom-testing-library/issues/260), `react-testing-library` was renamed to `@testing-library/react`. Due to this a fresh install of `react-testing-library` will cause the following error to occur:
+
+`react-testing-library has moved to @testing-library/react. Please uninstall react-testing-library and install @testing-library/react instead, or use an older version of react-testing-library. Learn more about this change here: https://github.com/testing-library/dom-testing-library/issues/260 Thanks! :)`
+
+So, considering the issue above, let's start testing our application. Run `npm install -D jest @testing-library/react`.
 
 `react-testing-library` is made by another Frontend Masters teacher, [Kent C. Dodds][kcd]. This tool has a bunch of convenience features that make testing React significantly easier and is now the recommended way of testing React, supplanting [Enzyme][enzyme]. Previous versions of this course teach Enzyme if you'd like to see that.
 
@@ -31,7 +35,7 @@ We're going to write tests for SearchParams. But remember that SearchParams use 
 ```javascript
 import { readFileSync } from "fs";
 import path from "path";
-import { act } from "react-testing-library";
+import { act } from "@testing-library/react";
 
 const breeds = [
   { name: "Bichon Frise" },
@@ -87,7 +91,7 @@ Now make a file called SearchParams.test.js. In there put:
 
 ```javascript
 import React from "react";
-import { render, cleanup } from "react-testing-library";
+import { render, cleanup } from "@testing-library/react";
 import pet, { _breeds, _dogs, ANIMALS } from "@frontendmasters/pet";
 import SearchParams from "../SearchParams";
 
