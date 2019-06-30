@@ -14,7 +14,7 @@ Now any time you run this `npm run dev:mock` instead of `npm run dev` you'll get
 
 Now let's go install the client. Run `npm install @frontendmasters/pet`.
 
-In App.js:
+In SearchParams.js:
 
 ```javascript
 // at the top
@@ -37,7 +37,6 @@ So rather just having `dog` be the static animal, let's make that dynamic and le
 // replace effect
 useEffect(() => {
   updateBreeds([]);
-  updateBreed("");
   pet.breeds(animal).then(({ breeds }) => {
     const breedStrings = breeds.map(({ name }) => name);
     updateBreeds(breedStrings);

@@ -14,7 +14,13 @@ import React from "react";
 import pet from "@frontendmasters/pet";
 
 class Details extends React.Component {
-  state = { loading: true };
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: true
+    };
+  }
+
   componentDidMount() {
     pet
       .animal(this.props.id)
@@ -69,7 +75,7 @@ Since we're going to take ahold of our own Babel configuration, we need to take 
 npm install -D babel-eslint @babel/core @babel/preset-env @babel/plugin-proposal-class-properties @babel/preset-react
 ```
 
-Now make a file called `.babelrc` with the following:
+Now make a file in the root directory called `.babelrc` with the following:
 
 ```json
 {
@@ -79,7 +85,7 @@ Now make a file called `.babelrc` with the following:
 ```
 
 Babel's core concept is a plugin. Every one sort of a transformation it can perform is encapsulated into a plugin. Here we're including one explicitly: transform-class-properties. Then we're including a _preset_ as well. A preset is just a group of plugins, grouped together for convenience. `env` is a particularly good one you should expect to normally use.
-This will allow us too to make ESLint play nice too (Prettier handles this automatically.) Add one line to the top level of your `.eslintrc.json`:
+This will allow us to make ESLint play nice too (Prettier handles this automatically.) Add one line to the top level of your `.eslintrc.json`:
 
 ```json
 {
@@ -119,11 +125,7 @@ class Carousel extends React.Component {
 
     return { photos };
   }
-  handleIndexClick = event => {
-    this.setState({
-      active: +event.target.dataset.index
-    });
-  };
+
   render() {
     const { photos, active } = this.state;
     return (
@@ -131,10 +133,8 @@ class Carousel extends React.Component {
         <img src={photos[active]} alt="animal" />
         <div className="carousel-smaller">
           {photos.map((photo, index) => (
-            // eslint-disable-next-line
             <img
               key={photo}
-              onClick={this.handleIndexClick}
               data-index={index}
               src={photo}
               className={index === active ? "active" : ""}
@@ -150,11 +150,14 @@ class Carousel extends React.Component {
 export default Carousel;
 ```
 
-Add the Carousel component to the Detail page.
+Add the Carousel component to the Detail page and pass down the media prop from Detail state.
 
 ```javascript
 // import at top
 import Carousel from "./Carousel";
+
+// replace destructuring this.state in render;
+const { animal, breed, location, description, name, media } = this.state;
 
 // first component inside div.details
 <Carousel media={media} />;
@@ -188,3 +191,5 @@ data-index={index}
 &nbsp;
 
 ## 🌳 [2d0f234a465c0dfdbc7528ce27ecb3f0c0ea3dce](https://github.com/btholt/complete-intro-to-react-v5/commit/2d0f234a465c0dfdbc7528ce27ecb3f0c0ea3dce)
+
+[babel]: https://babeljs.io/

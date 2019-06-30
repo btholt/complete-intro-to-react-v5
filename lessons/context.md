@@ -12,7 +12,7 @@ Context (mostly) replaces Redux. Well, typically. It fills the same need as Redu
 
 Again, this is a contrived example. What we're doing here is overkill and should be accomplished via React's normal patterns. But let's check out what this looks like.
 
-Imagine if we wanted to make the search box at the top of the page appear on the search-params page and the results page and re-use that component. And we want to make that state stick between the two. This means the state has live outside of those routes. We could use Redux for it, we could React itself, or we're going to use context, to teach you what that looks like.
+Imagine if we wanted to make the search box at the top of the page appear on the search-params page and the details page and re-use that component. And we want to make that state stick between the two. This means the state has to live outside of those routes. We could use Redux for it, we could use React itself, or we could use context.  Lets use context to teach you what that looks like.
 
 Make a new file called ThemeContext.js
 
@@ -28,7 +28,7 @@ export default ThemeContext;
 
 A Consumer is how you consume from the above provider. A Consumer accepts a function as a child and gives it the context which you can use. We won't be using the Consumer directly: a function called `useContext` will do that for us.
 
-The object provided to context is the default state it uses when it can find no Provider above it, useful if there's a chance no provider will be there and for testing. It's also use for TypeScript because TypeScript will enforce these types. Here we're giving it the shape of a `useState` call because we'll using `useState` with it. You do not have to use context with hooks; [see v4][v4] if you want to see how to do it without hooks. This example also has a more complicated data shape. This example is a lot more simple. If you wanted a more complicated data shape, you'd replace `"green"` with an object full of other properties.
+The object provided to context is the default state it uses when it can find no Provider above it, useful if there's a chance no provider will be there and for testing. It's also useful for TypeScript because TypeScript will enforce these types. Here we're giving it the shape of a `useState` call because we'll be using `useState` with it. You do not have to use context with hooks; [see v4][v4] if you want to see how to do it without hooks. This example also has a more complicated data shape. This example is a lot more simple. If you wanted a more complicated data shape, you'd replace `"green"` with an object full of other properties.
 
 Now we're going to make all the buttons' background color in the app be governed by the theme. First let's go to App.js
 
@@ -54,7 +54,8 @@ const theme = useState("darkblue");
 Next let's go to `SearchParams.js`
 
 ```javascript
-// import at top
+// import ThemeContext and useContext
+import React, { useState, useEffect, useContext } from "react";
 import ThemeContext from "./ThemeContext";
 
 // top of SearchParams function body
@@ -77,9 +78,7 @@ import ThemeContext from "./ThemeContext";
 // replace button
 <ThemeContext.Consumer>
   {([theme]) => (
-    <button style={{ backgroundColor: theme }} onClick={this.toggleModal}>
-      Adopt {name}
-    </button>
+    <button style={{ backgroundColor: theme }}>Adopt {name}</button>
   )}
 </ThemeContext.Consumer>;
 ```
@@ -101,8 +100,8 @@ const [theme, setTheme] = useContext(ThemeContext);
     onChange={e => setTheme(e.target.value)}
     onBlur={e => setTheme(e.target.value)}
   >
-    <option value="peru">Peru</option>
     <option value="darkblue">Dark Blue</option>
+    <option value="peru">Peru</option>
     <option value="chartreuse">Chartreuse</option>
     <option value="mediumorchid">Medium Orchid</option>
   </select>

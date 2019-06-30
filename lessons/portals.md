@@ -57,8 +57,9 @@ state = { loading: true, showModal: false };
 
 // add setState inside componentDidMount
 url: animal.url,
-  // above render
-  (toggleModal = () => this.setState({ showModal: !this.state.showModal }));
+
+// add above render
+toggleModal = () => this.setState({ showModal: !this.state.showModal });
 adopt = () => navigate(this.state.url);
 
 // add showModal
@@ -69,11 +70,18 @@ const {
   location,
   description,
   name,
-  url,
   showModal
 } = this.state;
 
-// below description
+// Replace Themed button
+ <button
+  style={{ backgroundColor: theme }}
+  onClick={this.toggleModal}
+>
+  Adopt {name}
+</button>
+
+// add below description
 {
   showModal ? (
     <Modal>
