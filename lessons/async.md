@@ -30,7 +30,7 @@ async function requestPets() {
 >
 ```
 
-We don't Parcel to use Babel to translate our async/await calls (since you and I are probably both using modern browsers, you'd want to let it translate it for production.) As such, add this to your package.json:
+We don't want Parcel to use Babel to translate our async/await calls (since you and I are probably both using modern browsers, you'd want to let it translate it for production.) As such, add this to your package.json:
 
 ```json
 {
