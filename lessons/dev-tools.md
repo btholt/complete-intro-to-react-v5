@@ -16,7 +16,7 @@ Why is it important that we strip the debug stuff out? The dev bundle of React i
 
 ## Strict Mode
 
-React has a new strict mode. If you wrap your app in `<React.Strict></React.Strict>` it will give you additional warnings about things you shouldn't be doing. I'm not teaching you anything that would trip warnings from `React.Strict` but it's good to keep your team in line and not using legacy features or things that will be sooned be deprecated.
+React has a new strict mode. If you wrap your app in `<React.StrictMode></React.StrictMode>` it will give you additional warnings about things you shouldn't be doing. I'm not teaching you anything that would trip warnings from `React.StrictMode` but it's good to keep your team in line and not using legacy features or things that will be sooned be deprecated.
 
 ## Dev Tools
 
