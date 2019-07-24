@@ -15,7 +15,7 @@ If you just want an explanation of hooks in general, check out the [last section
 Now we want to make it so you can modify what your search parameters are. Let's make a new route called SearchParams.js and have it accept these search parameters.
 
 ```javascript
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 const SearchParams = () => {
   const location = "Seattle, WA";
@@ -38,7 +38,8 @@ export default SearchParams;
 Now add it to your routes:
 
 ```javascript
-// delete Pet import
+// delete Pet import, and add SearchParams
+import SearchParams from "./SearchParams";
 
 // in App.js, replace all the Pets
 <SearchParams />
@@ -73,7 +74,7 @@ const [location, updateLocation] = useState("Seattle, WA");
 - An _absolutely key_ concept for you to grasp is hooks rely on this strict ordering. As such, **do not put hooks inside if statements or loops**. If you do, you'll have insane bugs that involve `useState` returning _the wrong state_. If you see `useState` returning the wrong piece of state, this is likely what you did.
 - Because the previous point is so absolutely critical, the React team has provided us with a lint rule that help us not fall into that trap. That lint rule relies on us, the developers, to follow the convention of calling our hooks `useXxxxxx`. If you're willing to do that, the lint rules will guard you from calling the hooks out of order.
 - The argument given to `useState` is the default value. In our case, we gave it `"Seattle, WA"` as our default value.
-- `useState` returns to us an array with two things in it: the current value of that state and a function to update that function. We're using a feature of JavaScript called destructuring to get both of those thing`s out of the array.
+- `useState` returns to us an array with two things in it: the current value of that state and a function to update that function. We're using a feature of JavaScript called destructuring to get both of those things out of the array.
 - We use the `updateLocation` function in the `onChange` attribute of the input. Every time the input is typed into, it's going to call that function which calls `updateLocation` with what has been typed into the input. When `updateLocation` is called, React knows that its state has been modified and kicks off a re-render.
 - You can make your own custom hooks; `useState` is just one of many.
 - Historically, React has been written using `class`es with state being on the instance of the component. This is still a supported pattern in React. We'll see how to do it later.
@@ -104,7 +105,7 @@ import { ANIMALS } from "@frontendmasters/pet";
 // under location
 const [animal, updateAnimal] = useState("");
 
-// under input
+// under the location label
 <label htmlFor="animal">
   Animal
   <select
