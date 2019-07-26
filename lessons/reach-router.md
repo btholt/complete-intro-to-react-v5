@@ -24,14 +24,14 @@ export default Details;
 
 Now the Results page is its own component. This makes it easy to bring in the router to be able to switch pages. Run `npm install @reach/router`.
 
-Now we have two pages and the router available. Let's go make it ready to switch between the two.
+Now we have two pages and the router available. Let's go make it ready to switch between the two. In `App.js`:
 
 ```javascript
 // at top
 import { Router } from "@reach/router";
 import Details from "./Details";
 
-// replace <Results />
+// replace <SearchParams />
 <Router>
   <SearchParams path="/" />
   <Details path="/details/:id" />
@@ -41,7 +41,7 @@ import Details from "./Details";
 Now we have the router working! Try navigating to http://localhost:1234/ and then to http://localhost:1234/details/1. Both should work!
 
 - Reach Router has a ton of features that we're not going to explain here. The docs do a great job.
-- With Reach Router, you make your component the Route component (unlike React Router) by giving it a path attribute. Reach Router then will find the path that it most matches (it figures this out by a scoring algorithm the functions intuitively; this CSS selector.)
+- With Reach Router, you make your component the Route component (unlike React Router) by giving it a path attribute. Reach Router then will find the path that it most matches. (It figures this out by a scoring algorithm that functions intuitively, similar to a CSS selector.)
 - The `:id` part is a variable. In `http://localhost:1234/details/1`, `1` would be the variable.
 - The killer feature of Reach Router is that it's really accessible. It manages things like focus so you don't have to. Pretty great.
 
