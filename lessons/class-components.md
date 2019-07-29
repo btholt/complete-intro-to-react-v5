@@ -14,10 +14,14 @@ import React from "react";
 import pet from "@frontendmasters/pet";
 
 class Details extends React.Component {
-  state = { loading: true };
+  constructor() {
+    super();
+    this.state = { loading: true };
+  }
+  
   componentDidMount() {
     pet
-      .animal(this.props.id)
+      .animal(+this.props.id)
       .then(({ animal }) => {
         this.setState({
           name: animal.name,
@@ -38,7 +42,7 @@ class Details extends React.Component {
       return <h1>loading … </h1>;
     }
 
-    const { animal, breed, location, description, name } = this.state;
+    const { animal, breed, location, description, media, name } = this.state;
 
     return (
       <div className="details">
@@ -100,7 +104,7 @@ Loads easier to read, right?
 
 Okay, so on this page, notice first we have a loading indicator (this one isn't nice looking but you could put some effort into it if you wanted.) This is a good idea while you're waiting for data to load.
 
-Let's make a nice photo carousel of the pictures for the animal now. Make a new file called Carousel.js
+Let's make a nice photo carousel of the pictures for the animal now. Make a new file called Carousel.js:
 
 ```javascript
 import React from "react";
@@ -119,11 +123,7 @@ class Carousel extends React.Component {
 
     return { photos };
   }
-  handleIndexClick = event => {
-    this.setState({
-      active: +event.target.dataset.index
-    });
-  };
+
   render() {
     const { photos, active } = this.state;
     return (
@@ -131,11 +131,8 @@ class Carousel extends React.Component {
         <img src={photos[active]} alt="animal" />
         <div className="carousel-smaller">
           {photos.map((photo, index) => (
-            // eslint-disable-next-line
             <img
               key={photo}
-              onClick={this.handleIndexClick}
-              data-index={index}
               src={photo}
               className={index === active ? "active" : ""}
               alt="animal thumbnail"
@@ -157,7 +154,7 @@ Add the Carousel component to the Detail page.
 import Carousel from "./Carousel";
 
 // first component inside div.details
-<Carousel media={media} />;
+<Carousel media={media} />
 ```
 
 - getDerivedStateFromProps does exactly what it sounds like: it allows you to accept data from a parent and get state that is derived from it. In this case, we're removing the superfluous photos and just keeping the ones we want.
