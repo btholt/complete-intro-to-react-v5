@@ -82,12 +82,12 @@ componentDidUpdate() {
 
 // first thing inside render
 if (this.state.redirect) {
-  return <Redirect to="/" />;
+  return <Redirect to="/" noThrow />;
 }
 ```
 
 - `componentDidUpdate` is how you react to state and prop changes with class components. In this case we're reacting to the state changing. You're also passed the previous state and props in the paremeters (which we didn't need) in case you want to detect what changed.
-- Rendering Redirect components is how you do redirects with Reach Router. You can also do it progamatically but I find this approach elegant.
+- Rendering Redirect components is how you do redirects with Reach Router. You can also do it progamatically but I find this approach elegant. `noThrow` prop will stop Redirect from throwing errors in development mode.
 
 &nbsp;
 
