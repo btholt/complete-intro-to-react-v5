@@ -10,15 +10,15 @@ const useDropdown = (label, defaultState, options) => {
         id={id}
         value={state}
         onChange={e => {
-          setState(e.target.value);
+          updateState(e.target.value);
           if (e.target.value == "All") {
-             setState("");
+             updateState("");
           }
         }}
         onBlur={e => {
-          setState(e.target.value);
+          updateState(e.target.value);
           if (e.target.value == "All") {
-             setState("");
+             updateState("");
           }
         }}
         disabled={!options.length}
