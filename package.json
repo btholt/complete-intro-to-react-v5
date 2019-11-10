@@ -7,7 +7,8 @@
     "@frontendmasters/pet": "^1.0.3",
     "@reach/router": "^1.2.1",
     "react": "^16.11.0",
-    "react-dom": "^16.11.0"
+    "react-dom": "^16.11.0",
+    "t": "^0.5.1"
   },
   "devDependencies": {
     "@babel/core": "^7.7.2",
