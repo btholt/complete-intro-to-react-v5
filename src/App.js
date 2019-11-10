@@ -6,10 +6,7 @@ import SearchParams from "./SearchParams";
 import ThemeContext from './ThemeContext';
 
 const App = () => {
-  const themeHook = useState({
-    buttonColor: 'darkblue',
-    modalColor: "pink"
-  });
+  const themeHook = useState("darkblue");
   return (
     <ThemeContext.Provider value={themeHook}>
       <div>

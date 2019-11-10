@@ -37,7 +37,7 @@ class Details extends React.Component {
           <h2>{`${animal} - ${breed} - ${location} `}</h2>
           <ThemeContext.Consumer>
             {([theme]) => (
-              <button style={{ backgroundColor: theme.buttonColor }}>
+              <button style={{ backgroundColor: theme}}>
                 Adopt {name}
               </button>
             )}
