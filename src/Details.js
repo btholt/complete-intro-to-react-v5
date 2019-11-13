@@ -27,6 +27,7 @@ class Details extends React.Component {
         loading: false
       });
     }, console.error);
+    
   }
 
   toggleModal = () => this.setState({ showModal: !this.state.showModal });
