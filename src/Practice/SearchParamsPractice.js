@@ -13,15 +13,16 @@ const SearchParamsPrac = () => {
     const [animal, AnimalDropdown] = useDropdownPrac("Animal", "dog", ANIMALS);
     const [breed, BreedDropdown] = useDropdownPrac("Breed", "", breeds);
 
+    // run once and never run again [] empty dependency array
     useEffect(() => {
         setBreeds([]);
         setBreed("");
         
-        pet.breeds(animal).then(({ breeds }) => {
-            const breedStrings = breeds.map(({name}) => name);
+        pet.breeds(animal).then(({ breeds: apiBreeds }) => {
+            const breedStrings = apiBreeds.map(({name}) => name);
             setBreeds(breedStrings);
         }, console.error);
-    });
+    }, [animal, setBreed, setBreeds]);
 
 
     return (
