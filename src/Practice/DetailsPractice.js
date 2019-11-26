@@ -1,6 +1,7 @@
 import React from 'react';
 import pet from "@frontendmasters/pet";
 import CarouselPrac from "./CarouselPractice";
+import ErrorBoundaryPrac from './ErrorBoundaryPractice';
 
 class DetailsPrac extends React.Component {
     constructor(props){
@@ -50,4 +51,11 @@ class DetailsPrac extends React.Component {
 }
 
 
-export default DetailsPrac;
+export default function DetailsPracWithErrorBoundary(props) {
+    return (
+        <ErrorBoundaryPrac>
+            {/* spread operators: spread the props across details */}
+            <DetailsPrac {...props} />
+        </ErrorBoundaryPrac>
+    )
+};
