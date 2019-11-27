@@ -2,6 +2,7 @@ import React from 'react';
 import pet from "@frontendmasters/pet";
 import CarouselPrac from "./CarouselPractice";
 import ErrorBoundaryPrac from './ErrorBoundaryPractice';
+import ThemeContextPrac from './ThemeContextPractice';
 
 class DetailsPrac extends React.Component {
     constructor(props){
@@ -42,7 +43,13 @@ class DetailsPrac extends React.Component {
                 <div>
                     <h1>{name}</h1>
                     <h2>{`${animal} - ${breed} - ${location}`}</h2>
-                    <button>Adopt {name}</button>
+                    <ThemeContextPrac.Consumer>
+                        {(theme) => (
+                            <button style={{ backgroundColor: theme[0] }}>
+                                Adopt {name}
+                            </button>
+                        )}
+                    </ThemeContextPrac.Consumer>
                     <p>{description}</p>
                 </div>
             </div>

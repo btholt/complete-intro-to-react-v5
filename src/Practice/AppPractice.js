@@ -1,24 +1,24 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import { Router, Link } from "@reach/router";
-import Details from "./Details";
-import SearchParams from "./SearchParams";
-import ThemeContext from "./ThemeContext";
+import DetailsPrac from "./DetailsPractice";
+import SearchParamsPrac from "./SearchParamsPractice";
+import ThemeContextPrac from "./ThemeContextPractice";
 
 const App = () => {
   const theme = useState("darkblue");
   return (
-    <ThemeContext.Provider value={theme}>
+    <ThemeContextPrac.Provider value={theme}>
       <div>
         <header>
           <Link to="/">Adopt Me!</Link>
         </header>
         <Router>
-          <SearchParams path="/" />
-          <Details path="/details/:id" />
+          <SearchParamsPrac path="/" />
+          <DetailsPrac path="/details/:id" />
         </Router>
       </div>
-    </ThemeContext.Provider>
+    </ThemeContextPrac.Provider>
   );
 };
 
