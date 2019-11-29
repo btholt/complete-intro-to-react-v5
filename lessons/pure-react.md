@@ -32,7 +32,7 @@ Let's start your project. Create your project directory. I'm going to call mine 
 </html>
 ```
 
-Now open this file in your browser. On Mac, hit ⌘ (command) + O in your favorite browser, and on Windows and Linux hit CTRL + O to open the Open prompt. Navigate to where-ever you saved the file and open it. You should see a line of text saying "not rendered".
+Now open this file in your browser. On Mac, hit ⌘ (command) + O in your favorite browser, and on Windows and Linux hit CTRL + O to open the Open prompt. Navigate to wherever you saved the file and open it. You should see a line of text saying "not rendered".
 
 - Pretty standard HTML5 document. If this is confusing, I teach another course called [Intro to Web Dev][webdev] that can help you out.
 - We're adding a root div. We'll render our React app here in a sec. It doesn't _have_ to be called root, just a common practice.
@@ -66,7 +66,7 @@ This is about the simplest React app you can build.
 - `React.createElement` creates one _instance_ of some component. If you pass it a _string_, it will create a DOM tag with that as the string. We used `h1` and `div`, those tags are output to the DOM. If we put `x-some-custom-element`, it'll output that (so web components are possible too.)
 - The second empty object (you can put `null` too) is attributes we're passing to the tag or component. Whatever we put in this will be output to the element (like id or style.)
 - `ReactDOM.render` is what takes our rendered `App` component and puts in the DOM (in our case we're putting it in the `root` element.)
-- Notice we're using `React.createElement` with `App` as a parameter as a parameter to `ReactDOM.render`. We need an _instance_ of `App` to render out. `App` is a class of components and we need to render one instance of a class. That's what `React.createElement` does: it makes an instance of a class.
+- Notice we're using `React.createElement` with `App` as a parameter to `ReactDOM.render`. We need an _instance_ of `App` to render out. `App` is a class of components and we need to render one instance of a class. That's what `React.createElement` does: it makes an instance of a class.
 
 Now that we've done that, let's separate this out from a script tag on the DOM to its own script file (best practice.) Make a new file in your `src` directory called `App.js` and cut and paste your code into it.
 
@@ -99,7 +99,7 @@ ReactDOM.render(React.createElement(App), document.getElementById("root"));
 - In `createElement`, the last two parameters are optional. Since Pet has no props or children (it could, we just didn't make it use them yet) we can just leave them off.
 - If you're seeing console warnings about keys, ignore it for now.
 
-Okay so we can have multiple pets but it's not a useful component yet since not all pets will Havanese dogs named Luna (even though _I_ have a Havanese dog named Luna.) Let's make it a bit more complicated.
+Okay so we can have multiple pets but it's not a useful component yet since not all pets will be Havanese dogs named Luna (even though _I_ have a Havanese dog named Luna.) Let's make it a bit more complicated.
 
 ```javascript
 const Pet = props => {
@@ -130,7 +130,7 @@ const App = () => {
 ReactDOM.render(React.createElement(App), document.getElementById("root"));
 ```
 
-Now we have a more flexible component that accepts props from its parent. Props are variables that a parent (App) passes to its children (the instances of Pet.) Now each one can be different! Now that it's far more useful than it was since this Pet component can represent not just Luna, but any Pet. This is the power of React! We can make multiple, re-usable components. We can then use these components to build larger components, which in turn make up yet-larger components. This how React apps are made!
+Now we have a more flexible component that accepts props from its parent. Props are variables that a parent (App) passes to its children (the instances of Pet.) Now each one can be different! Now that is far more useful than it was since this Pet component can represent not just Luna, but any Pet. This is the power of React! We can make multiple, re-usable components. We can then use these components to build larger components, which in turn make up yet-larger components. This is how React apps are made!
 
 &nbsp;
 
