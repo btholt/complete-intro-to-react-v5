@@ -34,17 +34,7 @@ We don't want Parcel to use Babel to translate our async/await calls (since you 
 
 ```json
 {
-  "browserslist": [
-    "last 2 Chrome versions",
-    "last 2 ChromeAndroid versions",
-    "last 2 Firefox versions",
-    "last 2 FirefoxAndroid versions",
-    "last 2 Safari versions",
-    "last 2 iOS versions",
-    "last 2 Edge versions",
-    "last 2 Opera versions",
-    "last 2 OperaMobile versions"
-  ]
+  "browserslist": ["last 2 Chrome versions"]
 }
 ```
 
