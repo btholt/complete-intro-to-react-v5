@@ -4,22 +4,24 @@
   "description": "the Complete Intro to React, v5",
   "main": "src/App.js",
   "dependencies": {
+    "@babel/plugin-transform-runtime": "^7.7.4",
     "@frontendmasters/pet": "^1.0.3",
     "@reach/router": "^1.2.1",
-    "react": "^16.8.4",
-    "react-dom": "^16.8.4"
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
   },
   "devDependencies": {
-    "babel-eslint": "^10.0.1",
-    "cross-env": "^5.2.0",
-    "eslint": "^5.12.1",
-    "eslint-config-prettier": "^4.0.0",
-    "eslint-plugin-import": "^2.15.0",
-    "eslint-plugin-jsx-a11y": "^6.2.0",
-    "eslint-plugin-react": "^7.12.4",
-    "eslint-plugin-react-hooks": "^1.0.2",
-    "parcel-bundler": "^1.12.1",
-    "prettier": "^1.16.1"
+    "@babel/core": "^7.7.4",
+    "babel-eslint": "^10.0.3",
+    "cross-env": "^6.0.3",
+    "eslint": "^6.7.1",
+    "eslint-config-prettier": "^6.7.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.17.0",
+    "eslint-plugin-react-hooks": "^2.3.0",
+    "parcel-bundler": "^1.12.4",
+    "prettier": "^1.19.1"
   },
   "scripts": {
     "clear-build-cache": "rm -rf .cache/ dist/",
