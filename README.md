@@ -1,3 +1,5 @@
+**All PRs and issues for the course code and website have been resolved as of November 29th, 2019. The code for each commit and branch has also been tested! 😀**
+
 # Welcome to the Complete Intro to React v5 and Intermediate React v2!
 
 [See the course website here][v5].
