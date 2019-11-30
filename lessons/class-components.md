@@ -184,6 +184,6 @@ data-index={index}
 
 &nbsp;
 
-## 🌳 [2d0f234a465c0dfdbc7528ce27ecb3f0c0ea3dce](https://github.com/btholt/complete-intro-to-react-v5/commit/2d0f234a465c0dfdbc7528ce27ecb3f0c0ea3dce)
+## 🌳 [d58f11185574d1457e3dfdd2499090e00ab3cb54](https://github.com/btholt/complete-intro-to-react-v5/commit/d58f11185574d1457e3dfdd2499090e00ab3cb54)
 
 [babel]: https://babeljs.io/

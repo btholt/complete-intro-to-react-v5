@@ -91,7 +91,7 @@ if (this.state.redirect) {
 
 &nbsp;
 
-## 🌳 [aec9d9897b529b732fba0f83b23f4b09b1354720](https://github.com/btholt/complete-intro-to-react-v5/commit/aec9d9897b529b732fba0f83b23f4b09b1354720)
+## 🌳 [230fcceefa855f61e2ee31e07bc52ddd98d3549c](https://github.com/btholt/complete-intro-to-react-v5/commit/230fcceefa855f61e2ee31e07bc52ddd98d3549c)
 
 [azure]: https://azure.microsoft.com/en-us/services/monitor/?WT.mc_id=reactintro-github-brholt
 [sentry]: https://sentry.io/
