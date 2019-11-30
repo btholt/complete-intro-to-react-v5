@@ -119,6 +119,6 @@ That's it for context! Something like theming would be perfect for context. It's
 
 &nbsp;
 
-## 🌳 [24360c8c8488efddbe7a08f43b45ad3badffe7f7](https://github.com/btholt/complete-intro-to-react-v5/commit/24360c8c8488efddbe7a08f43b45ad3badffe7f7)
+## 🌳 [855396150e4b621439e2813e4d0707f378526367](https://github.com/btholt/complete-intro-to-react-v5/commit/855396150e4b621439e2813e4d0707f378526367)
 
 [v4]: https://btholt.github.io/complete-intro-to-react-v4/context
