@@ -23,7 +23,7 @@ See [this issue](https://github.com/btholt/complete-intro-to-react-v4/issues/3#i
 The simplest solution is to cut the supported browsers list in your `package.json` file down to:
 
 ```js
-    "browserlist": [
+    "browserslist": [
         "last 2 Chrome versions",
     ]
 ```
