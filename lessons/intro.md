@@ -16,7 +16,7 @@ Through out the course you'll see something like this:
 
 This is a point where I have stopped and committed this to a repo. If you fall behind, get stuck, or just want to skip ahead, just use git and check out that commit! You can also go explore the those commits on GitHub too to see what they look like. The [repo is here][gh].
 
-If you don't know how to use git so well, let me recommend to you my co-worker and close friend's course, [Git In-depth][nina]. Git is definitely a tool worth investing time into; while it may seem boring and take a lot of time and energy to learn, some day it was save you days if not weeks worth of work.
+If you don't know how to use git so well, let me recommend to you my co-worker and close friend's course, [Git In-depth][nina]. Git is definitely a tool worth investing time into; while it may seem boring and take a lot of time and energy to learn, some day it will save you days if not weeks worth of work.
 
 In the mean time while you take this course and you don't know git so well, I'd suggest using [Sourcetree][sourcetree] from Atlassian. This tool will allow you to add your repo to it and move back and forth in commit history by using the right-click > "Checkout …". If you need to, you can stash changes (which saves them off into a side stash) that can be accessed later if you're trying to keep your changes.
 
