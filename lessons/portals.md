@@ -86,7 +86,7 @@ const {
         </div>
       </div>
     </Modal>
-  ) : null;
+  ) : null
 }
 ```
 
