@@ -74,6 +74,9 @@ const {
   showModal
 } = this.state;
 
+// add onClick to <button>
+<button onClick={this.toggleModal} style={{ backgroundColor: theme }}>Adopt {name}</button>
+
 // below description
 {
   showModal ? (
@@ -86,7 +89,7 @@ const {
         </div>
       </div>
     </Modal>
-  ) : null;
+  ) : null
 }
 ```
 
