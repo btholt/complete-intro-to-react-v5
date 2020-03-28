@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import pet, { ANIMALS } from "@frontendmasters/pet";
 import { connect } from "react-redux";
 import useDropdown from "./useDropdown";
@@ -6,7 +6,7 @@ import Results from "./Results";
 import changeLocation from "./actionCreator/changeLocation";
 import changeTheme from "./actionCreator/changeTheme";
 
-const SearchParams = ({ theme, location, setTheme, updateLocation }) => {
+const SearchParams = ({ theme, location, setTheme, setLocation }) => {
   const [breeds, updateBreeds] = useState([]);
   const [pets, setPets] = useState([]);
   const [animal, AnimalDropdown] = useDropdown("Animal", "dog", ANIMALS);
@@ -48,7 +48,7 @@ const SearchParams = ({ theme, location, setTheme, updateLocation }) => {
             id="location"
             value={location}
             placeholder="Location"
-            onChange={e => updateLocation(e.target.value)}
+            onChange={e => setLocation(e.target.value)}
           />
         </label>
         <AnimalDropdown />
