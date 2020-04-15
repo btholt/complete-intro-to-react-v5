@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import Carousel from "./Carousel";
 import Modal from "./Modal";
 import ErrorBoundary from "./ErrorBoundary";
-import ThemeContext from "./ThemeContext";
 
 class Details extends React.Component {
   state = { loading: true, showModal: false };
