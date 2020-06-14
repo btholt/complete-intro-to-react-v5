@@ -11,7 +11,7 @@ const App = () => {
     <ThemeContext.Provider value={theme}>
       <div>
         <header>
-          <Link to="/">Adopt Me! Very Soon</Link>
+          <Link to="/">Adopt Me! Very Soon, Branch test</Link>
         </header>
         <Router>
           <SearchParams path="/" />
