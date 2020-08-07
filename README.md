@@ -34,9 +34,9 @@ If you run into anything else, open an issue and we'll try to clarify or help!
 
 ## See a Bug or Typo?
 
-Pull requests are extremely welcome! If you see a typo in the course website, you can access the website code through the [gh-pages-src][gh-pages] branch of this repository.
+Pull requests are extremely welcome! If you see a typo in the course website, you can access the website code through the [gh-pages][gh-pages] branch of this repository.
 
-[gh-pages]: https://github.com/btholt/complete-intro-to-react-v5/tree/gh-pages-src
+[gh-pages]: https://github.com/btholt/complete-intro-to-react-v5/tree/gh-pages
 [v5]: https://bit.ly/react-v5
 [vscode]: https://code.visualstudio.com/
 [dankmono]: https://dank.sh/
