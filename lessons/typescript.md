@@ -263,7 +263,7 @@ const SearchParams: FunctionComponent<RouteComponentProps> = () => {
 
 // replace useState calls
 const [pets, setPets] = useState([] as Animal[]);
-const [breeds, updateBreeds] = useState([] as string[]);
+const [breeds, setBreeds] = useState([] as string[]);
 ```
 
 - Always need to be defensive about undefined errors. This is one of the benefits of TypeScript, even if it's a bit annoying.

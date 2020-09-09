@@ -35,16 +35,16 @@ So rather than just having `dog` be the static animal, let's make that dynamic a
 ```javascript
 // replace effect
 useEffect(() => {
-  updateBreeds([]);
-  updateBreed("");
+  setBreeds([]);
+  setBreed("");
   pet.breeds(animal).then(({ breeds }) => {
     const breedStrings = breeds.map(({ name }) => name);
-    updateBreeds(breedStrings);
+    setBreeds(breedStrings);
   }, console.error);
 }, [animal]);
 ```
 
-- Due to JavaScript closures (the fact that state is preserved for various render function calls) we're able to reference updateBreeds from the outer scope. We use this to update the breed after the successful call to the petfinder API.
+- Due to JavaScript closures (the fact that state is preserved for various render function calls) we're able to reference setBreeds from the outer scope. We use this to update the breed after the successful call to the petfinder API.
 - The array at the end is peculiar but essential. By default, effects will run at the end of every re-render. This is problematic for us because we're updating breeds, which causes a re-render, which causes another effect, which causes another re-render, etc. What you can to prevent this spiral is give it an array of variables as a second parameter. Now this effect will only happen if one of those variables changes. In this case, it will only cause the effect if `animal` changes. Which is exactly what we want.
 - Effects are always called after the first render no matter what.
 - We have to pull the strings out of the objects from the API since the dropdown expect a list of strings, hence the map which does just that.
@@ -66,17 +66,17 @@ Whenever a user selects a new animal, we need to programmatically update the bre
 
 ```javascript
 // update return
-return [state, Dropdown, updateState];
+return [state, Dropdown, setState];
 ```
 
 Now users can optionally programatically accept that function to update their components. Let's use this in the component. In SearchParams.js
 
 ```javascript
 // replace BreedDropdown declaration
-const [breed, BreedDropdown, updateBreed] = useDropdown("Breed", "", breeds);
+const [breed, BreedDropdown, setBreed] = useDropdown("Breed", "", breeds);
 
 // first line of the function inside useEffect
-updateBreed("");
+setBreed("");
 ```
 
 Now it updates the breed to empty whenever you change animal since you can't have a poodle cat (as cool as that sounds).
