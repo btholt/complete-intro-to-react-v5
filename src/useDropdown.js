@@ -2,7 +2,9 @@ import React, { useState } from "react";
 
 const useDropdown = (label, defaultState, options) => {
   const [state, updateState] = useState(defaultState);
-  const id = `use-dropdown-${label.replace(" ", "").toLowerCase()}`;
+  // if the replace pattern is a string only the first occurrence will be replaced
+  // so to replace all use a regex with g flag
+  const id = `use-dropdown-${label.replace(/ /g, "").toLowerCase()}`;
   const Dropdown = () => (
     <label htmlFor={id}>
       {label}
