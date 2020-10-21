@@ -21,11 +21,11 @@ class Details extends React.Component {
           }`,
           description: animal.description,
           media: animal.photos,
-          breed: animal.breeds.primary,
-          loading: false
+          breed: animal.breeds.primary
         });
       })
-      .catch(err => this.setState({ error: err }));
+      .catch(err => this.setState({ error: err }))
+      .finally(() => this.setState({ loading: false }));
   }
   toggleModal = () => this.setState({ showModal: !this.state.showModal });
   adopt = () => navigate(this.state.url);
