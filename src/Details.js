@@ -10,7 +10,7 @@ class Details extends React.Component {
   state = { loading: true, showModal: false };
   componentDidMount() {
     pet
-      .animal(this.props.id)
+     .animal(parseInt(this.props.id))
       .then(({ animal }) => {
         this.setState({
           url: animal.url,
