@@ -15,7 +15,7 @@ const App = () => {
         </header>
         <Router>
           <SearchParams path="/Complete-Intro-To-React-v5/" />
-          <Details path="/Complete-Intro-To-React-v5/details/:id" />
+          <Details path="/Complete-Intro-To-React-v5/details/:id/" />
         </Router>
       </div>
     </ThemeContext.Provider>

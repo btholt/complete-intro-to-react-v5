@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "the Complete Intro to React, v5",
   "main": "src/App.js",
-  "homepage": "https://sjeremich23.github.io/Complete-Intro-To-React-v5/",
   "dependencies": {
     "@emotion/react": "^11.1.1",
     "@frontendmasters/pet": "^1.0.3",
