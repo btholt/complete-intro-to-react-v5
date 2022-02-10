@@ -1,8 +1,8 @@
-**All PRs and issues for the course code and website have been resolved as of November 29th, 2019. The code for each commit and branch has also been tested! 😀**
+# Welcome to the [Complete Intro to React v5][course] and Intermediate React v2[course-intermediate]!
 
-# Welcome to the Complete Intro to React v5 and Intermediate React v2!
+To find the latest version of the React courses, head to the [React Learning Path][react-path] on Frontend Masters.
 
-[See the course website here][v5].
+- [See the course website here][v5].
 
 Before starting the course, please have [VSCode][vscode] or another code editor installed.
 
@@ -48,3 +48,4 @@ Pull requests are extremely welcome! If you see a typo in the course website, yo
 [fem]: https://frontendmasters.com/
 [course]: https://frontendmasters.com/courses/complete-react-v5/
 [course-intermediate]: https://frontendmasters.com/courses/intermediate-react-v2/
+[react-path]: https://frontendmasters.com/learn/react/
