@@ -10,14 +10,43 @@ a:hover {
   color: #006c7f;
 }
 
+
 .index {
   width: 97%;
   max-width: 750px;
   margin: 0 auto;
-  margin-top: 20px;
+  margin-top: 40px;
 }
 
-.index .jumbotron {
+.main {
+  margin-top: 80px;
+}
+
+.lesson-container {
+  max-width: 850px;
+  margin: 0 auto;
+  margin-bottom: 100px;
+}
+
+.lesson {
+  margin: 20px;
+}
+
+.lesson-content {
+  padding: 20px;
+}
+
+.lesson h1 {
+  margin: 0;
+  padding: 20px;
+}
+
+
+.jumbotron {
+  padding: 2rem 1rem;
+  margin-bottom: 2rem;
+  background-color: #e9ecef;
+  border-radius: .3rem;
 }
 
 .example-table {

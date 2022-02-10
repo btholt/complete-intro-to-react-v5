@@ -16,6 +16,7 @@ module.exports = {
   },
   pathPrefix: "/complete-intro-to-react-v5",
   plugins: [
+    `gatsby-plugin-sharp`,
     `gatsby-plugin-layout`,
     {
       resolve: `gatsby-source-filesystem`,

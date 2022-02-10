@@ -29,6 +29,13 @@ const TemplateWrapper = props => (
           <Link to="/" className="navbar-brand">
             {data.site.siteMetadata.title}
           </Link>
+
+          <h3 class="button">
+            <a href="https://frontendmasters.com/courses/complete-react-v5/">
+              <span class="mobile-hidden">Complete Intro to React v5</span> Videos
+              <span class="icon">&nbsp;▶️&nbsp;</span>
+            </a>
+          </h3>
         </div>
         <div className="main">{props.children}</div>
       </div>

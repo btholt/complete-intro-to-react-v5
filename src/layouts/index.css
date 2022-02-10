@@ -7,6 +7,51 @@
   width: 100%;
   top: 0;
   z-index: 10;
+  padding: 10px;
+}
+
+.navbar h3 {
+  font-size: 14px;
+  margin: inherit;
+  padding: inherit;
+  text-transform: uppercase;
+}
+
+.button {
+  border-radius: 10px;
+  padding: 0;
+  background: #0066cc;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+}
+
+.button .icon {
+  padding-left: 5px;
+  display: inline-block;
+}
+
+.button a {
+  padding: 3px 8px;
+  color: white;
+  text-decoration: none;
+}
+
+@media (max-width: 1450px) {
+  .mobile-hidden {
+    display: none;
+  }
+  .lesson-container {
+    padding-top: 65px;
+  }
+}
+
+.button:hover,
+.button a:hover {
+  background: #0b48a4;
+  color: white;
 }
 
 .jumbotron.gradient {
