@@ -1,4 +1,4 @@
-# Welcome to the [Complete Intro to React v5][course] and Intermediate React v2[course-intermediate]!
+# Welcome to the [Complete Intro to React v5][course] and [Intermediate React v2][course-intermediate]!
 
 To find the latest version of the React courses, head to the [React Learning Path][react-path] on Frontend Masters.
 
