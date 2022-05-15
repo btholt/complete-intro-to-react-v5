@@ -14,7 +14,7 @@ Through out the course you'll see something like this:
 
 ## 🌳 `<long series of numbers and letters>`
 
-This is a point where I have stopped and committed this to a repo. If you fall behind, get stuck, or just want to skip ahead, just use git and check out that commit! You can also go explore the those commits on GitHub too to see what they look like. The [repo is here][gh].
+This is a point where I have stopped and committed this to a repo. If you fall behind, get stuck, or just want to skip ahead, just use git and check out that commit! You can also go explore those commits on GitHub too to see what they look like. The [repo is here][gh].
 
 If you don't know how to use git so well, let me recommend to you my co-worker and close friend's course, [Git In-depth][nina]. Git is definitely a tool worth investing time into; while it may seem boring and take a lot of time and energy to learn, some day it will save you days if not weeks worth of work.
 

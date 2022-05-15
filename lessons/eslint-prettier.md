@@ -120,7 +120,7 @@ coverage/
 
 [jlongster]: https://twitter.com/jlongster
 [prettier]: https://github.com/prettier/prettier
-[prettier-playground]: https://prettier.github.io/prettier/
+[prettier-playground]: https://prettier.io/playground/
 [prettier-options]: https://github.com/prettier/prettier#api
 [flow]: https://flow.org/
 [prettier-ide]: https://github.com/prettier/prettier#editor-integration
